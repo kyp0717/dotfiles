@@ -1,0 +1,28 @@
+ls
+work
+ls -a
+cd .config
+ls
+cd wezterm
+ls
+cd ..
+ls
+git clone git@github.com:kyp0717/dotfiles.git
+git
+sudo apt install git
+git clone git@github.com:kyp0717/dotfiles.git
+cd ..
+cd .ssh
+ls
+ls -a
+ssh-keygen -t ed25519 -C "karbon.0717@gmail.com"
+ls
+cat id_ed25519.pub
+ls
+git clone git@github.com:kyp0717/dotfiles.git
+ls
+cd dotfiles/
+ls
+mkdir wezterm
+rm -rf wezterm
+cp -rf ../wezterm/ .
