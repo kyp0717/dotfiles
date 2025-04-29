@@ -6,7 +6,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.default_prog = { "/home/kip/.cargo/bin/nu" }
+config.default_prog = { "/home/phage/.cargo/bin/nu" }
 
 config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
 

@@ -26,3 +26,5 @@ ls
 mkdir wezterm
 rm -rf wezterm
 cp -rf ../wezterm/ .
+dotfiles/
+ls
