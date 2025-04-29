@@ -1,5 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+-- local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+
 local config = {}
 
 if wezterm.config_builder then
@@ -8,6 +10,7 @@ end
 
 config.default_prog = { "/home/phage/.cargo/bin/nu" }
 
+--- font settings ---
 config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
 
 config.font_size = 16
@@ -33,7 +36,7 @@ config.window_background_gradient = {
 
 config.use_fancy_tab_bar = false
 
-config.leader = { key = "a", mods = "CTRL" }
+config.leader = { key = "\\", mods = "CTRL" }
 config.keys = {
 	{
 		key = "h",
@@ -57,5 +60,6 @@ config.keys = {
 		action = wezterm.action.ReloadConfiguration,
 	},
 }
+-- tabline.apply_to_config(config)
 
 return config

@@ -28,3 +28,74 @@ rm -rf wezterm
 cp -rf ../wezterm/ .
 dotfiles/
 ls
+git add .
+git commit -m "stow all folders"
+git config --global user.email "karbon.0717@google.com"
+git config --global user.name "Phage Ky"
+git commit -m "stow all folders"
+git push origin main
+ls
+use conda.nu 
+conda
+cd ..
+ls
+work
+work/
+lls
+ls
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+ls
+./Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+conda
+cd ~
+cd dotfiles/
+ls
+cd nushell
+ls
+nv 
+nv
+sudo apt install nodejs
+ls
+cd nushell/.config/nushell/
+nv .
+sudo apt install npm
+work
+work/
+ls
+rm Miniconda3-latest-Linux-x86_64.sh
+ls
+git clone git@github.com:kyp0717/ibclient.git
+ls
+ibclient/
+ls
+git switch algo-to-main
+ls
+multithread-simple/
+sudo nice /home/phage/zig/zig build -p /usr/local -Doptimize=ReleaseFast<\n>
+..
+ls
+cd ghostty/
+ls
+sudo nice /home/phage/zig/zig build -p /usr/local -Doptimize=ReleaseFast<\n>
+ls
+cd ..
+ls
+rm -rf ghostty/
+..
+Downloads/
+ls
+tar xvf ghostty-1.1.3.tar.gz<\n>
+ls
+cd ghostty-1.1.3/
+sudo nice /home/phage/zig/zig build -p /usr/local -Doptimize=ReleaseFast<\n>
+pwd
+ls
+nv build.zig
+nv build.zig.zon
+~/dotfiles/
+ls
+cd wezterm/.config/wezterm/
+ls
+nv wezterm.lua
+nv .
