@@ -1,14 +1,14 @@
 local wezterm = require("wezterm")
-local act = wezterm.action
--- local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 
+local keys = require("keys")
+-- local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 local config = {}
 
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.default_prog = { "/home/phage/.cargo/bin/nu" }
+config.default_prog = { "/home/kelp/.cargo/bin/nu" }
 
 --- font settings ---
 config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
@@ -23,11 +23,8 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 config.window_background_gradient = {
 	interpolation = "Linear",
-
 	orientation = "Vertical",
-
 	blend = "Rgb",
-
 	colors = {
 		"#11111b",
 		"#181825",
@@ -36,30 +33,8 @@ config.window_background_gradient = {
 
 config.use_fancy_tab_bar = false
 
-config.leader = { key = "\\", mods = "CTRL" }
-config.keys = {
-	{
-		key = "h",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Left", 5 }),
-	},
-	{
-		key = "j",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Down", 5 }),
-	},
-	{ key = "K", mods = "LEADER", action = act.AdjustPaneSize({ "Up", 5 }) },
-	{
-		key = "l",
-		mods = "LEADER",
-		action = act.AdjustPaneSize({ "Right", 5 }),
-	},
-	{
-		key = "r",
-		mods = "LEADER",
-		action = wezterm.action.ReloadConfiguration,
-	},
-}
+config.leader = { key = "a", mods = "CTRL" }
 -- tabline.apply_to_config(config)
+config.keys = keys
 
 return config
