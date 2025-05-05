@@ -770,3 +770,5 @@ alias bcat = batcat
 use ~/.cache/starship/init.nu
 use ~/.config/nushell/modules/conda.nu
 # source ./modules/conda.nu
+
+source ~/.cache/carapace/init.nu
