@@ -8,11 +8,12 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.default_prog = { "/home/phage/.cargo/bin/nu" }
--- config.default_prog = { "~/.cargo/bin/nu" }
+-- config.default_prog = { "/home/kelp/.cargo/bin/nu" }
+config.default_prog = { wezterm.home_dir .. "/.cargo/bin/nu" }
 
 --- font settings ---
-config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+-- config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+config.font = wezterm.font("JetBrainsMono NF")
 
 config.font_size = 16
 
