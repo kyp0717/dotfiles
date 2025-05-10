@@ -5,3 +5,8 @@ if ! command -v cargo &>/dev/null; then
 fi
 
 cargo install ripgrep eza
+
+sudo apt install lua5.4
+
+## ensure that ~/.local/bin is in your path
+curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
