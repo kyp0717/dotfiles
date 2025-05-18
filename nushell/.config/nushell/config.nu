@@ -7,7 +7,9 @@
 # And here is the theme collection
 # https://github.com/nushell/nu_scripts/tree/main/themes
 let dark_theme = {
+    env_var: {fg:red bg:none}  # Change foreground to green and remove background
     # color for nushell primitives
+    # variable_highlight: { bold: false, background: pink, foreground: cyan }
     separator: white
     leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
     header: green_bold
@@ -42,7 +44,8 @@ let dark_theme = {
     shape_directory: cyan
     shape_external: cyan
     shape_externalarg: green_bold
-    shape_external_resolved: light_yellow_bold
+    # shape_external_resolved: light_yellow_bold
+    shape_external_resolved: light_yellow
     shape_filepath: cyan
     shape_flag: blue_bold
     shape_float: purple_bold
@@ -182,7 +185,7 @@ $env.config = {
     explore: {
         status_bar_background: {fg: "#1D1F21", bg: "#C4C9C6"},
         command_bar_text: {fg: "#C4C9C6"},
-        highlight: {fg: "black", bg: "yellow"},
+        # highlight: {fg: "black", bg: "yellow"},
         status: {
             error: {fg: "white", bg: "red"},
             warn: {}
