@@ -3,6 +3,7 @@ local config = wezterm.config_builder()
 -- local action = wezterm.action
 local keys_custom = require("keys")
 local tabs = require("tabs")
+local colors = require("colors")
 
 -- config.default_prog = { "/home/kelp/.cargo/bin/nu" }
 config.default_prog = { wezterm.home_dir .. "/.cargo/bin/nu" }
@@ -23,7 +24,8 @@ config.font = wezterm.font({
 config.font_size = 15.0
 config.line_height = 1.0
 config.bold_brightens_ansi_colors = true
-config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
+-- config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
+config.color_scheme = colors.color_scheme
 config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 config.window_padding = { left = "0.5cell", right = "0.5cell", top = "0.5cell", bottom = "0.5cell" }
 config.window_background_opacity = 0.96
