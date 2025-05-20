@@ -768,8 +768,10 @@ $env.config = {
 alias nv = nvim
 alias wz = wezterm 
 alias bcat = batcat
-alias et = eza -laT 
-alias el = eza -la
+alias lt = eza -lT 
+alias lta = eza -lTa
+alias ll = eza -l
+alias lla = eza -al
 
 # Starship integration
 use ~/.cache/starship/init.nu
