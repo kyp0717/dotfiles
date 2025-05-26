@@ -4,8 +4,7 @@ if ! command -v cargo &>/dev/null; then
     curl https://sh.rustup.rs -sSf | sh
 fi
 
-cargo install ripgrep eza
-
+cargo install ripgrep eza bat
 sudo apt install lua5.4 opam carapace-bin
 
 ## ensure that ~/.local/bin is in your path
