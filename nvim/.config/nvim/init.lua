@@ -151,6 +151,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>m', vim.diagnostic.open_float, { desc = 'Show diagnostics popup' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -271,7 +272,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -317,7 +318,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -465,7 +466,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -618,19 +619,20 @@ require('lazy').setup({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = {
-          source = 'if_many',
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
+        -- virtual_text = {
+        --   source = 'if_many',
+        --   spacing = 2,
+        --   format = function(diagnostic)
+        --     local diagnostic_message = {
+        --       [vim.diagnostic.severity.ERROR] = diagnostic.message,
+        --       [vim.diagnostic.severity.WARN] = diagnostic.message,
+        --       [vim.diagnostic.severity.INFO] = diagnostic.message,
+        --       [vim.diagnostic.severity.HINT] = diagnostic.message,
+        --     }
+        --     return diagnostic_message[diagnostic.severity]
+        --   end,
+        -- },
+        virtual_text = false,
       }
 
       -- LSP servers and clients are able to communicate to each other what features they support.
