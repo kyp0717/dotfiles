@@ -643,28 +643,32 @@ $env.config = {
             name: paste_before
             modifier: control
             keycode: char_y
-            mode: emacs
+            # mode: emacs
+            mode: [emacs, vi_normal, vi_insert]
             event: {edit: pastecutbufferbefore}
         }
         {
             name: cut_word_left
             modifier: control
             keycode: char_w
-            mode: emacs
+            mode: [emacs, vi_normal, vi_insert]
+            # mode: emacs
             event: {edit: cutwordleft}
         }
         {
             name: cut_line_to_end
             modifier: control
             keycode: char_k
-            mode: emacs
+            mode: [emacs, vi_normal, vi_insert]
+            # mode: emacs
             event: {edit: cuttoend}
         }
         {
             name: cut_line_from_start
             modifier: control
             keycode: char_u
-            mode: emacs
+            mode: [emacs, vi_normal, vi_insert]
+            # mode: emacs
             event: {edit: cutfromstart}
         }
         {
@@ -678,7 +682,8 @@ $env.config = {
             name: move_one_word_left
             modifier: alt
             keycode: left
-            mode: emacs
+            mode: [emacs, vi_normal, vi_insert]
+            # mode: emacs
             event: {edit: movewordleft}
         }
         {
@@ -716,14 +721,16 @@ $env.config = {
             name: delete_one_word_forward
             modifier: alt
             keycode: delete
-            mode: emacs
+            mode: [emacs, vi_normal, vi_insert]
+            # mode: emacs
             event: {edit: deleteword}
         }
         {
             name: delete_one_word_backward
             modifier: alt
             keycode: backspace
-            mode: emacs
+            mode: [emacs, vi_normal, vi_insert]
+            # mode: emacs
             event: {edit: backspaceword}
         }
         {
