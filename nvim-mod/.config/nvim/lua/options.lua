@@ -71,9 +71,9 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
-vim.o.foldmethod = 'expr' -- Or "expr"
-vim.o.foldlevel = 20
+vim.opt.foldmethod = 'expr' -- Or "expr"
+vim.opt.foldlevel = 20
 -- For expr, you might also need to set foldexpr
 -- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Example using treesitter
-vim.o.foldexpr = 'nvim_treesitter.foldexpr()' -- Example using treesitter
+vim.opt.foldexpr = 'nvim_treesitter.foldexpr()' -- Example using treesitter
 -- vim: ts=2 sts=2 sw=2 et
