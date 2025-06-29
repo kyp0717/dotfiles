@@ -5,10 +5,14 @@ if ! command -v cargo &>/dev/null; then
 fi
 
 cargo install ripgrep eza bat
-sudo apt install lua5.4 opam carapace-bin xclip wl-clipboard
+sudo apt install lua5.4 opam carapace-bin xclip wl-clipboard atuin zoxide
 
+## install nerdfont
 ## ensure that ~/.local/bin is in your path
 curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
+
+## intall atuin
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 
 ## ocaml setup
 opam init -y
