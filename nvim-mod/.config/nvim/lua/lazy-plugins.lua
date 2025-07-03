@@ -26,6 +26,7 @@ require('lazy').setup({
   require 'kickstart/plugins/gitsigns',
 
   require 'kickstart/plugins/which-key',
+  require 'kickstart/plugins/vim-repeat',
 
   -- require 'kickstart/plugins/telescope',
 
@@ -48,7 +49,7 @@ require('lazy').setup({
   require 'kickstart/plugins/treesitter',
   require 'kickstart/plugins/treesitter-textobject',
 
-  require('leap').set_default_mappings(),
+  require 'kickstart/plugins/leap',
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
