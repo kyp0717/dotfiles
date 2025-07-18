@@ -179,9 +179,8 @@ $env.config = {
 }
 
 
-alias nv = nvim
-alias wz = wezterm 
-alias bcat = batcat
+alias vv = nvim
+alias bb = batcat
 alias lt = eza -lT 
 alias lta = eza -lTa
 alias ll = eza -l
@@ -192,4 +191,4 @@ use ~/.cache/starship/init.nu
 use ~/.config/nushell/modules/conda.nu
 # source ./modules/conda.nu
 
-source ~/.cache/carapace/init.nu
+# source ~/.cache/carapace/init.nu
