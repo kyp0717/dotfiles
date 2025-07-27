@@ -78,6 +78,7 @@ vim.opt.foldlevel = 20
 vim.opt.foldexpr = 'nvim_treesitter.foldexpr()' -- Example using treesitter
 -- vim: ts=2 sts=2 sw=2 et
 --
+
 vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'VimResume', 'CursorHold' }, {
   pattern = '*',
