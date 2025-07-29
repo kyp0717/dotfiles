@@ -6,15 +6,24 @@
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>m', vim.diagnostic.open_float, { desc = 'Show diagnostics popup' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open Diagnostic [Q]uickfix' })
+vim.keymap.set('n', '<leader>m', vim.diagnostic.open_float, { desc = 'Diagnostic Messages' })
 
--- File explorer keymap
-vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Open file [E]xplorer' })
+-- File explorer keymap with toggle functionality
+local function toggle_netrw()
+  if vim.bo.filetype == 'netrw' then
+    vim.cmd 'bd'
+  else
+    vim.cmd 'Explore'
+  end
+end
+
+vim.keymap.set('n', '<leader>e', toggle_netrw, { desc = 'Toggle File [E]xplorer' })
 
 -- Buffer navigation keymaps
-vim.keymap.set('n', '<leader>bn', '<cmd>bnext<CR>', { desc = 'Go to [N]ext buffer' })
-vim.keymap.set('n', '<leader>bp', '<cmd>bprev<CR>', { desc = 'Go to [P]revious buffer' })
+vim.keymap.set('n', '<leader>bn', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader>bp', '<cmd>bprev<CR>', { desc = 'Prev buffer' })
+vim.keymap.set('n', '<leader>bd', '<cmd>bd<CR>', { desc = 'Delete buffer' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
