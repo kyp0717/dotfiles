@@ -31,6 +31,8 @@ require('lazy').setup({
   -- require 'kickstart/plugins/telescope',
 
   -- require 'kickstart/plugins/snacks',
+  require 'kickstart/plugins/oil',
+  require 'kickstart/plugins/flash',
 
   require 'kickstart/plugins/todo',
 

@@ -5,6 +5,9 @@
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Parent Dir' })
+vim.keymap.set('n', '<Backspace>', '<cmd>bnext<CR>', { desc = 'Next Buffer' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open Diagnostic [Q]uickfix' })
 vim.keymap.set('n', '<leader>m', vim.diagnostic.open_float, { desc = 'Diagnostic Messages' })
