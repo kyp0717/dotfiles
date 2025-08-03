@@ -107,3 +107,45 @@ require 'lazy-plugins'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+--
+--
+local function open_buffer_list()
+  -- Create a new scratch buffer
+  vim.cmd 'enew'
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  -- Set some buffer options
+  vim.bo[bufnr].buftype = 'nofile'
+  vim.bo[bufnr].bufhidden = 'hide'
+  vim.bo[bufnr].swapfile = false
+  vim.bo[bufnr].filetype = 'bufferlist'
+  vim.bo[bufnr].modifiable = true
+
+  -- Get buffer list and format
+  local lines = {}
+  local buffers = vim.api.nvim_list_bufs()
+  for _, b in ipairs(buffers) do
+    if vim.api.nvim_buf_is_loaded(b) and vim.api.nvim_buf_get_name(b) ~= '' then
+      local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(b), ':t')
+      table.insert(lines, string.format('[%d] %s', b, name))
+    end
+  end
+
+  -- Insert the lines
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+
+  -- Add keymaps (Enter to open)
+  vim.keymap.set('n', '<CR>', function()
+    local line = vim.api.nvim_get_current_line()
+    local bufnr = tonumber(line:match '%[(%d+)%]')
+    if bufnr then
+      vim.cmd('b ' .. bufnr)
+    end
+  end, { buffer = bufnr })
+
+  -- Optional: Add `q` to quit
+  vim.keymap.set('n', 'q', '<cmd>bd!<CR>', { buffer = bufnr })
+end
+
+vim.api.nvim_create_user_command('BufferList', open_buffer_list, {})
