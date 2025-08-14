@@ -101,6 +101,7 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/kelp/.cargo/bin/nu')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/miniconda3/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.STARSHIP_CONFIG = ".config/starship/starship.toml"
 
 # Starship integration
