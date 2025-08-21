@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Check existing shell configurations in dotfiles",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create a shell configuration directory for PATH setup",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Write script to ensure ~/.local/bin is in PATH",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Make it Stow-compatible for easy deployment",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  }
+]

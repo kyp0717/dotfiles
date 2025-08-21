@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Read and parse test_cases.csv to extract addresses",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Create properly formatted CSV for skip-tracing",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Set up virtual environment with uv",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Run skip-tracing with extracted addresses",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Save results to data/output folder",
+    "status": "completed",
+    "id": "5"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Move SUB_AGENTS_GUIDE.md to appropriate directory",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Organize nvim-rust/setup.sh into proper location",
+    "status": "pending",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Move setup-all.sh to scripts directory",
+    "status": "pending",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Update CLAUDE.md with file organization guidelines",
+    "status": "pending",
+    "priority": "high",
+    "id": "4"
+  }
+]
