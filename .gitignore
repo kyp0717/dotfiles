@@ -1,7 +1,7 @@
 .credentials.json
 claude/.claude/.credentials.json
-claude/.claude/projects/
-claude/.claude/statsig/
+claude/.claude/projects/*
+claude/.claude/statsig/*
 claude/.claude/shell-snapshots/
 claude/.claude/tmp/
 claude/.claude/.DS_Store
