@@ -1,2 +1,3 @@
 .credentials.json
-.claude/.credentials.json
+claude/.claude/.credentials.json
+claude/.claude/projects/
