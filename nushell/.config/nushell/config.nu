@@ -192,3 +192,6 @@ use ~/.config/nushell/modules/conda.nu
 # source ./modules/conda.nu
 
 # source ~/.cache/carapace/init.nu
+
+$env.PATH = ($env.PATH | prepend $"($env.HOME)/.volta/bin")
+
