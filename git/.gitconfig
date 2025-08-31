@@ -1,0 +1,7 @@
+[user]
+	email = karbon.0717@google.com
+	name = Phage Ky
+[push]
+	recurseSubmodules = on-demand
+[submodule]
+	recurse = true
