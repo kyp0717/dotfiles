@@ -14,6 +14,8 @@ vim.o.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
+vim.o.colorcolumn = '80'
+vim.o.textwidth = 80
 
 -- Sync clipboard between linux and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
