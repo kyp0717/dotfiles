@@ -32,6 +32,7 @@ config.window_background_opacity = 0.96
 config.macos_window_background_blur = 20
 config.default_cursor_style = "BlinkingBar"
 config.use_fancy_tab_bar = false
+config.leader = { key = "g", mods = "CTRL" }
 
 -- https://github.com/wez/wezterm/issues/3299#issuecomment-2145712082
 wezterm.on("gui-startup", function(cmd)

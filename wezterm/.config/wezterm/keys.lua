@@ -41,8 +41,8 @@ return {
 	-- { key = "k", mods = "CTRL", action = action.ClearScrollback("ScrollbackAndViewport") },
 	-- { key = "w", mods = "CTRL", action = action.CloseCurrentPane({ confirm = false }) },
 	-- { key = "w", mods = "CTRL|SHIFT", action = action.CloseCurrentTab({ confirm = false }) },
-	{ key = "LeftArrow",  mods = "CTRL",       action = action.SendKey({ key = "Home" }) },
-	{ key = "RightArrow", mods = "CTRL",       action = action.SendKey({ key = "End" }) },
+	{ key = "LeftArrow",  mods = "CTRL",       action = action.ActivateTabRelative(-1) },
+	{ key = "RightArrow", mods = "CTRL",       action = action.ActivateTabRelative(1) },
 	{ key = "p",          mods = "CTRL|SHIFT", action = action.ActivateCommandPalette },
 	-- {
 	-- 	key = ",",
