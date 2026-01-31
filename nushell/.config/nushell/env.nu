@@ -100,7 +100,6 @@ $env.NU_PLUGIN_DIRS = [
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/kelp/.cargo/bin/nu')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
-$env.PATH = ($env.PATH | split row (char esep) | prepend '~/miniconda3/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/go/bin')
 $env.STARSHIP_CONFIG = ".config/starship/starship.toml"
