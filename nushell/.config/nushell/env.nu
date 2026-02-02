@@ -102,6 +102,7 @@ $env.NU_PLUGIN_DIRS = [
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/go/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.bun/bin')
 $env.STARSHIP_CONFIG = ".config/starship/starship.toml"
 
 # Starship integration
