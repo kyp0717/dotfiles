@@ -103,6 +103,8 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/go/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.bun/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm')
+$env.CARGO_TARGET_DIR = "/tmp/cargo-target"
 $env.STARSHIP_CONFIG = ".config/starship/starship.toml"
 
 # Starship integration
