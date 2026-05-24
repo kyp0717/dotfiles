@@ -10,7 +10,7 @@ local colors = require("colors")
 config.enable_wayland = false
 
 -- config.default_prog = { "/home/kelp/.cargo/bin/nu" }
-config.default_prog = { "/usr/bin/nu" }
+config.default_prog = { wezterm.home_dir .. "/.cargo/bin/nu" }
 
 local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
