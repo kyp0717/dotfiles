@@ -5,6 +5,10 @@ local keys_custom = require("keys")
 local tabs = require("tabs")
 local colors = require("colors")
 
+-- Disable Wayland to use XWayland
+-- wezterm not working on Wayland with nvidia drivers, see
+config.enable_wayland = false
+
 -- config.default_prog = { "/home/kelp/.cargo/bin/nu" }
 config.default_prog = { "/usr/bin/nu" }
 
