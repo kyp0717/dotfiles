@@ -9,6 +9,14 @@ local colors = require("colors")
 -- wezterm not working on Wayland with nvidia drivers, see
 config.enable_wayland = false
 
+-- Reason: default WebGpu front-end leaks/locks up on the NVIDIA proprietary
+-- driver over XWayland (caused a compositor freeze on 2026-06-02). OpenGL is
+-- the stable path for this setup.
+config.front_end = "OpenGL"
+
+-- Reason: cap per-pane scrollback so a long-lived session can't grow unbounded.
+config.scrollback_lines = 5000
+
 -- config.default_prog = { "/home/kelp/.cargo/bin/nu" }
 config.default_prog = { wezterm.home_dir .. "/.cargo/bin/nu" }
 
@@ -32,7 +40,8 @@ config.bold_brightens_ansi_colors = true
 config.color_scheme = colors.color_scheme
 config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 config.window_padding = { left = "0.5cell", right = "0.5cell", top = "0.5cell", bottom = "0.5cell" }
-config.window_background_opacity = 0.96
+-- Reason: opaque to take alpha-blending load off the NVIDIA/XWayland compositor.
+config.window_background_opacity = 1.0
 config.macos_window_background_blur = 20
 config.default_cursor_style = "BlinkingBar"
 config.use_fancy_tab_bar = false
