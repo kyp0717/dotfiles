@@ -98,13 +98,24 @@ $env.NU_PLUGIN_DIRS = [
 ]
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/kelp/.cargo/bin/nu')
+# $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/phage/.cargo/bin/nu')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/go/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.bun/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.kimi-code/bin')
 $env.CARGO_TARGET_DIR = "/tmp/cargo-target"
+
+# Rust build tooling: cache compiles with sccache, link with mold
+$env.RUSTC_WRAPPER = "sccache"
+$env.SCCACHE_DIR = "/home/phage/.cache/sccache"
+$env.SCCACHE_CACHE_SIZE = "20G"
+
+# LS Bridge-Local default connection (headless order-routing bridge)
+$env.LS_BRIDGE_HOST = "127.0.0.1"
+$env.LS_BRIDGE_PORT = "9001"
+
 $env.STARSHIP_CONFIG = ".config/starship/starship.toml"
 
 # Starship integration
