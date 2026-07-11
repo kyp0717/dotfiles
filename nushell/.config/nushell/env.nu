@@ -104,6 +104,7 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/go/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.bun/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm/versions/node/v24.18.0/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.kimi-code/bin')
 $env.CARGO_TARGET_DIR = "/tmp/cargo-target"
 
@@ -112,16 +113,10 @@ $env.RUSTC_WRAPPER = "sccache"
 $env.SCCACHE_DIR = "/home/phage/.cache/sccache"
 $env.SCCACHE_CACHE_SIZE = "20G"
 
-# LS Bridge-Local default connection (headless order-routing bridge)
-$env.LS_BRIDGE_HOST = "127.0.0.1"
-$env.LS_BRIDGE_PORT = "9001"
-
 $env.STARSHIP_CONFIG = ".config/starship/starship.toml"
 
 # Starship integration
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
-# $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-# mkdir ~/.cache/carapace
-# carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+
