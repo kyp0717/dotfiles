@@ -10,7 +10,7 @@ local colors = require("colors")
 config.enable_wayland = false
 
 -- Set cursor size and theme to fix scaling under XWayland
-config.xcursor_size = 32
+config.xcursor_size = 40
 config.xcursor_theme = "Adwaita"
 
 -- Reason: default WebGpu front-end leaks/locks up on the NVIDIA proprietary
