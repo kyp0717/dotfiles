@@ -9,6 +9,10 @@ local colors = require("colors")
 -- wezterm not working on Wayland with nvidia drivers, see
 config.enable_wayland = false
 
+-- Set cursor size and theme to fix scaling under XWayland
+config.xcursor_size = 32
+config.xcursor_theme = "Adwaita"
+
 -- Reason: default WebGpu front-end leaks/locks up on the NVIDIA proprietary
 -- driver over XWayland (caused a compositor freeze on 2026-06-02). OpenGL is
 -- the stable path for this setup.
