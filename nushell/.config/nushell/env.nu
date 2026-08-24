@@ -3,7 +3,7 @@
 # version = "0.89.0"
 
 def create_left_prompt [] {
-    let home =  $nu.home-path
+    let home =  $nu.home-dir
 
     # Perform tilde substitution on dir
     # To determine if the prefix of the path matches the home dir, we split the current path into
@@ -107,7 +107,7 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.bun/bin')
 # at the bin dir of the newest Node.js version managed by nvm.
 # Reason: keeps nushell in sync with whatever `nvm install` / `nvm alias default`
 # has set up, without hardcoding a specific version.
-$env.NVM_DIR = ($nu.home-path | path join '.nvm')
+$env.NVM_DIR = ($nu.home-dir | path join '.nvm')
 let nvm_versions_dir = ($env.NVM_DIR | path join 'versions' 'node')
 if ($nvm_versions_dir | path exists) {
     let node_bin = (
