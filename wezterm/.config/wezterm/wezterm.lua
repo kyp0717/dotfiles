@@ -21,8 +21,7 @@ config.front_end = "OpenGL"
 -- Reason: cap per-pane scrollback so a long-lived session can't grow unbounded.
 config.scrollback_lines = 5000
 
--- config.default_prog = { "/home/kelp/.cargo/bin/nu" }
-config.default_prog = { "/usr/bin/nu" }
+config.default_prog = { wezterm.home_dir .. "/.cargo/bin/nu" }
 
 local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
