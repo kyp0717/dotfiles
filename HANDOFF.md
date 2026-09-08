@@ -13,9 +13,11 @@ machines (woodlawn, linden) that swap weekly:
 - **dsh** (DeepSeek Harness) with the Kimi Code integration: Kimi CLI as a
   subagent (`subagent_kimi`) via ACP, Kimi K3 (1M context) on the user's
   subscription as the main model, NVIDIA free-tier model profile.
-- **pi**, with a local whisper speech-to-text server (Rust + whisper-rs,
-  `ggml-base.bin`, OpenAI-compatible endpoint on `0.0.0.0:10301`) backing
-  voice input.
+- **pi**, with voice input via the official `pi-voice-stt` npm extension
+  (records with ffmpeg) and a local whisper speech-to-text server (Rust +
+  whisper-rs, `ggml-base.bin`, OpenAI-compatible endpoint on `0.0.0.0:10301`)
+  as the transcription backend. Client install: `pi install npm:pi-voice-stt`
+  plus `sudo apt install ffmpeg`.
 - Poteto's pstack-strict skills (30) vendored in `.agents/skills/`, used by
   both harnesses: pi auto-discovers them in this repo, dsh gets them via
   `npm run skills:install`.
@@ -28,6 +30,7 @@ machines (woodlawn, linden) that swap weekly:
 | `dsh/vendor/` | Pinned tarballs: `@deepseek-ai/dsh-subagent-acp@0.1.1-rc.2`, `@agentclientprotocol/sdk@0.25.1` |
 | `dsh/docs/` | `SETUP.md`, `KIMI-INTEGRATION.md`, `MODIFYING-DSH.md`, `ORCHESTRATION.md` |
 | `pi/speech-to-text/rust-whisper-server/` | Whisper server source + SETUP.md; model, `target/`, logs are gitignored |
+| `pi/speech-to-text/pi-voice-stt-setup.md` | Client extension install (npm package, ffmpeg, stt.json, keybinds) |
 | `sync/` | `README.md` (fresh-machine runbook + weekly swap + parity checks), `MACHINES.md` (per-machine facts) |
 | `docs/` | `POTETO-SKILLS-WORKFLOW.md` (harness-agnostic) |
 
@@ -49,13 +52,17 @@ unprefixed (`npm run skills:install`, `skills:import`).
 - **rust-whisper-server**: systemd user service, active, port 10301, unit at
   `~/.config/systemd/user/rust-whisper-server.service`, updated 2026-09-03
   for the `pi/` move and verified healthy after restart.
+- **pi-voice-stt** (client extension, linden, 2026-09-08): official npm
+  package `pi-voice-stt` 0.7.0 installed via `pi install`, ffmpeg 8.0.1
+  installed, config at `~/.pi/agent/stt.json` with provider type `local`
+  pointing at the whisper server. The earlier hand-written extension of the
+  same name was removed. See `pi/speech-to-text/pi-voice-stt-setup.md`.
 
 ## 4. Pending / next steps
 
 1. **Set up linden** (arrives week of 2026-09-08): follow `sync/README.md`
-   (fresh machine section). Adjust `set_n_threads()` in the whisper `main.rs`
-   to linden's cores before building. Transfer or re-download
-   `ggml-base.bin`.
+   (fresh machine section). Whisper server and pi-voice-stt are done; Kimi
+   CLI re-auth and `set_n_threads()` tuning are still open.
 2. **Fill in `sync/MACHINES.md`** for linden once the hardware is known.
 3. **Re-auth the Kimi CLI** (`kimi login`, user action) for `subagent_kimi`.
 4. **Try pstack for real** on a user project: *"use poteto-mode: <task>"*.
@@ -89,6 +96,8 @@ npm run skills:install       # repo skills → ~/.dsh/skills
 dsh --profile web --dump-config | grep -A6 subagent-kimi   # dsh parity check
 systemctl --user status rust-whisper-server                # whisper status
 curl localhost:10301/health                                # whisper parity check
+pi install npm:pi-voice-stt                                # voice client install
+/stt status                                                # voice client status in pi
 ```
 
 ---
