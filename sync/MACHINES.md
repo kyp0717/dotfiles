@@ -6,11 +6,11 @@ both (enforced by the repo, see `README.md` in this folder).
 
 | | woodlawn | linden |
 |---|---|---|
-| Status | current daily driver | arriving week of 2026-09-08 |
-| CPU | Threadripper, 16 threads used for whisper | TBD |
+| Status | current daily driver | active since 2026-09-07; mic is a Blue Yeti (see ls-trader resource doc for its suspend/resume failure modes) |
+| CPU | Threadripper, 16 threads used for whisper | Ryzen, 24 threads; `WHISPER_THREADS` not tuned yet (GPU does the work) |
 | GPU | none (no NVIDIA card, no `nvidia-smi`) | GTX 1070, 8 GB, Pascal (compute capability 6.1) |
-| Whisper backend (`run.sh` picks by hostname) | `cpu` | `cuda` (needs CUDA toolkit installed) |
-| OS | Linux (systemd) | TBD, assumed Linux |
+| Whisper backend (`run.sh` picks by hostname) | `cpu` | `cuda` — nvidia-cuda-toolkit 12.4 installed 2026-09-07 (`/usr/bin/nvcc`, accepts system gcc-15); run.sh falls back to `cpu` if nvcc disappears |
+| OS | Linux (systemd) | Ubuntu 26.04 (systemd), PipeWire + WirePlumber |
 | Whisper threads (`WHISPER_THREADS` env) | 16 (default) | set in the systemd unit once cores are known |
 | Whisper server port | 10301 | 10301 (same, hardcoded) |
 | Repo path | `/home/phage/work/ai-harness` | same, assumed |

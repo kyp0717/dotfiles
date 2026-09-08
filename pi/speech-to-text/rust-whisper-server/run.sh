@@ -13,7 +13,16 @@ cd "$(dirname "$0")"
 host="$(hostname)"
 case "$host" in
   woodlawn) backend=cpu ;;
-  linden)   backend=cuda ;;
+  linden)
+    # CUDA needs nvcc at build time; fall back to cpu when the toolkit is
+    # not installed yet (install nvidia-cuda-toolkit to enable the GPU).
+    if command -v nvcc >/dev/null 2>&1; then
+      backend=cuda
+    else
+      echo "run.sh: linden has no nvcc, using cpu backend (install nvidia-cuda-toolkit for cuda)" >&2
+      backend=cpu
+    fi
+    ;;
   *)
     # Unknown machine: probe the hardware instead of guessing.
     if command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi -L >/dev/null 2>&1; then
