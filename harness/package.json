@@ -1,0 +1,23 @@
+{
+  "name": "ai-harness-deployment",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Deployment configuration for two agent harnesses (dsh + pi) kept in parity across two machines: Kimi Code integration for dsh, vendored skills for both, local whisper speech-to-text for pi, and the sync runbook.",
+  "type": "module",
+  "scripts": {
+    "dsh:setup": "node dsh/scripts/setup-kimi.mjs",
+    "dsh:setup:dry": "node dsh/scripts/setup-kimi.mjs --dry-run",
+    "dsh:setup:doctor": "node dsh/scripts/setup-kimi.mjs --dry-run --verbose",
+    "dsh:bridge": "node dsh/scripts/bridge-kimi-token.mjs",
+    "dsh:bridge:verify": "node dsh/scripts/bridge-kimi-token.mjs --verify",
+    "dsh:bridge:dry": "node dsh/scripts/bridge-kimi-token.mjs --dry-run",
+    "dsh:kimi-login": "node dsh/scripts/kimi-login.mjs",
+    "skills:install": "node dsh/scripts/install-skills.mjs",
+    "skills:dry": "node dsh/scripts/install-skills.mjs --dry-run",
+    "skills:import": "node dsh/scripts/import-skills.mjs",
+    "skills:import:pstack": "node dsh/scripts/import-skills.mjs 'https://github.com/poteto/plugins#pstack'"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

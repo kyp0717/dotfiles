@@ -1,0 +1,11 @@
+.npm-cache/
+.scratch/
+.dsh-ref/
+.deploy/
+.fixture/
+node_modules/
+
+# pi speech-to-text build artifacts and local state
+pi/speech-to-text/rust-whisper-server/ggml-base.bin
+pi/speech-to-text/rust-whisper-server/target/
+pi/speech-to-text/rust-whisper-server/*.log
