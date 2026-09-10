@@ -45,6 +45,13 @@ cd "$SCRIPT_DIR"
 stow starship/ 2>/dev/null && echo "  ✓ Starship configuration deployed"
 stow zed/ 2>/dev/null && echo "  ✓ Zed configuration deployed"
 
+# Deploy the AI harness (dsh + pi skills)
+echo -e "\n${GREEN}Setting up AI harness...${NC}"
+if [ -d "$SCRIPT_DIR/harness" ]; then
+    (cd "$SCRIPT_DIR/harness" && npm run dsh:setup && npm run skills:install) \
+        && echo "  ✓ Harness deployed (dsh setup + skills)"
+fi
+
 echo -e "\n${BLUE}========================================${NC}"
 echo -e "${GREEN}Setup complete!${NC}"
 echo -e "${BLUE}========================================${NC}"
