@@ -106,7 +106,8 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.bun/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm/versions/node/v24.18.0/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.kimi-code/bin')
-$env.CARGO_TARGET_DIR = "/tmp/cargo-target"
+# Build on disk (target/), not tmpfs — CARGO_TARGET_DIR left unset on purpose.
+# $env.CARGO_TARGET_DIR = "/tmp/cargo-target"
 
 # Rust build tooling: cache compiles with sccache, link with mold
 $env.RUSTC_WRAPPER = "sccache"
