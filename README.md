@@ -25,8 +25,8 @@ This repository includes configurations for:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
+   git clone https://github.com/yourusername/dotfiles.git ~/.dotfiles
+   cd ~/.dotfiles
    ```
 
 2. **Set up local bin directory:**
@@ -43,7 +43,6 @@ This repository includes configurations for:
    ./scripts/wezterm.sh     # Installs WezTerm terminal
    
    # Optional tools
-   ./scripts/claude.sh      # Installs Claude CLI
    ./scripts/get-nerdfont.sh # Downloads Nerd Fonts
    ```
 
