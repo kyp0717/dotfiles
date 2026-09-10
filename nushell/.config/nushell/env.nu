@@ -3,7 +3,7 @@
 # version = "0.89.0"
 
 def create_left_prompt [] {
-    let home =  $nu.home-path
+    let home =  $nu.home-dir
 
     # Perform tilde substitution on dir
     # To determine if the prefix of the path matches the home dir, we split the current path into
@@ -103,8 +103,22 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/go/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.bun/bin')
-$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm')
-$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.nvm/versions/node/v24.18.0/bin')
+# nvm: Nushell cannot source nvm.sh (a bash script), so instead point PATH
+# at the bin dir of the newest Node.js version managed by nvm.
+# Reason: keeps nushell in sync with whatever `nvm install` / `nvm alias default`
+# has set up, without hardcoding a specific version.
+$env.NVM_DIR = ($nu.home-dir | path join '.nvm')
+let nvm_versions_dir = ($env.NVM_DIR | path join 'versions' 'node')
+if ($nvm_versions_dir | path exists) {
+    let node_bin = (
+        ls $nvm_versions_dir
+        | sort-by name
+        | last
+        | get name
+        | path join 'bin'
+    )
+    $env.PATH = ($env.PATH | split row (char esep) | prepend $node_bin)
+}
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.kimi-code/bin')
 # Build on disk (target/), not tmpfs — CARGO_TARGET_DIR left unset on purpose.
 # $env.CARGO_TARGET_DIR = "/tmp/cargo-target"
