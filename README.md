@@ -77,6 +77,7 @@ dotfiles/
 ├── zed/             # Zed editor settings
 ├── starship/        # Starship prompt configs
 ├── shell/           # Bash/shell configurations
+├── harness/         # AI agent harness deployment config (dsh + pi, vendored skills, machine sync)
 ├── scripts/         # Installation scripts
 └── prps/            # Project documentation
 ```

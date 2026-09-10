@@ -35,7 +35,7 @@ it fails loudly if that bridge version does not exist on npm.
 ## 2. Get the repo and run the setup
 
 ```bash
-git clone git@github.com:kyp0717/ai-harness.git && cd ai-harness
+git clone git@github.com:kyp0717/dotfiles.git ~/.dotfiles && cd ~/.dotfiles/harness
 
 npm run dsh:setup:dry    # optional: preview what it will do (writes nothing)
 npm run dsh:setup        # apply

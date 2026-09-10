@@ -41,7 +41,7 @@ and optionally the Kimi Code CLI (`kimi`) which powers `subagent_kimi`.
 
 1. Boot the pinned harness once so the profile initializes:
    `npx --yes @deepseek-ai/dsh@0.1.1-rc.2 --profile web`, then stop it.
-2. `git clone git@github.com:kyp0717/ai-harness.git && cd ai-harness`
+2. `git clone git@github.com:kyp0717/dotfiles.git ~/.dotfiles && cd ~/.dotfiles/harness`
 3. `npm run dsh:setup` (writes the ACP bridge from `dsh/vendor/`, the profile
    patch, the `kimi` preset, and `settings.yaml` with default model
    `kimi-coding/k3` plus the NVIDIA free-tier profile)

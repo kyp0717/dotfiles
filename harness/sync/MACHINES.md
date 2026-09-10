@@ -13,7 +13,7 @@ both (enforced by the repo, see `README.md` in this folder).
 | OS | Linux (systemd) | Ubuntu 26.04 (systemd), PipeWire + WirePlumber |
 | Whisper threads (`WHISPER_THREADS` env) | 16 (default) | set in the systemd unit once cores are known |
 | Whisper server port | 10301 | 10301 (same, hardcoded) |
-| Repo path | `/home/phage/work/ai-harness` | same, assumed |
+| Repo path | `/home/phage/.dotfiles/harness` | same, assumed |
 
 ## Per-machine services
 
