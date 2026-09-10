@@ -38,7 +38,7 @@ This repository includes configurations for:
 3. **Install desired tools:**
    ```bash
    # Core tools
-   ./scripts/neovim-install.sh  # Installs latest Neovim binary (official tarball)
+   ./scripts/neovim.install.sh  # Installs latest Neovim binary (official tarball)
    ./scripts/starship.sh    # Installs Starship prompt
    ./scripts/wezterm.sh     # Installs WezTerm terminal
    
