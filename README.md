@@ -85,7 +85,7 @@ dotfiles/
 ### Neovim (`nvim/`)
 - Vanilla kickstart.nvim, pinned as a git submodule (`nvim/.config/nvim`)
 - Not customized — update with `git submodule update --remote nvim/.config/nvim`
-- First launch bootstraps lazy.nvim and installs plugins automatically
+- First launch uses vim.pack (Neovim 0.12 built-in) to install plugins automatically
 
 ### Nushell
 - Custom dark/light themes
