@@ -6,7 +6,7 @@ A comprehensive dotfiles repository for setting up a modern development environm
 
 This repository includes configurations for:
 
-- **Neovim** - Three configurations available, with `nvim-rust/` as the recommended setup
+- **Neovim** - Vanilla [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim), tracked as a git submodule — zero curation, update with `git submodule update --remote`
 - **Nushell** - Modern shell with custom themes and modules
 - **WezTerm** - GPU-accelerated terminal emulator with Nushell integration
 - **Zed** - High-performance code editor with custom themes
@@ -38,7 +38,7 @@ This repository includes configurations for:
 3. **Install desired tools:**
    ```bash
    # Core tools
-   ./scripts/neovim.sh      # Installs Neovim (unstable)
+   ./scripts/neovim-install.sh  # Installs latest Neovim binary (official tarball)
    ./scripts/starship.sh    # Installs Starship prompt
    ./scripts/wezterm.sh     # Installs WezTerm terminal
    
@@ -49,7 +49,7 @@ This repository includes configurations for:
 4. **Deploy configurations using Stow:**
    ```bash
    # Deploy individual configurations
-   stow nvim-rust/    # Neovim configuration
+   stow nvim/         # Neovim configuration (vanilla kickstart submodule)
    stow nushell/      # Nushell shell
    stow wezterm/      # WezTerm terminal
    stow zed/          # Zed editor
@@ -57,7 +57,7 @@ This repository includes configurations for:
    stow shell/        # Bash configuration
    
    # Or deploy multiple at once
-   stow nvim-rust/ nushell/ wezterm/ starship/ shell/
+   stow nvim/ nushell/ wezterm/ starship/ shell/
    ```
 
 5. **Restart your terminal or source configurations:**
@@ -69,9 +69,7 @@ This repository includes configurations for:
 
 ```
 dotfiles/
-├── nvim-rust/        # Recommended Neovim config (Kickstart-based)
-├── nvim/            # Alternative Neovim config
-├── nvim-mod/        # Another Neovim variant
+├── nvim/            # Neovim config — vanilla kickstart.nvim (git submodule)
 ├── nushell/         # Nushell configuration
 ├── wezterm/         # WezTerm terminal config
 ├── zed/             # Zed editor settings
@@ -84,12 +82,10 @@ dotfiles/
 
 ## Configuration Details
 
-### Neovim (`nvim-rust/`)
-- Based on Kickstart.nvim with modular plugin organization
-- LSP support for multiple languages (Rust, Python, TypeScript, etc.)
-- Telescope fuzzy finder, Treesitter syntax highlighting
-- Rust development tools via rustaceanvim
-- Oil.nvim file explorer, Flash.nvim navigation
+### Neovim (`nvim/`)
+- Vanilla kickstart.nvim, pinned as a git submodule (`nvim/.config/nvim`)
+- Not customized — update with `git submodule update --remote nvim/.config/nvim`
+- First launch bootstraps lazy.nvim and installs plugins automatically
 
 ### Nushell
 - Custom dark/light themes

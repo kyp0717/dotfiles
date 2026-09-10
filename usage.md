@@ -28,10 +28,12 @@ stow -D shell/  # From the dotfiles directory
 
 ## Tool Installation Scripts
 
-### neovim.sh
-Installs Neovim from the unstable PPA (latest features).
+### neovim-install.sh
+Installs the latest Neovim release binary from the official GitHub tarball
+(no source build, no PPA). Installs to /opt/nvim-linux-x86_64 and symlinks
+/usr/local/bin/nvim.
 ```bash
-./neovim.sh
+./neovim-install.sh
 ```
 
 ### starship.sh
@@ -65,11 +67,11 @@ cd ~/.dotfiles
 source ~/.profile
 
 # 3. Install desired tools
-./scripts/neovim.sh
+./scripts/neovim-install.sh
 ./scripts/starship.sh
 
 # 4. Deploy configurations with Stow
-stow nvim-rust/
+stow nvim/
 stow starship/
 stow zed/
 ```

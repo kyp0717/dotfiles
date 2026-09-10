@@ -33,11 +33,11 @@ run_subagent "$SCRIPT_DIR/scripts/setup-local-bin.sh" "Shell PATH"
 
 # Install tools
 echo -e "\n${GREEN}Installing development tools...${NC}"
-[ -f "$SCRIPT_DIR/scripts/neovim.sh" ] && "$SCRIPT_DIR/scripts/neovim.sh"
+[ -f "$SCRIPT_DIR/scripts/neovim-install.sh" ] && "$SCRIPT_DIR/scripts/neovim-install.sh"
 [ -f "$SCRIPT_DIR/scripts/starship.sh" ] && "$SCRIPT_DIR/scripts/starship.sh"
 
-# Setup configurations
-run_subagent "$SCRIPT_DIR/nvim-rust/setup.sh" "Neovim Rust"
+# Neovim config is vanilla kickstart.nvim (git submodule at nvim/.config/nvim).
+# Deploy it with: stow nvim/
 
 # Deploy other configurations with stow
 echo -e "\n${GREEN}Deploying additional configurations...${NC}"
