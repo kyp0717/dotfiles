@@ -22,7 +22,7 @@ across two computers (woodlawn and linden) that swap weekly:
 | `dsh/skills/` | dsh's own skill set, an independent copy that may diverge. `npm run skills:install` copies them to `~/.dsh/skills/`. |
 | `docs/` | Harness-agnostic docs: `POTETO-SKILLS-WORKFLOW.md` (using the pstack skills). |
 | `sync/` | Keeping woodlawn and linden identical: the swap runbook (`README.md`) and per-machine facts (`MACHINES.md`). |
-| `HANDOFF.md` | Session continuation brief. Read first in a new context window. |
+| `../HANDOFF.md` | Session continuation brief, at the dotfiles root. Read first in a new context window. |
 
 ## Quick start (one machine)
 

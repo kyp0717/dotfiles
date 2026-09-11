@@ -1,8 +1,34 @@
 # HANDOFF.md — continuation brief (next session)
 
-**Read this first in a new context window.** Updated 2026-09-11 (linden
-whisper fix, repo path normalized to `~/dotfiles`); restructured 2026-09-03
-into `dsh/`, `pi/`, `sync/`, `docs/`.
+**Read this first in a new context window.** Lives at the dotfiles root;
+`AGENTS.md` there orders every session to read it. Paths in section 2 are
+relative to `harness/`. Updated 2026-09-11 (skill split, stow package,
+microphone move); restructured 2026-09-03 into `dsh/`, `pi/`, `sync/`,
+`docs/`.
+
+---
+
+## 0. Next machine: woodlawn (first session there, week of 2026-09-15)
+
+linden commits `ce6beb3` + `bb7e359` changed the layout. After `git pull`:
+
+1. `stow -d ~/dotfiles/harness -t ~/.pi/agent pi` — links pi skills and
+   `unslop.ts` into `~/.pi/agent/`.
+2. `npm run skills:install` in `harness/` — refreshes `~/.dsh/skills/`
+   from the new `dsh/skills/`.
+3. Delete sdlc-loop leftovers: `rm -rf ~/.agents/skills/sdlc-loop*
+   ~/.pi/agent/extensions/sdlc-loop.ts`; remove `~/.agents` if empty.
+4. Whisper: the pull leaves untracked artifacts in the old
+   `harness/pi/speech-to-text/` (`target/`, `ggml-base.bin`, logs). Move
+   them into `microphone/rust-whisper-server/`, then `rm -rf
+   harness/pi/speech-to-text`.
+5. Repoint the service: `sed -i 's|harness/pi/speech-to-text|microphone|g'
+   ~/.config/systemd/user/rust-whisper-server.service && systemctl --user
+   daemon-reload && systemctl --user restart rust-whisper-server`. Verify
+   with `curl -s localhost:10301/health`. If startup fails, the old
+   `target/` carries baked-in paths: clean rebuild per
+   `microphone/rust-whisper-server/SETUP.md`.
+6. Delete this section once all five steps check out on woodlawn.
 
 ---
 
