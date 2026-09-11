@@ -1,19 +1,37 @@
 #!/bin/bash
-# Install graft — placeholder scaffold, fill in the real source/URL below.
+# Install Graft (https://github.com/trailhq/Graft) — code-understanding graph
+# that makes coding agents faster/cheaper. Distributed as an npm package.
 #
-# TODO: confirm which "graft" this is and how it distributes:
-#   - GitHub release tarball?   -> model after scripts/neovim.install.sh
-#   - cargo install <crate>?    (rust toolchain already present)
-#   - npm install -g <pkg>?     (node already present)
-#   - go install <pkg>@latest?  (needs golang)
+# What this script does:
+#   1. Installs the graft CLI globally via npm
+#   2. Verifies the install
+#
+# What it deliberately does NOT do:
+#   - `graft init` / `graft build` — those are per-repo operations; run
+#     `graft init` inside whichever project you want to wire up.
 #
 # Usage: graft/graft-install.sh
 set -euo pipefail
 
-echo "ERROR: graft-install.sh is a scaffold — the install steps are not filled in yet." >&2
-echo "" >&2
-echo "Once you confirm which 'graft' to install, update this script. Candidates:" >&2
-echo "  - https://github.com/The-Graft-Project/Graft  (Docker Compose -> cloud deploys)" >&2
-echo "  - https://github.com/ms-henglu/graft        (Terraform module patcher)" >&2
-echo "  - https://github.com/JacobMGEvans/git-graft (git hook for commit messages)" >&2
-exit 1
+if ! command -v npm >/dev/null 2>&1; then
+    echo "ERROR: npm is required to install graft (node is present via nvm on this machine)." >&2
+    exit 1
+fi
+
+echo "Installing graft CLI (@nanonets/graft)..."
+npm install -g @nanonets/graft
+
+echo ""
+echo "Installed: $(graft --version 2>/dev/null || echo 'graft (version check failed)')"
+
+cat <<'EOF'
+
+Next steps (per repo you want to wire up):
+  cd <your-project>
+  graft init --dry-run   # preview what it would touch
+  graft init             # build graft/ + wire into your agent (claude code, cursor, ...)
+
+Notes:
+  - graft/ is a regenerable local cache, auto-added to .gitignore
+  - global install lives in your nvm bin dir (already on PATH)
+EOF
