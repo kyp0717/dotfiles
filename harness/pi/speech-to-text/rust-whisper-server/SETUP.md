@@ -142,6 +142,51 @@ systemctl --user enable --now rust-whisper-server
 systemctl --user status rust-whisper-server
 ```
 
+The unit's four paths (`WorkingDirectory`, `ExecStart`, both log files) must
+match this machine's actual checkout. Canonical repo location on both
+machines is `~/dotfiles` (`~/.dotfiles` retired 2026-09-11); per-machine
+facts live in `sync/MACHINES.md`.
+
+## Incident 2026-09-11 (linden): repo move killed the service
+
+**Symptom.** Voice input in pi silently dead. The mic and ffmpeg capture
+were fine; the transcription endpoint was down. `systemctl --user status
+rust-whisper-server` showed `activating (auto-restart)` with the restart
+counter climbing (789 cycles), exit `status 209/STDOUT`.
+
+**Cause — two stacked faults after the repo moved to `~/dotfiles`.**
+
+1. The unit's `WorkingDirectory`, `ExecStart`, and log-append paths still
+   said `/home/phage/.dotfiles/...`. systemd failed at the STDOUT-append
+   step before spawning `run.sh` (`Failed to set up standard output: No such
+   file or directory`) and restarted every 2 s.
+2. With the paths fixed, the server started and immediately panicked:
+   `whisper_init_from_file_with_params_no_state: failed to open
+   'ggml-base.bin'`. The 147 MB model is gitignored and did not survive the
+   move.
+
+**Fix.**
+
+```bash
+sed -i 's|/home/phage/\.dotfiles/|/home/phage/dotfiles/|g' \
+  ~/.config/systemd/user/rust-whisper-server.service
+systemctl --user daemon-reload && systemctl --user restart rust-whisper-server
+# model missing: re-download (or rsync from the other machine)
+curl -L -o ggml-base.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
+sha256sum ggml-base.bin   # must match the checksum listed above
+```
+
+**Post-move verification (run after any repo relocation):**
+
+```bash
+systemctl --user is-active rust-whisper-server    # → active, not activating
+curl -m 3 localhost:10301/health                  # → OK
+sha256sum ggml-base.bin                           # → 60ed5bc3…2efe
+ffmpeg -f pulse -i default -t 3 -ar 16000 -ac 1 -y /tmp/stt.wav && \
+curl -X POST localhost:10301/v1/audio/transcriptions \
+  -F "file=@/tmp/stt.wav" -F "model=whisper-1"    # → JSON with text (or [BLANK_AUDIO] for silence)
+```
+
 This starts the server at login and restarts it if it crashes. If you want it
 running before anyone logs in, enable lingering with
 `sudo loginctl enable-linger USER`.

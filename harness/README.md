@@ -26,7 +26,7 @@ across two computers (woodlawn and linden) that swap weekly:
 ## Quick start (one machine)
 
 ```bash
-git clone git@github.com:kyp0717/dotfiles.git ~/.dotfiles && cd ~/.dotfiles/harness
+git clone git@github.com:kyp0717/dotfiles.git ~/dotfiles && cd ~/dotfiles/harness
 
 # dsh
 npm run dsh:setup        # idempotent; safe to re-run

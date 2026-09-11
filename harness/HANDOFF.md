@@ -1,7 +1,8 @@
 # HANDOFF.md — continuation brief (next session)
 
-**Read this first in a new context window.** Updated 2026-09-03 after the repo
-restructure into `dsh/`, `pi/`, `sync/`, `docs/`.
+**Read this first in a new context window.** Updated 2026-09-11 (linden
+whisper fix, repo path normalized to `~/dotfiles`); restructured 2026-09-03
+into `dsh/`, `pi/`, `sync/`, `docs/`.
 
 ---
 
@@ -38,7 +39,9 @@ npm scripts: dsh ones carry a `dsh:` prefix (`npm run dsh:setup`,
 `npm run dsh:kimi-login`, `npm run dsh:bridge[:verify]`). Skills scripts stay
 unprefixed (`npm run skills:install`, `skills:import`).
 
-## 3. Current live state (woodlawn, verified)
+## 3. Current live state
+
+(linden, updated 2026-09-11)
 
 - dsh `0.1.1-rc.2`, web profile at `~/.dsh/profiles/web`; GUI on
   `127.0.0.1:3080`.
@@ -58,15 +61,31 @@ unprefixed (`npm run skills:install`, `skills:import`).
   pointing at the whisper server. The earlier hand-written extension of the
   same name was removed. See `pi/speech-to-text/pi-voice-stt-setup.md`.
 
+**linden (2026-09-11):**
+
+- Repo checkout at `~/dotfiles/harness` (`~/.dotfiles` retired everywhere).
+- **rust-whisper-server**: fixed after the repo move. The unit still pointed
+  at `~/.dotfiles/...` (crash-loop, exit `status 209/STDOUT`, 789 cycles)
+  and `ggml-base.bin` had not survived the move (panic on startup). Paths
+  corrected, model re-downloaded (sha256 verified), end-to-end test passes
+  (`/health` OK, ffmpeg record → transcription JSON). Incident + verification
+  checklist in the whisper SETUP.md.
+
 ## 4. Pending / next steps
 
 1. **Set up linden** (arrives week of 2026-09-08): follow `sync/README.md`
-   (fresh machine section). Whisper server and pi-voice-stt are done; Kimi
-   CLI re-auth and `set_n_threads()` tuning are still open.
+   (fresh machine section). Whisper server (fixed 2026-09-11) and
+   pi-voice-stt are done; Kimi CLI re-auth and `set_n_threads()` tuning are
+   still open.
 2. **Fill in `sync/MACHINES.md`** for linden once the hardware is known.
 3. **Re-auth the Kimi CLI** (`kimi login`, user action) for `subagent_kimi`.
 4. **Try pstack for real** on a user project: *"use poteto-mode: <task>"*.
    See `docs/POTETO-SKILLS-WORKFLOW.md`.
+5. **woodlawn repo move**: retire `~/.dotfiles` — re-clone the checkout to
+   `~/dotfiles`, update the whisper unit paths (`sed
+   's|/home/phage/\.dotfiles/|/home/phage/dotfiles/|g'` on
+   `~/.config/systemd/user/rust-whisper-server.service`), `daemon-reload`,
+   restart, and run the post-move verification in the whisper SETUP.md.
 
 ## 5. Known issues / caveats
 
@@ -79,6 +98,9 @@ unprefixed (`npm run skills:install`, `skills:import`).
   (see `docs/POTETO-SKILLS-WORKFLOW.md` § 4).
 - **`poteto-mode` is user-invocable only** (`disable-model-invocation`).
 - **Whisper input format**: WAV, 16 kHz, mono; the server does not resample.
+- **Whisper down after a repo move**: crash-loop `status 209/STDOUT` = stale
+  unit paths; panic on `ggml-base.bin` = model lost. Both faults and the
+  verification checklist are in the whisper SETUP.md incident section.
 - **Sandbox facts for the agent**: bash runs in a bubblewrap sandbox;
   `/tmp` is wiped per call, `~/.dsh` is read-only without
   `sandbox_permissions: danger-full-access`, host processes are not visible,

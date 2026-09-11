@@ -41,7 +41,7 @@ and optionally the Kimi Code CLI (`kimi`) which powers `subagent_kimi`.
 
 1. Boot the pinned harness once so the profile initializes:
    `npx --yes @deepseek-ai/dsh@0.1.1-rc.2 --profile web`, then stop it.
-2. `git clone git@github.com:kyp0717/dotfiles.git ~/.dotfiles && cd ~/.dotfiles/harness`
+2. `git clone git@github.com:kyp0717/dotfiles.git ~/dotfiles && cd ~/dotfiles/harness`
 3. `npm run dsh:setup` (writes the ACP bridge from `dsh/vendor/`, the profile
    patch, the `kimi` preset, and `settings.yaml` with default model
    `kimi-coding/k3` plus the NVIDIA free-tier profile)
@@ -187,6 +187,9 @@ Outputs should match on both machines. Secrets differ, which is expected.
 | `OAuth refresh failed … invalid grant` | Token lineage died. `npm run dsh:kimi-login` (or `kimi login` + `npm run dsh:bridge`). |
 | Bridge version mismatch on `npm run dsh:setup` | dsh must be `0.1.1-rc.2` on that machine. |
 | Skills missing in a session | `npm run skills:install`, then start a new session. |
-| Whisper server down after repo update | Paths moved 2026-09-03; reinstall the systemd unit from the whisper SETUP.md and `systemctl --user daemon-reload`. |
+| Whisper server down after repo update | Paths moved 2026-09-03 into `pi/` and 2026-09-11 to `~/dotfiles`; reinstall the systemd unit from the whisper SETUP.md and `systemctl --user daemon-reload`. |
+| Unit crash-loops, exit `status 209/STDOUT` | The unit's `WorkingDirectory`/`ExecStart`/log paths point at a location that does not exist on this machine. Canonical checkout is `~/dotfiles` on both machines; fix the paths, `daemon-reload`, restart. |
+| `server.err.log` has `failed to open 'ggml-base.bin'` | The model (gitignored, 147 MB) did not survive a move. Re-download or rsync it; checksum in the whisper SETUP.md. |
+| Voice dead in pi, mic records fine | The whisper server is the backend, not the mic. `systemctl --user status rust-whisper-server`; `curl -m 3 localhost:10301/health`. See the incident section in the whisper SETUP.md. |
 | Whisper transcription slow on linden | Check it built with the cuda backend: the startup line in `server.log` prints the backend, and `nvidia-smi` should show the process. Rebuild via `run.sh` if it says cpu. |
 | Voice recording fails, `ffmpeg` not found | The npm extension records with ffmpeg. `sudo apt install -y ffmpeg`. |

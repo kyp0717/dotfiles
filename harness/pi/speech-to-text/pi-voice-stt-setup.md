@@ -51,3 +51,17 @@ default capture and output blocks.
   package. Do not recreate it.
 - The whisper server is the transcription backend. See
   [rust-whisper-server/SETUP.md](rust-whisper-server/SETUP.md).
+
+## Troubleshooting
+
+- **Recording starts but no transcript inserts.** The whisper server is
+down, not the mic. `curl -m 3 localhost:10301/health` must print `OK`;
+check `systemctl --user status rust-whisper-server` and `journalctl --user
+-u rust-whisper-server -n 20`. Server-side faults (stale unit paths after a
+repo move, missing `ggml-base.bin`) and the verification checklist are in
+the incident section of
+[rust-whisper-server/SETUP.md](rust-whisper-server/SETUP.md).
+- **Nothing records at all.** ffmpeg missing (`command -v ffmpeg`) or the
+mic is captured/ dead at the OS level. On linden the Blue Yeti has known
+PipeWire and USB failure modes; see the ls-trader doc
+`resource/linden-blue-yeti-microphone-issues.md`.
