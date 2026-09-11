@@ -3,7 +3,7 @@
 **Read this first in a new context window.** Lives at the dotfiles root;
 `AGENTS.md` there orders every session to read it. Paths in section 2 are
 relative to `harness/`. Updated 2026-09-11 (skill split, stow package,
-microphone move); restructured 2026-09-03 into `dsh/`, `pi/`, `sync/`,
+microphone move); restructured 2026-09-03 into `dsh/`, `pi/`, `sync/` (now `../machine-rotation/`),
 `docs/`.
 
 ---
@@ -61,7 +61,7 @@ machines (woodlawn, linden) that swap weekly:
 | `../microphone/pi-voice-stt-setup.md` | Client extension install (npm package, ffmpeg, stt.json, keybinds) |
 | `pi/skills/` + `pi/extensions/` | pi stow package: `stow -d ~/dotfiles/harness -t ~/.pi/agent pi` links them into `~/.pi/agent/` |
 | `dsh/skills/` | dsh's own skill set (pstack-strict), installed per machine by `npm run skills:install` |
-| `sync/` | `README.md` (fresh-machine runbook + weekly swap + parity checks), `MACHINES.md` (per-machine facts) |
+| `../machine-rotation/` | `README.md` (fresh-machine runbook + weekly swap + parity checks), `MACHINES.md` (per-machine facts). Lives at the dotfiles root. |
 | `docs/` | `POTETO-SKILLS-WORKFLOW.md` (harness-agnostic) |
 
 npm scripts: dsh ones carry a `dsh:` prefix (`npm run dsh:setup`,
@@ -102,11 +102,11 @@ unprefixed (`npm run skills:install`, `skills:import`).
 
 ## 4. Pending / next steps
 
-1. **Set up linden** (arrives week of 2026-09-08): follow `sync/README.md`
+1. **Set up linden** (arrives week of 2026-09-08): follow `machine-rotation/README.md`
    (fresh machine section). Whisper server (fixed 2026-09-11) and
    pi-voice-stt are done; Kimi CLI re-auth and `set_n_threads()` tuning are
    still open.
-2. **Fill in `sync/MACHINES.md`** for linden once the hardware is known.
+2. **Fill in `machine-rotation/MACHINES.md`** for linden once the hardware is known.
 3. **Re-auth the Kimi CLI** (`kimi login`, user action) for `subagent_kimi`.
 4. **Try pstack for real** on a user project: *"use poteto-mode: <task>"*.
    See `docs/POTETO-SKILLS-WORKFLOW.md`.
@@ -153,4 +153,4 @@ pi install npm:pi-voice-stt                                # voice client instal
 
 ---
 
-*Next session: read `sync/README.md` and `docs/POTETO-SKILLS-WORKFLOW.md`.*
+*Next session: read `../machine-rotation/README.md` and `docs/POTETO-SKILLS-WORKFLOW.md`.*

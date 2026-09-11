@@ -90,7 +90,7 @@ before acting.
 
 | Root | Scope | Synced via repo? |
 |---|---|---|
-| `<project>/.agents/skills/` | Sessions whose workspace is that project | ✅ (this repo uses it) |
+| `<project>/.agents/skills/` | Sessions whose workspace is that project | ✅ (any project; this repo's own skills live in `dsh/skills/`) |
 | `<project>/.dsh/skills/` | Same | ✅ |
 | `~/.dsh/skills/` (user root) | Every workspace on the machine | ❌ per machine — install via `npm run skills:install` |
 | `~/.agents/skills/` | Every workspace on the machine | ❌ per machine |

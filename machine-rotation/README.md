@@ -21,11 +21,12 @@ hostnames).
 **The repo is the recipe; the scripts bake the config.**
 
 ```
-git clone ai-harness
+git clone dotfiles
   →  npm run dsh:setup          # writes ALL dsh harness config
-  →  npm run skills:install     # repo skills → ~/.dsh/skills
+  →  npm run skills:install     # dsh/skills → ~/.dsh/skills
   →  npm run dsh:kimi-login     # per-machine Kimi subscription credential
-  →  cargo build --release      # pi whisper server (see its SETUP.md)
+  →  stow -d ~/dotfiles/harness -t ~/.pi/agent pi   # pi skills + extensions
+  →  microphone/rust-whisper-server/run.sh          # builds + runs whisper (see its SETUP.md)
 ```
 
 Every step is idempotent. Re-running on a drifted machine brings it back.
@@ -51,7 +52,7 @@ and optionally the Kimi Code CLI (`kimi`) which powers `subagent_kimi`.
    any pay-as-you-go Kimi keys you use
 7. Restart the GUI and run the parity check below
 
-Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../dsh/docs/SETUP.md).
+Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../harness/dsh/docs/SETUP.md).
 
 ### pi
 
@@ -59,16 +60,19 @@ Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../dsh/docs/SETUP.md).
 2. Build and start the whisper server via `run.sh` (it picks the `cpu` or
    `cuda` backend by hostname; on linden the CUDA toolkit must be installed
    first), then register it as a systemd user service. Full procedure:
-   [`pi/speech-to-text/rust-whisper-server/SETUP.md`](../pi/speech-to-text/rust-whisper-server/SETUP.md).
+   [`microphone/rust-whisper-server/SETUP.md`](../microphone/rust-whisper-server/SETUP.md).
 3. On machines with fewer cores than woodlawn, set `WHISPER_THREADS` in the
    systemd unit (see `MACHINES.md`).
 4. Install the voice client extension:
    `sudo apt install -y ffmpeg` then `pi install npm:pi-voice-stt`, and write
    `~/.pi/agent/stt.json` with provider type `local`. Full procedure:
-   [`pi/speech-to-text/pi-voice-stt-setup.md`](../pi/speech-to-text/pi-voice-stt-setup.md).
+   [`microphone/pi-voice-stt-setup.md`](../microphone/pi-voice-stt-setup.md).
 
-Skills need no install step for pi: sessions inside this repo auto-discover
-`.agents/skills/`.
+pi skills and extensions install via stow (symlinks into `~/.pi/agent/`):
+
+```bash
+stow -d ~/dotfiles/harness -t ~/.pi/agent pi
+```
 
 ---
 
@@ -77,7 +81,7 @@ Skills need no install step for pi: sessions inside this repo auto-discover
 Before leaving machine A:
 
 ```bash
-cd ai-harness
+cd ~/dotfiles
 git add -A && git commit -m "harness config update"   # if anything changed
 git push
 ```
@@ -85,10 +89,11 @@ git push
 On machine B before working:
 
 ```bash
-cd ai-harness && git pull
+cd ~/dotfiles && git pull && cd harness
 npm run dsh:setup          # re-applies dsh config, idempotent
-npm run skills:install     # refreshes ~/.dsh/skills
-# whisper server: only rebuild if pi/speech-to-text changed
+npm run skills:install     # refreshes ~/.dsh/skills from dsh/skills
+stow -d ~/dotfiles/harness -t ~/.pi/agent pi   # refreshes pi skills + extensions
+# whisper server: only rebuild if microphone/ changed
 # restart both harnesses, then run the parity check below
 ```
 
@@ -107,14 +112,14 @@ a new API key on B is added in the GUI on B, and again on A when you return.
 |---|---|---|
 | dsh setup/login/bridge scripts | yes | `dsh/scripts/` |
 | Pinned dsh vendor tarballs | yes | `dsh/vendor/` |
-| Vendored skills (pstack-strict, 30) | yes | `.agents/skills/` |
+| pi skills + extensions (pstack-strict, 30 + `unslop.ts`) | yes, via stow | `pi/skills/`, `pi/extensions/` → `~/.pi/agent/` |
+| dsh skills (pstack-strict, 30) | yes, via `npm run skills:install` | `dsh/skills/` → `~/.dsh/skills/` |
 | dsh profile patch, `kimi` preset, `settings.yaml` | yes, written by `npm run dsh:setup` | `~/.dsh/…` |
-| dsh user-root skills | yes, via `npm run skills:install` | `~/.dsh/skills/` |
-| pi whisper server source + setup doc | yes | `pi/speech-to-text/rust-whisper-server/` |
+| pi whisper server source + setup doc | yes | `microphone/rust-whisper-server/` |
 | pi-voice-stt extension install (npm package) | no, per machine via `pi install` | `~/.pi/agent/npm/node_modules/pi-voice-stt`, settings.json |
 | pi-voice-stt config (`stt.json`, provider `local`) | no, per machine | `~/.pi/agent/stt.json` |
-| Whisper build (`target/`), logs | no, rebuilt per machine | `pi/speech-to-text/rust-whisper-server/` (gitignored) |
-| Whisper model `ggml-base.bin` (147 MB) | no, too big for git; rsync or re-download (checksum in its SETUP.md) | same dir |
+| Whisper build (`target/`), logs | no, rebuilt per machine | `microphone/rust-whisper-server/` (gitignored) |
+| Whisper model `ggml-base.bin` (147 MB) | no, too big for git; rsync or re-download (checksum in its SETUP.md) | `microphone/rust-whisper-server/` |
 | Whisper systemd unit | content is in its SETUP.md; installed per machine | `~/.config/systemd/user/` |
 | Kimi CLI login / OAuth / sessions | **per machine** | `~/.kimi-code/` |
 | dsh subscription credential | **per machine**, via `npm run dsh:kimi-login` | `~/.dsh/.credentials.yaml` |
@@ -168,7 +173,11 @@ ls ~/.dsh/skills/                           # 30 skills
 # pi whisper server
 systemctl --user is-active rust-whisper-server   # → active
 curl http://localhost:10301/health               # → OK
-sha256sum pi/speech-to-text/rust-whisper-server/ggml-base.bin   # 60ed5bc3…2efe
+sha256sum ~/dotfiles/microphone/rust-whisper-server/ggml-base.bin   # 60ed5bc3…2efe
+
+# pi skills + extensions (stow)
+readlink ~/.pi/agent/extensions/unslop.ts          # → ~/dotfiles/harness/pi/extensions/unslop.ts
+ls ~/.pi/agent/skills/                             # 30 symlinked skills + any local ones
 
 # pi voice client
 pi list                                          # → npm:pi-voice-stt
@@ -187,7 +196,7 @@ Outputs should match on both machines. Secrets differ, which is expected.
 | `OAuth refresh failed … invalid grant` | Token lineage died. `npm run dsh:kimi-login` (or `kimi login` + `npm run dsh:bridge`). |
 | Bridge version mismatch on `npm run dsh:setup` | dsh must be `0.1.1-rc.2` on that machine. |
 | Skills missing in a session | `npm run skills:install`, then start a new session. |
-| Whisper server down after repo update | Paths moved 2026-09-03 into `pi/` and 2026-09-11 to `~/dotfiles`; reinstall the systemd unit from the whisper SETUP.md and `systemctl --user daemon-reload`. |
+| Whisper server down after repo update | Paths moved 2026-09-03 into `pi/`, 2026-09-11 to `~/dotfiles`, and 2026-09-11 out to `~/dotfiles/microphone/`; reinstall the systemd unit from the whisper SETUP.md and `systemctl --user daemon-reload`. |
 | Unit crash-loops, exit `status 209/STDOUT` | The unit's `WorkingDirectory`/`ExecStart`/log paths point at a location that does not exist on this machine. Canonical checkout is `~/dotfiles` on both machines; fix the paths, `daemon-reload`, restart. |
 | `server.err.log` has `failed to open 'ggml-base.bin'` | The model (gitignored, 147 MB) did not survive a move. Re-download or rsync it; checksum in the whisper SETUP.md. |
 | Voice dead in pi, mic records fine | The whisper server is the backend, not the mic. `systemctl --user status rust-whisper-server`; `curl -m 3 localhost:10301/health`. See the incident section in the whisper SETUP.md. |

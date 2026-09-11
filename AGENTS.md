@@ -13,7 +13,9 @@ machine you are on, do those steps before anything else.
 
 - `harness/` — the agent harness configs: `pi/` (stow package for
   `~/.pi/agent/`: skills + extensions), `dsh/` (DeepSeek harness + Kimi
-  integration), `sync/` (the woodlawn ↔ linden swap runbook), `docs/`.
+  integration), `docs/`.
+- `machine-rotation/` — the woodlawn ↔ linden swap runbook and
+  per-machine facts (`MACHINES.md`).
 - `microphone/` — the whisper STT server (Rust). Kept out of the stow
   package; its `target/`, model, and logs are gitignored.
 
@@ -27,4 +29,4 @@ machine you are on, do those steps before anything else.
 - pi consistency across machines is stow:
   `stow -d ~/dotfiles/harness -t ~/.pi/agent pi`.
 - Never hardcode machine-specific paths in tracked files; woodlawn and
-  linden differ (see `harness/sync/MACHINES.md`).
+  linden differ (see `machine-rotation/MACHINES.md`).

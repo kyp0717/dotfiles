@@ -21,7 +21,7 @@ across two computers (woodlawn and linden) that swap weekly:
 | `pi/skills/` + `pi/extensions/` | pi's skill set (30 pstack-strict skills) and extensions (`unslop.ts`). Stowed to `~/.pi/agent/`: `stow -d ~/dotfiles/harness -t ~/.pi/agent pi`. |
 | `dsh/skills/` | dsh's own skill set, an independent copy that may diverge. `npm run skills:install` copies them to `~/.dsh/skills/`. |
 | `docs/` | Harness-agnostic docs: `POTETO-SKILLS-WORKFLOW.md` (using the pstack skills). |
-| `sync/` | Keeping woodlawn and linden identical: the swap runbook (`README.md`) and per-machine facts (`MACHINES.md`). |
+| `../machine-rotation/` | Keeping woodlawn and linden identical: the swap runbook (`README.md`) and per-machine facts (`MACHINES.md`), at the dotfiles root. |
 | `../HANDOFF.md` | Session continuation brief, at the dotfiles root. Read first in a new context window. |
 
 ## Quick start (one machine)
@@ -44,5 +44,5 @@ stow -d ~/dotfiles/harness -t ~/.pi/agent pi
 
 Full procedures: [`dsh/docs/SETUP.md`](dsh/docs/SETUP.md) for dsh,
 [`../microphone/rust-whisper-server/SETUP.md`](../microphone/rust-whisper-server/SETUP.md)
-for the whisper server, and [`sync/README.md`](sync/README.md) for the
+for the whisper server, and [`../machine-rotation/README.md`](../machine-rotation/README.md) for the
 fresh-machine runbook and weekly swap.
