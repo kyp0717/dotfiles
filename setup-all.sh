@@ -35,6 +35,7 @@ run_subagent "$SCRIPT_DIR/scripts/setup-local-bin.sh" "Shell PATH"
 echo -e "\n${GREEN}Installing development tools...${NC}"
 [ -f "$SCRIPT_DIR/scripts/neovim.install.sh" ] && "$SCRIPT_DIR/scripts/neovim.install.sh"
 [ -f "$SCRIPT_DIR/scripts/starship.sh" ] && "$SCRIPT_DIR/scripts/starship.sh"
+[ -f "$SCRIPT_DIR/graft/graft-install.sh" ] && "$SCRIPT_DIR/graft/graft-install.sh"
 
 # Neovim config is vanilla kickstart.nvim (git submodule at nvim/.config/nvim).
 # Deploy it with: stow nvim/
