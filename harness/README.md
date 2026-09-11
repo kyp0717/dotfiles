@@ -17,8 +17,9 @@ across two computers (woodlawn and linden) that swap weekly:
 | `dsh/scripts/` | Idempotent dsh setup: `setup-kimi.mjs` (bridge install, profile patch, preset, settings), `kimi-login.mjs` (subscription login), `bridge-kimi-token.mjs` (token import, fallback), `install-skills.mjs`, `import-skills.mjs`. |
 | `dsh/vendor/` | Pinned tarballs for offline install, SHA-256s in git history. |
 | `dsh/docs/` | dsh-specific docs: `SETUP.md` (one machine), `KIMI-INTEGRATION.md` (deep dive), `MODIFYING-DSH.md`, `ORCHESTRATION.md` (subagents, workflows, ralph). |
-| `pi/speech-to-text/` | Rust whisper server source + setup doc, plus the pi-voice-stt client extension setup doc. Model and build artifacts stay local. |
-| `.agents/skills/` | 30 vendored skills (pstack-strict). pi auto-discovers them in this repo; `npm run skills:install` copies them to `~/.dsh/skills/`. |
+| `../microphone/` | Rust whisper server source + setup doc, plus the pi-voice-stt client extension setup doc. Model and build artifacts stay local. |
+| `pi/skills/` + `pi/extensions/` | pi's skill set (30 pstack-strict skills) and extensions (`unslop.ts`). Stowed to `~/.pi/agent/`: `stow -d ~/dotfiles/harness -t ~/.pi/agent pi`. |
+| `dsh/skills/` | dsh's own skill set, an independent copy that may diverge. `npm run skills:install` copies them to `~/.dsh/skills/`. |
 | `docs/` | Harness-agnostic docs: `POTETO-SKILLS-WORKFLOW.md` (using the pstack skills). |
 | `sync/` | Keeping woodlawn and linden identical: the swap runbook (`README.md`) and per-machine facts (`MACHINES.md`). |
 | `HANDOFF.md` | Session continuation brief. Read first in a new context window. |
@@ -33,12 +34,15 @@ npm run dsh:setup        # idempotent; safe to re-run
 npm run dsh:kimi-login   # per-machine subscription credential
 npm run skills:install   # repo skills → ~/.dsh/skills
 
+# pi: skills + extensions via stow (symlinks into ~/.pi/agent)
+stow -d ~/dotfiles/harness -t ~/.pi/agent pi
+
 # pi voice: whisper server plus client extension
-# see pi/speech-to-text/rust-whisper-server/SETUP.md and
-# pi/speech-to-text/pi-voice-stt-setup.md
+# see ../microphone/rust-whisper-server/SETUP.md and
+# ../microphone/pi-voice-stt-setup.md
 ```
 
 Full procedures: [`dsh/docs/SETUP.md`](dsh/docs/SETUP.md) for dsh,
-[`pi/speech-to-text/rust-whisper-server/SETUP.md`](pi/speech-to-text/rust-whisper-server/SETUP.md)
+[`../microphone/rust-whisper-server/SETUP.md`](../microphone/rust-whisper-server/SETUP.md)
 for the whisper server, and [`sync/README.md`](sync/README.md) for the
 fresh-machine runbook and weekly swap.

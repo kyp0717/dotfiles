@@ -4,7 +4,9 @@ How to use [poteto's pstack](https://github.com/cursor/plugins/tree/main/pstack)
 — the plugin of engineering principles, evidence discipline, and playbook
 routing — in this harness.
 
-**The loaded set (vendored in `.agents/skills/`) is pstack-strict: 30 skills.**
+**The loaded set is pstack-strict: 30 skills, vendored twice: `pi/skills/`
+(stowed to `~/.pi/agent/skills/`) and `dsh/skills/` (copied to
+`~/.dsh/skills/`). The two sets are independent and may diverge.**
 
 - **20 engineering principles** (`principle-prove-it-works`,
   `principle-encode-lessons-in-structure`, …) — the design guardrails.

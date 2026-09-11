@@ -19,9 +19,10 @@ machines (woodlawn, linden) that swap weekly:
   whisper-rs, `ggml-base.bin`, OpenAI-compatible endpoint on `0.0.0.0:10301`)
   as the transcription backend. Client install: `pi install npm:pi-voice-stt`
   plus `sudo apt install ffmpeg`.
-- Poteto's pstack-strict skills (30) vendored in `.agents/skills/`, used by
-  both harnesses: pi auto-discovers them in this repo, dsh gets them via
-  `npm run skills:install`.
+- Poteto's pstack-strict skills (30) vendored twice, once per harness:
+  `pi/skills/` (stowed to `~/.pi/agent/skills/`) and `dsh/skills/` (copied
+  to `~/.dsh/skills/` via `npm run skills:install`). The two sets are
+  independent and may diverge.
 
 ## 2. Repo layout (post-2026-09-03)
 
@@ -30,8 +31,10 @@ machines (woodlawn, linden) that swap weekly:
 | `dsh/scripts/` | `setup-kimi.mjs` (idempotent full dsh config), `kimi-login.mjs` (subscription login, recommended auth path), `bridge-kimi-token.mjs` (fallback, shared lineage), `install-skills.mjs`, `import-skills.mjs`, `lib.mjs` |
 | `dsh/vendor/` | Pinned tarballs: `@deepseek-ai/dsh-subagent-acp@0.1.1-rc.2`, `@agentclientprotocol/sdk@0.25.1` |
 | `dsh/docs/` | `SETUP.md`, `KIMI-INTEGRATION.md`, `MODIFYING-DSH.md`, `ORCHESTRATION.md` |
-| `pi/speech-to-text/rust-whisper-server/` | Whisper server source + SETUP.md; model, `target/`, logs are gitignored |
-| `pi/speech-to-text/pi-voice-stt-setup.md` | Client extension install (npm package, ffmpeg, stt.json, keybinds) |
+| `../microphone/rust-whisper-server/` | Whisper server source + SETUP.md; model, `target/`, logs are gitignored |
+| `../microphone/pi-voice-stt-setup.md` | Client extension install (npm package, ffmpeg, stt.json, keybinds) |
+| `pi/skills/` + `pi/extensions/` | pi stow package: `stow -d ~/dotfiles/harness -t ~/.pi/agent pi` links them into `~/.pi/agent/` |
+| `dsh/skills/` | dsh's own skill set (pstack-strict), installed per machine by `npm run skills:install` |
 | `sync/` | `README.md` (fresh-machine runbook + weekly swap + parity checks), `MACHINES.md` (per-machine facts) |
 | `docs/` | `POTETO-SKILLS-WORKFLOW.md` (harness-agnostic) |
 
@@ -59,7 +62,7 @@ unprefixed (`npm run skills:install`, `skills:import`).
   package `pi-voice-stt` 0.7.0 installed via `pi install`, ffmpeg 8.0.1
   installed, config at `~/.pi/agent/stt.json` with provider type `local`
   pointing at the whisper server. The earlier hand-written extension of the
-  same name was removed. See `pi/speech-to-text/pi-voice-stt-setup.md`.
+  same name was removed. See `../microphone/pi-voice-stt-setup.md`.
 
 **linden (2026-09-11):**
 

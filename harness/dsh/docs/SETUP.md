@@ -92,7 +92,7 @@ These intentionally differ per machine and are **not** part of the repo:
   GUI: Settings → API keys → `MOONSHOT_API_KEY` (provider `moonshotai`) or
   `KIMI_API_KEY` (provider `kimi-coding`).
 - **Your Kimi *subscription*** (no API key) — see the next section.
-- **User-root skills** — `~/.dsh/skills/` mirrors the repo's `.agents/skills/`;
+- **User-root skills** — `~/.dsh/skills/` mirrors the repo's `dsh/skills/`;
   install per machine with `npm run skills:install` (idempotent).
 
 ## 4. Use your Kimi Code subscription as the main model (no API key)
@@ -185,16 +185,15 @@ what is missing or out of date. After any re-run: restart the GUI. The
 subscription credential is per-machine: run `npm run dsh:kimi-login` (or `kimi
 login` + `npm run dsh:bridge`) on a machine whenever you re-authenticate there.
 Skills: `npm run skills:install` (idempotent) refreshes `~/.dsh/skills/` from
-the repo's `.agents/skills/`.
+the repo's `dsh/skills/`.
 
 ## 5. Skills and agent orchestration
 
-The repo ships starter skills (`.agents/skills/`) and an orchestration guide:
+The repo ships starter skills (`dsh/skills/`) and an orchestration guide:
 
 - **Skills** — poteto's pstack (30 skills: 20 principles + `poteto-mode` +
-  workflow skills). Auto-discovered in this repo's sessions; available
-  everywhere after `npm run skills:install`. Author new skills as
-  `.agents/skills/<name>/SKILL.md` (frontmatter: `name`,
+  workflow skills). Available everywhere after `npm run skills:install`.
+  Author new skills as `dsh/skills/<name>/SKILL.md` (frontmatter: `name`,
   `description`, optional `whenToUse`).
 - **Orchestration** — see [`ORCHESTRATION.md`](ORCHESTRATION.md): subagents
   (`subagent`, `subagent_fork`), the Kimi CLI subagent (`subagent_kimi`),

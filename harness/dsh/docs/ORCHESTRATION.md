@@ -116,7 +116,7 @@ session; a loaded skill's instructions override generic guidance for that task.
 
 ### Skills in this repo (vendored, git-synced)
 
-`.agents/skills/` holds **30 skills** — poteto's pstack, trimmed to strict (2026-09-02):
+`dsh/skills/` holds **30 skills** — poteto's pstack, trimmed to strict (2026-09-02):
 the 20 engineering principles + `poteto-mode` (style + playbook routing) + the
 workflow skills (`architect`, `arena`, `interrogate`, `tdd`, `why`, `how`,
 `show-me-your-work`, `unslop`, `setup-pstack`). The noodle stage machinery,
@@ -130,8 +130,8 @@ third-party packs, harness-ops skills, and `verify-atlas` were removed; see
 | `architect`, `arena`, `interrogate`, `tdd`, `why`, `how` | Boundary-first design, parallel attempts, multi-model challenge, TDD, evidence-backed walkthroughs |
 | `show-me-your-work`, `unslop` | Auditable decision trail; prose cleanup |
 
-Available in this repo's sessions automatically (`.agents/skills/`); install
-globally on a machine with `npm run skills:install`.
+Install globally on a machine with `npm run skills:install` (copies
+`dsh/skills/` → `~/.dsh/skills/`).
 
 ### Importing third-party collections
 
@@ -142,7 +142,7 @@ This deployment's vendored set is **poteto's pstack plugin** (pstack-strict):
 
 ```bash
 # Re-import poteto's pstack from upstream into the repo (git-synced)
-npm run skills:import -- --dest .agents/skills <url>
+npm run skills:import -- --dest dsh/skills <url>
 ```
 
 | Collection | Format | Compatible? |
@@ -162,7 +162,7 @@ assets), is idempotent, validates the frontmatter exactly like the harness
 
 ### Authoring workflow (recommended)
 
-1. Put the skill in `.agents/skills/<name>/SKILL.md` in this repo (synced).
+1. Put the skill in `dsh/skills/<name>/SKILL.md` in this repo (synced).
 2. Test it in a session whose workspace is the repo.
 3. `npm run skills:install` on each machine to make it global.
 

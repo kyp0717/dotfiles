@@ -2,9 +2,9 @@
 /**
  * install-skills.mjs — make this repo's skills available everywhere.
  *
- * Repo skills live in `.agents/skills/<name>/SKILL.md` (and optionally
- * `.dsh/skills/`). Sessions whose workspace IS this repo discover them
- * automatically (project roots). This script copies them into the harness
+ * dsh skills live in `dsh/skills/<name>/SKILL.md`, independent from pi's
+ * skill set (`pi/skills`). The two sets start identical but may diverge.
+ * This script copies them into the harness
  * USER root (`$DSH_HOME/skills`) so they are also available in every other
  * workspace/project on the machine.
  *
@@ -21,7 +21,7 @@ import { DSH_HOME, read } from './lib.mjs'
 const flags = { dryRun: process.argv.includes('--dry-run') }
 
 const REPO_ROOT = new URL('../..', import.meta.url).pathname
-const SOURCE_ROOTS = [join(REPO_ROOT, '.agents', 'skills'), join(REPO_ROOT, '.dsh', 'skills')]
+const SOURCE_ROOTS = [join(REPO_ROOT, 'dsh', 'skills')]
 const USER_SKILL_DIR = join(DSH_HOME, 'skills')
 
 const out = {
@@ -45,7 +45,7 @@ function main() {
   const names = new Set()
   for (const root of SOURCE_ROOTS) for (const name of listSkills(root)) names.add(name)
   if (names.size === 0) {
-    out.warn('no skills found under .agents/skills or .dsh/skills')
+    out.warn('no skills found under dsh/skills')
     return
   }
 
