@@ -18,7 +18,7 @@ across two computers (woodlawn and linden) that swap weekly:
 | `dsh/vendor/` | Pinned tarballs for offline install, SHA-256s in git history. |
 | `dsh/docs/` | dsh-specific docs: `SETUP.md` (one machine), `KIMI-INTEGRATION.md` (deep dive), `MODIFYING-DSH.md`, `ORCHESTRATION.md` (subagents, workflows, ralph). |
 | `../microphone/` | Rust whisper server source + setup doc, plus the pi-voice-stt client extension setup doc. Model and build artifacts stay local. |
-| `pi/skills/` + `pi/extensions/` | pi's skill set (30 pstack-strict skills) and extensions (`unslop.ts`). Stowed to `~/.pi/agent/`: `stow -d ~/dotfiles/harness -t ~/.pi/agent pi`. |
+| ` pi/skills (`graft` carries a pending-pi-conversion note) + `pi/extensions/`| pi's skill set (30 pstack-strict skills) and extensions (`unslop.ts`). Stowed to `~/.pi/agent/`: `stow -d ~/dotfiles/harness -t ~/.pi/agent pi`. |
 | `dsh/skills/` | dsh's own skill set, an independent copy that may diverge. `npm run skills:install` copies them to `~/.dsh/skills/`. |
 | `docs/` | Harness-agnostic docs: `POTETO-SKILLS-WORKFLOW.md` (using the pstack skills). |
 | `../machine-rotation/` | Keeping woodlawn and linden identical: the swap runbook (`README.md`) and per-machine facts (`MACHINES.md`), at the dotfiles root. |
