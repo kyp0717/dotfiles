@@ -129,7 +129,7 @@ export async function auditWorktrees({
   nowMs = Date.now(),
   run = executeCommand,
 }) {
-  if (host !== "claude" && host !== "codex") throw new Error(`unknown host: ${host}`);
+  if (host !== "codex") throw new Error(`unknown host: ${host}`);
   const root = resolve(repo);
   const listed = command(run, "git", ["worktree", "list", "--porcelain", "-z"], root);
   if (listed.exitCode !== 0) throw new Error(listed.stderr.trim() || `not a git repository: ${root}`);
@@ -243,7 +243,7 @@ function parseArgs(argv) {
 }
 
 function usage() {
-  return "usage: node worktree-audit.mjs --host <claude|codex> [--repo <path>]";
+  return "usage: node worktree-audit.mjs --host <codex> [--repo <path>]";
 }
 
 export async function main(argv) {

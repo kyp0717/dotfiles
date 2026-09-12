@@ -8,7 +8,6 @@
  *
  *   - <root>/skills/<name>/SKILL.md          (pstack, poteto/how, anthropics/skills, obra/superpowers)
  *   - <root>/.cursor/skills/<name>/SKILL.md  (Cursor-stored skills that are still SKILL.md-based)
- *   - <root>/.claude/skills/<name>/SKILL.md
  *   - <root>/<name>/SKILL.md
  *   - <root>/SKILL.md                        (single-skill repo)
  *   - <root>/<name>.md                       (flat markdown skills)
@@ -114,7 +113,7 @@ function scanRoot(root, found) {
       }
     }
   }
-  for (const rel of ['', 'skills', '.cursor/skills', '.claude/skills', '.agents/skills']) {
+  for (const rel of ['', 'skills', '.cursor/skills']) {
     scanDir(join(root, rel))
   }
   const single = join(root, 'SKILL.md')

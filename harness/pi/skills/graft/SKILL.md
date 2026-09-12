@@ -8,8 +8,8 @@ description: This repo is indexed by graft/. For ANY task here, whether
 
 # graft
 
-> Ported 2026-09-12 from the Claude Code copy that lived at
-> `ls-trader/.claude/skills/graft/` (removed). Not yet converted for pi:
+> Ported 2026-09-12 from the former per-repo agent skill (removed from
+> ls-trader). Not yet converted for pi:
 > review the tally/reporting conventions and the MCP paragraph at the end
 > against pi's tool surfaces, then drop this note.
 

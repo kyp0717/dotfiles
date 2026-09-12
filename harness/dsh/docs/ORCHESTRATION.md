@@ -157,7 +157,7 @@ The importer copies each skill's whole directory (SKILL.md + `references/` +
 assets), is idempotent, validates the frontmatter exactly like the harness
 (`name` kebab-case + `description`), and warns on name collisions
 (`--force` overwrites). It scans `skills/`, `.cursor/skills/`,
-`.claude/skills/`, `.agents/skills/`, `<name>/`, single-skill roots, and flat
+`<name>/`, single-skill roots, and flat
 `*.md` files.
 
 ### Authoring workflow (recommended)

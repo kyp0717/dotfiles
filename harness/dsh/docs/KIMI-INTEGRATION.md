@@ -69,10 +69,10 @@ Two planes matter for this integration:
 
 - **Host composition** — process-global services, including the **subagent
   provider registry** (`ctx.subagents`). Providers register here under unique
-  names (`spawn`, `fork`, and optional product bridges such as `codex`,
-  `claude-code`, or our `kimi`).
+  names (`spawn`, `fork`, and optional product bridges such as `codex`
+  or our `kimi`).
 - **Agent presets** — per-agent tools. The shipped `standard` preset contains
-  *disabled* rows for `subagent-codex` and `subagent-claude-code`, with the
+  a *disabled* row for `subagent-codex`, with the
   comment: *"Install the matching Bundle in this Profile and restart the Host,
   then copy this preset and remove `disabled` from the matching tool row."*
 

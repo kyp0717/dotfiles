@@ -127,7 +127,7 @@ stow -v <package>/
 
 - **`prps/project.md`** - Detailed project structure and philosophy
 - **`prps/tasks.md`** - Current development tasks and TODO items
-- **`CLAUDE.md`** - AI assistant guidelines for repository development
+- **`AGENTS.md`** - AI assistant guidelines for repository development
 
 ## Troubleshooting
 

@@ -29,7 +29,7 @@ cat <<'EOF'
 Next steps (per repo you want to wire up):
   cd <your-project>
   graft init --dry-run   # preview what it would touch
-  graft init             # build graft/ + wire into your agent (claude code, cursor, ...)
+  graft init             # build graft/ + wire into your agent (cursor, pi, ...)
 
 Notes:
   - graft/ is a regenerable local cache, auto-added to .gitignore

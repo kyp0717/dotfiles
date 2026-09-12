@@ -37,17 +37,17 @@ alwaysApply: true
 # pstack model configuration. One line per role. Delete a line to fall back to the skill default.
 feature, refactoring: composer-2.5-fast
 bug-fix, perf-issue: gpt-5.5-high-fast
-judgment and prose: claude-opus-4-8-thinking-xhigh
+judgment and prose: k3
 how explorer: composer-2.5-fast
-how explainer: claude-opus-4-8-thinking-xhigh
-how critics: claude-opus-4-8-thinking-xhigh, gpt-5.5-high-fast, composer-2.5-fast
+how explainer: k3
+how critics: k3, gpt-5.5-high-fast, composer-2.5-fast
 why investigators: composer-2.5-fast
-why synthesizer: claude-opus-4-8-thinking-xhigh
+why synthesizer: k3
 reflect tooling: composer-2.5-fast
-reflect judgment, divergent, synthesizer: claude-opus-4-8-thinking-xhigh
-arena runners: claude-opus-4-8-thinking-xhigh, gpt-5.5-high-fast, composer-2.5-fast
-architect runners: claude-opus-4-8-thinking-xhigh, gpt-5.5-high-fast, composer-2.5-fast
-interrogate reviewers: claude-opus-4-8-thinking-xhigh, gpt-5.5-high-fast, composer-2.5-fast
+reflect judgment, divergent, synthesizer: k3
+arena runners: k3, gpt-5.5-high-fast, composer-2.5-fast
+architect runners: k3, gpt-5.5-high-fast, composer-2.5-fast
+interrogate reviewers: k3, gpt-5.5-high-fast, composer-2.5-fast
 ```
 
 ### 6. Confirm
