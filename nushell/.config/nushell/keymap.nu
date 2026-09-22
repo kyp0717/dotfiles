@@ -42,18 +42,6 @@ let keymap =  [
     event: { send: menupagenext }
 }
 {
-    name: undo_or_previous_page_menu
-    modifier: control
-    keycode: char_z
-    mode: emacs
-    event: {
-	until: [
-	    { send: menupageprevious }
-	    { edit: undo }
-	]
-    }
-}
-{
     name: escape
     modifier: none
     keycode: escape
@@ -238,7 +226,7 @@ let keymap =  [
     name: move_down_ctrl_t
     modifier: control
     keycode: char_t
-    mode: [emacs, vi_normal, vi_insert]
+    mode: [vi_normal, vi_insert]
     event: {
 	until: [
 	    {send: menudown}
@@ -280,13 +268,6 @@ let keymap =  [
     keycode: char_h
     mode: [emacs, vi_insert]
     event: {edit: backspace}
-}
-{
-    name: delete_one_word_backward_ctrl_w
-    modifier: control
-    keycode: char_w
-    mode: [emacs, vi_insert]
-    event: {edit: backspaceword}
 }
 {
     name: move_left_vi_normal
