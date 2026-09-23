@@ -1,0 +1,5 @@
+# Blue Yeti (046d:0ab7) wedges when USB autosuspend kicks in during idle:
+# the device stays enumerated but every capture read returns EIO, and only
+# a physical replug (port power cycle) revives it. Keep it always on.
+# See microphone/yeti-usb-reset.md in the dotfiles repo.
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="0ab7", ATTR{power/control}="on"
