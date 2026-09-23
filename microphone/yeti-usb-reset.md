@@ -26,6 +26,7 @@ power cycling works: physical replug, or `uhubctl -l 1-7 -p 1 -a cycle`
 (not installed; works only if the hub supports per-port power switching).
 The helper script below is still worth running on resume because it clears
 milder states, but if capture still fails afterwards, replug.
+Full attempt log with commands and results: `yeti-wedge-attempts.md`.
 
 ## One-time setup (per machine, needs sudo)
 

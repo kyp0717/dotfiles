@@ -133,8 +133,8 @@ unprefixed (`npm run skills:install`, `skills:import`).
   authorized, `usbreset`) all fail on the deep wedge, verified 2026-09-23.
   Defense on linden: udev rule `50-yeti-no-autosuspend.rules`
   (`power/control=on`, installed) + the `yeti-mic-reset` pi extension for
-  resume detection (`/mic-reset` manual). Full notes:
-  `microphone/yeti-usb-reset.md`.
+  resume detection (`/mic-reset` manual). Full attempt log with every
+  failed command: `microphone/yeti-wedge-attempts.md`.
 - **Whisper down after a repo move**: crash-loop `status 209/STDOUT` = stale
   unit paths; panic on `ggml-base.bin` = model lost. Both faults and the
   verification checklist are in the whisper SETUP.md incident section.
