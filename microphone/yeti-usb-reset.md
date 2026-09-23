@@ -21,9 +21,9 @@ and runs the helper. A `/mic-reset` command in pi triggers it manually.
 
 **Limitation (verified 2026-09-23):** once the deep wedge hits, no software
 reset revives the device. Tried and all left capture returning EIO: USB
-unbind/bind, authorize/deauthorize, `usbreset` (USBDEVFS_RESET). Only port
-power cycling works: physical replug, or `uhubctl -l 1-7 -p 1 -a cycle`
-(not installed; works only if the hub supports per-port power switching).
+unbind/bind, authorize/deauthorize, `usbreset` (USBDEVFS_RESET). `uhubctl`
+port power cycling is not available either: no hub on linden supports
+per-port power switching. Only a physical replug revives it.
 The helper script below is still worth running on resume because it clears
 milder states, but if capture still fails afterwards, replug.
 Full attempt log with commands and results: `yeti-wedge-attempts.md`.

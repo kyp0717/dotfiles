@@ -39,6 +39,7 @@ returning EIO. Do not repeat them expecting a different result.
 | 4 | Parent hub unbind/bind | `echo 1-7 > .../drivers/usb/unbind` then bind (via pkexec) | Interrupted by user before verdict; superseded by #5/#6 results |
 | 5 | `usbreset` by device path | `usbreset /dev/bus/usb/001/009` | `No such device found` (path form not accepted) |
 | 6 | `usbreset` by vendor:product | `usbreset 046d:0ab7` | `Resetting Blue Microphones ... ok`, capture still EIO |
+| 7 | `uhubctl` port power cycle | installed 2.6.0-3, `pkexec uhubctl` | `No compatible devices detected` — no hub on linden supports per-port power switching |
 
 What finally worked: unplug the Yeti, wait 10 s, replug.
 
@@ -47,9 +48,10 @@ What finally worked: unplug the Yeti, wait 10 s, replug.
 Unbind/bind, authorize/deauthorize, and USBDEVFS_RESET all re-enumerate
 or re-signal the device on the same powered port. The Yeti's failure state
 lives in its own USB PHY power domain; it clears only when the port power
-drops. Replug drops port power. The only cmdline tool that does the same
-is `uhubctl` (`uhubctl -l 1-7 -p 1 -a cycle`), untested here, not
-installed, and it only works if hub 1-7 supports per-port power switching.
+drops. Replug drops port power. The cmdline equivalent would be `uhubctl`,
+but linden's hubs do not support per-port power switching (`uhubctl` as
+root: no compatible devices detected, 2026-09-23), so no command-line
+replug exists on this machine.
 
 ## Test-method pitfalls hit during this incident
 

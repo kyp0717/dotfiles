@@ -128,9 +128,10 @@ unprefixed (`npm run skills:install`, `skills:import`).
 - **`poteto-mode` is user-invocable only** (`disable-model-invocation`).
 - **Whisper input format**: WAV, 16 kHz, mono; the server does not resample.
 - **Blue Yeti dead after suspend/idle**: USB autosuspend (or S3) wedges
-  it — enumerated but capture returns EIO, and only a port power cycle
-  (replug, or `uhubctl` cycle) revives it. Software resets (unbind/bind,
-  authorized, `usbreset`) all fail on the deep wedge, verified 2026-09-23.
+  it — enumerated but capture returns EIO, and only a physical replug
+  revives it. Software resets (unbind/bind, authorized, `usbreset`) all
+  fail on the deep wedge, and `uhubctl` is a dead end (no hub with
+  per-port power switching), verified 2026-09-23.
   Defense on linden: udev rule `50-yeti-no-autosuspend.rules`
   (`power/control=on`, installed) + the `yeti-mic-reset` pi extension for
   resume detection (`/mic-reset` manual). Full attempt log with every
