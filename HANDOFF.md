@@ -127,9 +127,13 @@ unprefixed (`npm run skills:install`, `skills:import`).
   (see `docs/POTETO-SKILLS-WORKFLOW.md` § 4).
 - **`poteto-mode` is user-invocable only** (`disable-model-invocation`).
 - **Whisper input format**: WAV, 16 kHz, mono; the server does not resample.
-- **Blue Yeti dead after S3 suspend**: device wedges, only a replug revives
-  it. Handled by the `yeti-mic-reset` pi extension (auto-reset on resume,
-  `/mic-reset` manual) plus a passwordless-sudo helper. Setup per machine:
+- **Blue Yeti dead after suspend/idle**: USB autosuspend (or S3) wedges
+  it — enumerated but capture returns EIO, and only a port power cycle
+  (replug, or `uhubctl` cycle) revives it. Software resets (unbind/bind,
+  authorized, `usbreset`) all fail on the deep wedge, verified 2026-09-23.
+  Defense on linden: udev rule `50-yeti-no-autosuspend.rules`
+  (`power/control=on`, installed) + the `yeti-mic-reset` pi extension for
+  resume detection (`/mic-reset` manual). Full notes:
   `microphone/yeti-usb-reset.md`.
 - **Whisper down after a repo move**: crash-loop `status 209/STDOUT` = stale
   unit paths; panic on `ggml-base.bin` = model lost. Both faults and the
