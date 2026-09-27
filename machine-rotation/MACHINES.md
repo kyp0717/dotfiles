@@ -40,6 +40,8 @@ section in the whisper SETUP.md).
 
 ## Notes
 
+- The RX 6700 XT install is **linden-only**. Woodlawn stays GPU-less;
+  do not move the card or the cable plan there. See `GPU-CABLE-TEST.md`.
 - The whisper model file (`ggml-base.bin`, 147 MB) is not in git. Transfer it
   with rsync or re-download; the sha256 is in the whisper SETUP.md.
 - dsh has no per-machine tuning beyond secrets; `npm run dsh:setup` writes
