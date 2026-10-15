@@ -5,18 +5,14 @@ local keys_custom = require("keys")
 local tabs = require("tabs")
 local colors = require("colors")
 
--- Disable Wayland to use XWayland
--- wezterm not working on Wayland with nvidia drivers, see
-config.enable_wayland = false
+-- Native Wayland (the default). XWayland was forced here for the old NVIDIA
+-- card, but it broke clipboard sync with native Wayland apps. The AMD 6700 XT
+-- drives native Wayland fine, so the override and the XWayland cursor
+-- workarounds are gone.
 
--- Set cursor size and theme to fix scaling under XWayland
-config.xcursor_size = 40
-config.xcursor_theme = "Adwaita"
-
--- Reason: default WebGpu front-end leaks/locks up on the NVIDIA proprietary
--- driver over XWayland (caused a compositor freeze on 2026-06-02). OpenGL is
--- the stable path for this setup.
-config.front_end = "OpenGL"
+-- Default WebGpu front-end. OpenGL was forced for the NVIDIA proprietary
+-- driver (compositor freeze 2026-06-02). AMD 6700 XT + Mesa handles WebGpu.
+-- Re-add `config.front_end = "OpenGL"` if rendering glitches appear.
 
 -- Reason: cap per-pane scrollback so a long-lived session can't grow unbounded.
 config.scrollback_lines = 5000
@@ -40,10 +36,11 @@ config.font_size = 15.0
 config.line_height = 1.0
 config.bold_brightens_ansi_colors = true
 -- config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
+config.color_schemes = colors.color_schemes
 config.color_scheme = colors.color_scheme
 config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 config.window_padding = { left = "0.5cell", right = "0.5cell", top = "0.5cell", bottom = "0.5cell" }
--- Reason: opaque to take alpha-blending load off the NVIDIA/XWayland compositor.
+-- Opaque background; no alpha blending needed.
 config.window_background_opacity = 1.0
 config.macos_window_background_blur = 20
 config.default_cursor_style = "BlinkingBar"
