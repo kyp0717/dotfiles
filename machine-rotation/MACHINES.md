@@ -7,10 +7,10 @@ both (enforced by the repo, see `README.md` in this folder).
 | | woodlawn | linden |
 |---|---|---|
 | Status | current daily driver | active since 2026-09-07; mic is a Blue Yeti (see ls-trader resource doc for its suspend/resume failure modes) |
-| CPU | Threadripper, 16 threads used for whisper | Ryzen, 24 threads; `WHISPER_THREADS` not tuned yet (GPU does the work) |
-| GPU | none (no NVIDIA card, no `nvidia-smi`) | GTX 1070, 8 GB, Pascal (compute capability 6.1); RX 6700 XT 12 GB OEM install planned |
+| CPU | Threadripper, 16 threads used for whisper | Ryzen, 24 threads; `WHISPER_THREADS` not tuned yet (whisper now runs on CPU since the GPU swap) |
+| GPU | none (no NVIDIA card, no `nvidia-smi`) | RX 6700 XT, 12 GB, Navi 22 (RDNA 2), amdgpu; GTX 1070 removed 2026-10 |
 | PSU | unknown | Corsair AX1200, 1200 W, 80+ Gold, fully modular (6 PCIe 6+2 leads); unit dates to ~2010, watch for capacitor age; spare modular cables not available, see `GPU-CABLE-TEST.md` before buying generics |
-| Whisper backend (`run.sh` picks by hostname) | `cpu` | `cuda` — nvidia-cuda-toolkit 12.4 installed 2026-09-07 (`/usr/bin/nvcc`, accepts system gcc-15); run.sh falls back to `cpu` if nvcc disappears |
+| Whisper backend (`run.sh` picks by hostname) | `cpu` | `cpu` — no NVIDIA card now (AMD 6700 XT); CUDA toolkit removed; ROCm/Vulkan not wired into whisper-rs |
 | OS | Linux (systemd) | Ubuntu 26.04 (systemd), PipeWire + WirePlumber |
 | Whisper threads (`WHISPER_THREADS` env) | 16 (default) | set in the systemd unit once cores are known |
 | Whisper server port | 10301 | 10301 (same, hardcoded) |
@@ -40,8 +40,8 @@ section in the whisper SETUP.md).
 
 ## Notes
 
-- The RX 6700 XT install is **linden-only**. Woodlawn stays GPU-less;
-  do not move the card or the cable plan there. See `GPU-CABLE-TEST.md`.
+- The RX 6700 XT is **linden-only** (installed 2026-10). Woodlawn stays
+  GPU-less; do not move the card or the cable plan there. See `GPU-CABLE-TEST.md`.
 - The whisper model file (`ggml-base.bin`, 147 MB) is not in git. Transfer it
   with rsync or re-download; the sha256 is in the whisper SETUP.md.
 - dsh has no per-machine tuning beyond secrets; `npm run dsh:setup` writes
