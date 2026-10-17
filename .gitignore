@@ -20,5 +20,12 @@ nushell/.config/nushell/history.txt
 /graft/
 
 # microphone STT server build artifacts and local state
-/microphone/rust-whisper-server/ggml-base.bin
-/microphone/rust-whisper-server/target/
+/resource/microphone/rust-whisper-server/ggml-base.bin
+/resource/microphone/rust-whisper-server/target/
+
+# dsh local state (npm scripts scratch)
+.npm-cache/
+.scratch/
+.dsh-ref/
+.deploy/
+.fixture/
