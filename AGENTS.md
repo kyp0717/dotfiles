@@ -18,6 +18,9 @@ before anything else.
   and `pi/.agents/skills/` → `~/.agents/skills/` (the skill set pi
   discovers, pstack plus `swarm`, `recall`, `bro`, etc.). No secrets:
   nothing with credentials, sessions, or auth may be tracked.
+  `~/.pi/agent/settings.json` is NOT stowed (pi rewrites it constantly);
+  the tracked reference copy is `resource/pi-agent-settings.json`,
+  deployed by copy, never symlink.
 - `dsh/` — the DeepSeek harness + Kimi integration: `dsh/scripts/`
   (npm scripts, run from the repo root), `dsh/docs/`, `dsh/skills/`,
   `dsh/vendor/`.
