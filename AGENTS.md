@@ -55,3 +55,9 @@ before anything else.
   root (`npm run dsh:setup`, `npm run skills:install`, …).
 - Never hardcode machine-specific paths in tracked files; woodlawn and
   linden differ (see `resource/machine-rotation/MACHINES.md`).
+- **Real files live in `~/dotfiles`; symlinks live outside it.** Stow
+turns the repo into the source of truth: anything in `~` that comes from
+this repo is a symlink pointing into `~/dotfiles`, never a copy and never
+the reverse (no symlinks inside the repo, no real config files scattered
+in `~`). A file under `~` that is not a symlink into the repo is either
+per-machine state (credentials, caches) or not yet adopted.
