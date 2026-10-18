@@ -26,7 +26,7 @@ git clone dotfiles
   →  npm run skills:install     # dsh/skills → ~/.dsh/skills
   →  npm run dsh:kimi-login     # per-machine Kimi subscription credential
   →  stow -d ~/dotfiles pi                          # pi providers, skills, extensions
-  →  microphone/rust-whisper-server/run.sh          # builds + runs whisper (see its SETUP.md)
+  →  resource/microphone/rust-whisper-server/run.sh # builds + runs whisper (see its SETUP.md)
 ```
 
 Every step is idempotent. Re-running on a drifted machine brings it back.
@@ -52,7 +52,7 @@ and optionally the Kimi Code CLI (`kimi`) which powers `subagent_kimi`.
    any pay-as-you-go Kimi keys you use
 7. Restart the GUI and run the parity check below
 
-Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../dsh/docs/SETUP.md).
+Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../../dsh/docs/SETUP.md).
 
 ### pi
 
@@ -61,13 +61,13 @@ Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../dsh/docs/SETUP.md).
    hostname; both machines are `cpu` since linden's GTX 1070 was replaced
    with an AMD RX 6700 XT, which whisper-rs cannot use), then register it as
    a systemd user service. Full procedure:
-   [`microphone/rust-whisper-server/SETUP.md`](../microphone/rust-whisper-server/SETUP.md).
+   [`resource/microphone/rust-whisper-server/SETUP.md`](../../resource/microphone/rust-whisper-server/SETUP.md).
 3. On machines with fewer cores than woodlawn, set `WHISPER_THREADS` in the
    systemd unit (see `MACHINES.md`).
 4. Install the voice client extension:
    `sudo apt install -y ffmpeg` then `pi install npm:pi-voice-stt`, and write
    `~/.pi/agent/stt.json` with provider type `local`. Full procedure:
-   [`microphone/pi-voice-stt-setup.md`](../microphone/pi-voice-stt-setup.md).
+   [`resource/microphone/pi-voice-stt-setup.md`](../../resource/microphone/pi-voice-stt-setup.md).
 
 pi skills and extensions install via stow (symlinks into `~/.pi/agent/`):
 
@@ -90,11 +90,11 @@ git push
 On machine B before working:
 
 ```bash
-cd ~/dotfiles && git pull && cd harness
+cd ~/dotfiles && git pull
 npm run dsh:setup          # re-applies dsh config, idempotent
 npm run skills:install     # refreshes ~/.dsh/skills from dsh/skills
 stow -d ~/dotfiles pi                          # refreshes pi providers, skills, extensions
-# whisper server: only rebuild if microphone/ changed
+# whisper server: only rebuild if resource/microphone/ changed
 # restart both harnesses, then run the parity check below
 ```
 
@@ -113,14 +113,14 @@ a new API key on B is added in the GUI on B, and again on A when you return.
 |---|---|---|
 | dsh setup/login/bridge scripts | yes | `dsh/scripts/` |
 | Pinned dsh vendor tarballs | yes | `dsh/vendor/` |
-| pi skills + extensions (pstack-strict, 30 + `unslop.ts`) | yes, via stow | `pi/skills/`, `pi/extensions/` → `~/.pi/agent/` |
+| pi skills + extensions (pstack-strict, 30 + `unslop.ts`) | yes, via stow | `pi/.agents/skills/`, `pi/.pi/` → `~/.agents/skills/`, `~/.pi/` |
 | dsh skills (pstack-strict, 30) | yes, via `npm run skills:install` | `dsh/skills/` → `~/.dsh/skills/` |
 | dsh profile patch, `kimi` preset, `settings.yaml` | yes, written by `npm run dsh:setup` | `~/.dsh/…` |
-| pi whisper server source + setup doc | yes | `microphone/rust-whisper-server/` |
+| pi whisper server source + setup doc | yes | `resource/microphone/rust-whisper-server/` |
 | pi-voice-stt extension install (npm package) | no, per machine via `pi install` | `~/.pi/agent/npm/node_modules/pi-voice-stt`, settings.json |
 | pi-voice-stt config (`stt.json`, provider `local`) | no, per machine | `~/.pi/agent/stt.json` |
-| Whisper build (`target/`), logs | no, rebuilt per machine | `microphone/rust-whisper-server/` (gitignored) |
-| Whisper model `ggml-base.bin` (147 MB) | no, too big for git; rsync or re-download (checksum in its SETUP.md) | `microphone/rust-whisper-server/` |
+| Whisper build (`target/`), logs | no, rebuilt per machine | `resource/microphone/rust-whisper-server/` (gitignored) |
+| Whisper model `ggml-base.bin` (147 MB) | no, too big for git; rsync or re-download (checksum in its SETUP.md) | `resource/microphone/rust-whisper-server/` |
 | Whisper systemd unit | content is in its SETUP.md; installed per machine | `~/.config/systemd/user/` |
 | Kimi CLI login / OAuth / sessions | **per machine** | `~/.kimi-code/` |
 | dsh subscription credential | **per machine**, via `npm run dsh:kimi-login` | `~/.dsh/.credentials.yaml` |
@@ -173,6 +173,7 @@ ls ~/.dsh/skills/                           # 30 skills
 
 # pi whisper server
 systemctl --user is-active rust-whisper-server   # → active
+grep ExecStart ~/.config/systemd/user/rust-whisper-server.service   # → ~/dotfiles/resource/microphone/...
 curl http://localhost:10301/health               # → OK
 sha256sum ~/dotfiles/resource/microphone/rust-whisper-server/ggml-base.bin   # 60ed5bc3…2efe
 
@@ -197,7 +198,7 @@ Outputs should match on both machines. Secrets differ, which is expected.
 | `OAuth refresh failed … invalid grant` | Token lineage died. `npm run dsh:kimi-login` (or `kimi login` + `npm run dsh:bridge`). |
 | Bridge version mismatch on `npm run dsh:setup` | dsh must be `0.1.1-rc.2` on that machine. |
 | Skills missing in a session | `npm run skills:install`, then start a new session. |
-| Whisper server down after repo update | Paths moved 2026-09-03 into `pi/`, 2026-09-11 to `~/dotfiles`, 2026-09-11 out to `~/dotfiles/microphone/`, and later under `~/dotfiles/resource/microphone/`; reinstall the systemd unit from the whisper SETUP.md and `systemctl --user daemon-reload`. |
+| Whisper server down after repo update | Paths moved 2026-09-03 into `pi/`, 2026-09-11 to `~/dotfiles`, 2026-09-11 out to `~/dotfiles/microphone/`, and later under `~/dotfiles/resource/microphone/`. Canonical path is `~/dotfiles/resource/microphone/rust-whisper-server/`; fix the systemd unit paths and `systemctl --user daemon-reload`. 2026-10-18 recurrence on linden: the unit had been recreated with the pre-`resource/` path because this README still showed it; README fixed. |
 | Unit crash-loops, exit `status 209/STDOUT` | The unit's `WorkingDirectory`/`ExecStart`/log paths point at a location that does not exist on this machine. Canonical checkout is `~/dotfiles` on both machines; fix the paths, `daemon-reload`, restart. |
 | `server.err.log` has `failed to open 'ggml-base.bin'` | The model (gitignored, 147 MB) did not survive a move. Re-download or rsync it; checksum in the whisper SETUP.md. |
 | Voice dead in pi, mic records fine | The whisper server is the backend, not the mic. `systemctl --user status rust-whisper-server`; `curl -m 3 localhost:10301/health`. See the incident section in the whisper SETUP.md. |
