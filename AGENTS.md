@@ -53,6 +53,15 @@ before anything else.
 - pi config, skills, and extensions deploy with one command:
   `stow pi` from the repo root. dsh scripts run with npm from the repo
   root (`npm run dsh:setup`, `npm run skills:install`, …).
+- **Change pi config in the repo, then stow. Never edit `~/.pi` directly.**
+  Every pi setting (provider configs in `pi/.pi/providers/`, agent
+  extensions, skills, keybindings) is edited inside `~/dotfiles` first
+  and deployed with `stow pi` from the repo root. A file created
+  directly under `~/.pi` or `~/.agents` bypasses git, diverges across
+  machines, and dies on the next clone or rotation. If a live path is
+  not a symlink into the repo, it is per-machine state, not a config
+  source. Exception: `~/.pi/agent/settings.json`, deployed by copy from
+  `resource/pi-agent-settings.json` because pi rewrites it constantly.
 - Never hardcode machine-specific paths in tracked files; woodlawn and
   linden differ (see `resource/machine-rotation/MACHINES.md`).
 - **Real files live in `~/dotfiles`; symlinks live outside it.** Stow
