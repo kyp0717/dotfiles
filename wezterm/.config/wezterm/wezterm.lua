@@ -17,7 +17,24 @@ local colors = require("colors")
 -- Reason: cap per-pane scrollback so a long-lived session can't grow unbounded.
 config.scrollback_lines = 5000
 
-config.default_prog = { "/usr/bin/nu" }
+-- Reason: nu install location varies by machine (cargo, ~/.local/bin, or
+-- system package). Probe candidates in priority order and use the first hit.
+local nu_candidates = {
+	wezterm.home_dir .. "/.cargo/bin/nu",
+	wezterm.home_dir .. "/.local/bin/nu",
+	"/usr/local/bin/nu",
+	"/usr/bin/nu",
+}
+local nu_path = "nu" -- fallback: rely on PATH lookup
+for _, candidate in ipairs(nu_candidates) do
+	local f = io.open(candidate, "r")
+	if f then
+		f:close()
+		nu_path = candidate
+		break
+	end
+end
+config.default_prog = { nu_path }
 
 local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
