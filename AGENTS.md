@@ -3,6 +3,18 @@
 This repo is the two-machine (woodlawn ↔ linden) configuration for the
 agent harnesses and the desktop environment.
 
+## Core requirement: two-machine rotation
+
+woodlawn and linden swap roles every 2 weeks. **Every tracked file must
+work on both machines unmodified.** Accommodate differences by probing
+at runtime (hostname switch, `command -v`, filesystem checks) or by
+per-machine facts in `resource/machine-rotation/MACHINES.md`; never by
+hardcoding one machine's paths, binary locations, or hardware in a
+tracked file. If a config cannot be made portable, it is per-machine
+state: keep it out of git and document the recreate steps. A change
+that works only on the machine you are on is broken by definition; the
+other machine inherits it at the next rotation.
+
 **First action in every session here: read the handoff files in
 `resource/handoff/` in full.** They are the continuation brief: current
 live state per machine, pending follow-ups, repo layout. Work in this
