@@ -11,6 +11,16 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# The model is gitignored and per machine; the server panics without it.
+# Fail early with the fix instead of a whisper-rs panic.
+if [ ! -f ggml-base.bin ]; then
+  echo "run.sh: ggml-base.bin missing (147 MB, not in git). Get it:" >&2
+  echo "  curl -L -o ggml-base.bin \\" >&2
+  echo "    https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin" >&2
+  echo "  expect sha256 60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe" >&2
+  exit 1
+fi
+
 host="$(hostname)"
 case "$host" in
   woodlawn) backend=cpu ;;
