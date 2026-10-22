@@ -26,15 +26,17 @@ before anything else.
 
 - `pi/` — stow package for pi itself, same pattern as `nushell/`,
   `wezterm/`, `starship/`: `stow pi` from the repo root links its
-  contents into `~` — `pi/.pi/` → `~/.pi` (providers, agent extensions)
-  and `pi/.agents/skills/` → `~/.agents/skills/` (locally grown skills
-  only: `lesson-learned`, `graft`, `poteto-help`, `correct`,
-  `benchmark-checklist`, and three extra `principle-*`). The canonical
-  pstack is NOT vendored here: it comes from the `pi-pstack` npm
-  package (`npm run pi:pstack:install`, pinned `@0.1.0`, per machine),
-  which is the pi-native port — the old vendored copy was the Cursor
-  port and referenced machinery (`~/.cursor/rules`, Cursor's Task tool)
-  that does not exist in pi. No secrets:
+  contents into `~` — `pi/.pi/` → `~/.pi` (providers, agent extensions,
+  `pi-pstack/`) and `pi/.agents/skills/` → `~/.agents/skills/` (only
+  two local skills: `lesson-learned`, `graft`). The canonical pstack is
+  the `pi-pstack` package **vendored at `pi/.pi/pi-pstack/`** (from
+  npm `pi-pstack@0.1.0`, the pi-native port — the earlier vendored copy
+  was the Cursor port and referenced machinery that does not exist in
+  pi). It loads as a local pi package declared in `settings.json`
+  (`packages: ["../../dotfiles/pi/.pi/pi-pstack"]`; reference copy
+  `resource/pi-agent-settings.json`). Vendored in-repo, not
+  npm-installed, so the skill set is visible in the editor, lives in
+  git, and survives rotation. No secrets:
   nothing with credentials, sessions, or auth may be tracked.
   `~/.pi/agent/settings.json` is NOT stowed (pi rewrites it constantly);
   the tracked reference copy is `resource/pi-agent-settings.json`,
@@ -74,11 +76,12 @@ before anything else.
   retire a unit when its items are done rather than appending forever.
 - **Two skill sets, two owners, both independent.** pi's local set is
   `pi/.agents/skills/` (stowed to `~/.agents/skills/` by `stow pi`);
-  the canonical pstack is the `pi-pstack` npm package (per machine,
-  pinned). dsh's set is `dsh/skills/` (installed to `~/.dsh/skills/` by
-  `npm run skills:install`), still the vendored pstack copy — dsh has
-  no package mechanism. Never point one harness at the other's
-  directory.
+  the canonical pstack is the vendored package `pi/.pi/pi-pstack/`
+  (deployed by the same `stow pi`, declared as a local package in
+  settings.json). dsh's set is `dsh/skills/` (installed to
+  `~/.dsh/skills/` by `npm run skills:install`), still the vendored
+  pstack copy — dsh has no package mechanism. Never point one harness
+  at the other's directory.
 - pi config, skills, and extensions deploy with one command:
   `stow pi` from the repo root. dsh scripts run with npm from the repo
   root (`npm run dsh:setup`, `npm run skills:install`, …).

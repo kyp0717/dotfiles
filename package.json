@@ -15,8 +15,7 @@
     "skills:install": "node dsh/scripts/install-skills.mjs",
     "skills:dry": "node dsh/scripts/install-skills.mjs --dry-run",
     "skills:import": "node dsh/scripts/import-skills.mjs",
-    "skills:import:pstack": "node dsh/scripts/import-skills.mjs 'https://github.com/poteto/plugins#pstack'",
-    "pi:pstack:install": "pi install npm:pi-pstack@0.1.0"
+    "skills:import:pstack": "node dsh/scripts/import-skills.mjs 'https://github.com/poteto/plugins#pstack'"
   },
   "engines": {
     "node": ">=18"

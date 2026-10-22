@@ -54,8 +54,8 @@ stow pi/ 2>/dev/null && echo "  ✓ pi configuration deployed"
 # Deploy the AI harness (dsh + pi skills)
 echo -e "\n${GREEN}Setting up AI harness...${NC}"
 if [ -f "$SCRIPT_DIR/../package.json" ]; then
-    (cd "$SCRIPT_DIR/.." && npm run dsh:setup && npm run skills:install && npm run pi:pstack:install) \
-        && echo "  ✓ Harness deployed (dsh setup + skills + pi-pstack)"
+    (cd "$SCRIPT_DIR/.." && npm run dsh:setup && npm run skills:install) \
+        && echo "  ✓ Harness deployed (dsh setup + skills)"
 fi
 
 echo -e "\n${BLUE}========================================${NC}"
