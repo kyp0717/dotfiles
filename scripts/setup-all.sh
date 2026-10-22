@@ -35,6 +35,7 @@ run_subagent "$SCRIPT_DIR/setup-local-bin.sh" "Shell PATH"
 # (Yeti autosuspend defense). Both are idempotent and need sudo.
 run_subagent "$SCRIPT_DIR/setup-packages.sh" "Required apt packages"
 run_subagent "$SCRIPT_DIR/setup-udev.sh" "udev rules"
+run_subagent "$SCRIPT_DIR/setup-pi-pstack.sh" "pi-pstack package"
 
 # Install tools
 echo -e "\n${GREEN}Installing development tools...${NC}"

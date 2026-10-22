@@ -1,46 +1,39 @@
-# 2026-10-22 — pi-pstack: vendored local package, customs removed
+# 2026-10-22 — pi-pstack: pinned npm install + setup script
 
 ## Final state (woodlawn)
 
-- Canonical pstack = the `pi-pstack` package (44 skills + subagent
-  extension + poteto agents), **vendored in the repo** at
-  `pi/.pi/pi-pstack/` (content of npm `pi-pstack@0.1.0`).
-- Deployed by `stow pi` → `~/.pi/pi-pstack` symlink. Declared as a
-  local package in `~/.pi/agent/settings.json`:
-  `packages: [..., "../../dotfiles/pi/.pi/pi-pstack"]` (pi normalized
-  the path relative to the settings file; works on both machines).
-  Tracked reference: `resource/pi-agent-settings.json`.
-- The npm install was removed (`pi remove npm:pi-pstack@0.1.0`);
-  `~/.pi/agent/npm/` now holds only pi-voice-stt.
+- Canonical pstack = the `pi-pstack` npm package (44 skills + subagent
+  extension + poteto agents), **pinned `@0.1.0`, installed per machine**
+  by `scripts/setup-pi-pstack.sh` (`pi install npm:pi-pstack@0.1.0`,
+  `--check` mode for parity). Wired into `setup-all.sh`.
 - `pi/.agents/skills/` = exactly two local skills: `lesson-learned`,
   `graft`. All pstack-family customs (poteto-help, correct,
   benchmark-checklist, three extra principles) deleted — user decision,
   git history has them.
 - dsh's `dsh/skills/` untouched (no package mechanism in dsh).
 
-## Why vendored instead of npm-installed
+## Design decision (changed twice today; this is the landing point)
 
-npm package installs land in `~/.pi/agent/npm/` — a hidden dot-folder,
-invisible in the editor, outside git, per-machine. Vendoring keeps the
-skill set visible, versioned in git, and identical on both machines
-after `git pull && stow pi`. Upgrades = re-vendor from
-`npm pack pi-pstack@<new>` + one commit.
+First attempt vendored the package into the repo; rejected because
+third-party code does not belong in dotfiles — the repo manages config,
+not upstream content. Same pattern as pi-voice-stt: npm-installed,
+pinned, scripted. The repo's job is the pin + the idempotent installer
+so both machines converge.
+
+(The earlier problem that started all this was different: the
+lesson-learned skill was the user's own uncommitted file. Own code
+lives in git; third-party code comes from its registry, pinned.)
 
 ## For linden (after `git pull`)
 
 ```bash
 cd ~/dotfiles
-stow -R pi    # links ~/.pi/pi-pstack, prunes old skills from ~/.agents/skills
-# settings.json must declare the local package — check:
-python3 -c "import json; print(json.load(open('$HOME/.pi/agent/settings.json'))['packages'])"
-# if '../../dotfiles/pi/.pi/pi-pstack' is missing, add it (or re-copy
-# resource/pi-agent-settings.json, which also carries pi-voice-stt etc.)
-# and remove the npm one if present:
-pi remove npm:pi-pstack@0.1.0 2>/dev/null || true
+stow -R pi                      # prunes old skills from ~/.agents/skills
+scripts/setup-pi-pstack.sh      # installs npm:pi-pstack@0.1.0 if missing
 ```
 
 Verify: `ls ~/.agents/skills` → `graft lesson-learned`;
-`ls ~/.pi/pi-pstack/skills | wc -l` → 44.
+`ls ~/.pi/agent/npm/node_modules/pi-pstack/skills | wc -l` → 44.
 
 ## Notes
 
@@ -50,3 +43,5 @@ Verify: `ls ~/.agents/skills` → `graft lesson-learned`;
   processes, writes confined to tmp + `~/.pi/agent/pstack/`.
 - Skills resolve flat by name across all discovery locations; keeping
   the repo set free of package names is what prevents collisions.
+- Upgrade path: bump `PSTACK_VERSION` in `scripts/setup-pi-pstack.sh`,
+  run on both machines, commit.

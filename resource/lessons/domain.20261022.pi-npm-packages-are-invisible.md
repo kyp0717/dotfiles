@@ -26,18 +26,22 @@ identically on both machines.
 
 ## The fix
 
-pi-pstack is vendored at `pi/.pi/pi-pstack/`, stowed to
-`~/.pi/pi-pstack`, declared as a local package. The npm copy was
-removed. Handoff: `resource/handoff/20261022-pi-pstack-migration.md`.
+pi-pstack is npm-installed, pinned `@0.1.0`, with the pin and an
+idempotent check in `scripts/setup-pi-pstack.sh` (wired into
+`setup-all.sh`). Handoff: `resource/handoff/20261022-pi-pstack-migration.md`.
 
 ## Rules that fall out
 
-- Skill sets this repo owns are vendored directories, not npm installs.
-  npm installs are acceptable only for leaf tools pi manages itself
-  (pi-voice-stt), never for content the user edits or inspects.
+- Own code lives in git; third-party code comes from its registry,
+  pinned, with an install script so both machines converge. Vendoring
+  is for code the user edits or must inspect in the editor, not for
+  maintained upstream packages.
+- Every npm-installed pi package gets a `--check`-capable setup script
+  the moment it becomes required (pi-voice-stt and pi-pstack are the
+  current two).
 - pi's convention for isolating a related skill set is a package
   (folder with `skills/`, `extensions/`, `agents/` + manifest). Plain
   skills directories have no namespacing: names are flat,
   first-discovered wins, collisions only warn.
-- To upgrade a vendored package: `npm pack pi-pstack@<ver>`, unpack
-  over `pi/.pi/pi-pstack/`, commit. Version history lives in git log.
+- To upgrade: bump the pin in the setup script, run on both machines,
+  commit.
