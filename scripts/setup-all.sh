@@ -31,6 +31,11 @@ run_subagent() {
 # Setup core shell environment first
 run_subagent "$SCRIPT_DIR/setup-local-bin.sh" "Shell PATH"
 
+# Required apt packages (stow, ffmpeg, wl-clipboard, ...) and udev rules
+# (Yeti autosuspend defense). Both are idempotent and need sudo.
+run_subagent "$SCRIPT_DIR/setup-packages.sh" "Required apt packages"
+run_subagent "$SCRIPT_DIR/setup-udev.sh" "udev rules"
+
 # Install tools
 echo -e "\n${GREEN}Installing development tools...${NC}"
 [ -f "$SCRIPT_DIR/neovim.install.sh" ] && "$SCRIPT_DIR/neovim.install.sh"

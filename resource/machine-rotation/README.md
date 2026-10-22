@@ -22,6 +22,8 @@ hostnames).
 
 ```
 git clone dotfiles
+  →  scripts/setup-packages.sh   # required apt packages (stow, ffmpeg, wl-clipboard, ...)
+  →  scripts/setup-udev.sh       # udev rules (Yeti autosuspend defense)
   →  npm run dsh:setup          # writes ALL dsh harness config
   →  npm run skills:install     # dsh/skills → ~/.dsh/skills
   →  npm run dsh:kimi-login     # per-machine Kimi subscription credential
@@ -37,6 +39,18 @@ Every step is idempotent. Re-running on a drifted machine brings it back.
 
 Prerequisites: Node.js ≥ 18, git, Rust toolchain (for the whisper server),
 and optionally the Kimi Code CLI (`kimi`) which powers `subagent_kimi`.
+
+First, from the repo root, install the machine-level dependencies (both
+scripts are idempotent and need sudo):
+
+```bash
+scripts/setup-packages.sh   # stow, ffmpeg, wl-clipboard, build deps, ...
+scripts/setup-udev.sh       # Yeti mic autosuspend defense
+```
+
+`wl-clipboard` is not optional on Wayland: pi's copy/paste goes through
+`wl-copy`/`wl-paste`, and without it every copy inside pi fails with
+"Clipboard unavailable".
 
 ### dsh
 
@@ -65,8 +79,9 @@ Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../../dsh/docs/SETUP.md).
 3. On machines with fewer cores than woodlawn, set `WHISPER_THREADS` in the
    systemd unit (see `MACHINES.md`).
 4. Install the voice client extension:
-   `sudo apt install -y ffmpeg` then `pi install npm:pi-voice-stt`, and write
-   `~/.pi/agent/stt.json` with provider type `local`. Full procedure:
+   `pi install npm:pi-voice-stt`, and write
+   `~/.pi/agent/stt.json` with provider type `local`. (ffmpeg comes from
+   `scripts/setup-packages.sh`.) Full procedure:
    [`resource/microphone/pi-voice-stt-setup.md`](../../resource/microphone/pi-voice-stt-setup.md).
 
 pi skills and extensions install via stow (symlinks into `~/.pi/agent/`):
@@ -125,6 +140,8 @@ a new API key on B is added in the GUI on B, and again on A when you return.
 | Kimi CLI login / OAuth / sessions | **per machine** | `~/.kimi-code/` |
 | dsh subscription credential | **per machine**, via `npm run dsh:kimi-login` | `~/.dsh/.credentials.yaml` |
 | Provider API keys | **per machine**, GUI settings | harness settings storage |
+| Required apt packages (`stow`, `ffmpeg`, `wl-clipboard`, build deps) | **per machine**, installed by `scripts/setup-packages.sh` | apt |
+| udev rules (Yeti autosuspend) | **per machine**, installed by `scripts/setup-udev.sh` | `/etc/udev/rules.d/` |
 
 **Rule:** never copy `~/.kimi-code/`, credentials files, or API keys between
 machines, and never commit them. Each machine authenticates once on its own.
@@ -142,7 +159,7 @@ machines, and never commit them. Each machine authenticates once on its own.
 | whisper-rs | `0.13.2` (Cargo.lock) | same | git |
 | Whisper model | `ggml-base.bin`, sha256 `60ed5bc3…2efe` | same | rsync or re-download |
 | pi-voice-stt (npm) | `0.7.0` | `0.7.0` | `pi install npm:pi-voice-stt` on each machine |
-| ffmpeg | apt `8.0.1` | apt `8.0.1` | `sudo apt install ffmpeg` on each machine |
+| ffmpeg + wl-clipboard | apt | apt | `scripts/setup-packages.sh` on each machine |
 
 ## Known-good dsh snapshot (what "identical" means)
 
