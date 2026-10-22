@@ -62,6 +62,13 @@ before anything else.
 
 ## Rules
 
+- **Install binaries, never build from source when a binary exists.**
+  Install scripts download official release tarballs, use apt, or use
+  pinned npm specs. Compiling on the machine is slow, diverges across
+  woodlawn/linden (toolchain drift), and adds a failure surface. Named
+  exception: the whisper server has no published binary, so
+  `resource/microphone/rust-whisper-server/run.sh` builds it with
+  cargo — an exception is stated in the script header, never silent.
 - **Capture lessons with the `lesson-learned` skill.** Any incident,
   human correction, edge case, or project domain knowledge that cost
   time to discover gets captured and routed per that skill: structural
