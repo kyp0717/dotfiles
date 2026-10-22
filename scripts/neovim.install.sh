@@ -21,14 +21,22 @@ if [ "${1:-}" = "--check" ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 1. Install the Neovim binary.
-#    Prefer /opt (system-wide); fall back to ~/.local when sudo is
-#    unavailable (e.g. no passwordless sudo in this session).
+# 1. Install the Neovim binary. One method only, on both machines:
+#      curl -LO .../nvim-linux-x86_64.tar.gz
+#      sudo rm -rf /opt/nvim-linux-x86_64
+#      sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+#    plus a symlink into /usr/local/bin. No source build, no PPA, no
+#    fallback path — a silent ~/.local install diverges the machines.
 #
 #    NEVER trap on $PWD here: section 2 cd's back into the repo, and a
 #    'rm -rf "$PWD"' trap at EXIT once deleted the entire dotfiles repo
 #    (2026-10-22). The temp dir is captured in a variable instead.
 # ---------------------------------------------------------------------------
+if ! sudo -n true 2>/dev/null && ! sudo -v; then
+    echo "neovim.install: sudo is required (installs to /opt)." >&2
+    exit 1
+fi
+
 TMPD="$(mktemp -d)"
 trap 'rm -rf "$TMPD"' EXIT
 cd "$TMPD"
@@ -36,21 +44,11 @@ cd "$TMPD"
 echo "Downloading latest Neovim..."
 curl -fLO "https://github.com/neovim/neovim/releases/latest/download/$ARCHIVE"
 
-if sudo -n true 2>/dev/null; then
-    echo "Installing to /opt/nvim-linux-x86_64..."
-    sudo rm -rf /opt/nvim-linux-x86_64
-    sudo tar -C /opt -xzf "$ARCHIVE"
-    sudo ln -sfn /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
-    NVIM_BIN=/usr/local/bin/nvim
-else
-    echo "sudo not available — installing to ~/.local/nvim-linux-x86_64 instead."
-    rm -rf "$HOME/.local/nvim-linux-x86_64"
-    tar -C "$HOME/.local" -xzf "$ARCHIVE"
-    mkdir -p "$HOME/.local/bin"
-    ln -sfn "$HOME/.local/nvim-linux-x86_64/bin/nvim" "$HOME/.local/bin/nvim"
-    NVIM_BIN="$HOME/.local/bin/nvim"
-    echo "NOTE: ~/.local/bin must be on PATH (scripts/path.config.sh handles this)."
-fi
+echo "Installing to /opt/nvim-linux-x86_64..."
+sudo rm -rf /opt/nvim-linux-x86_64
+sudo tar -C /opt -xzf "$ARCHIVE"
+sudo ln -sfn /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+NVIM_BIN=/usr/local/bin/nvim
 
 # ---------------------------------------------------------------------------
 # 2. Deploy the kickstart.nvim configuration (submodule + stow).
