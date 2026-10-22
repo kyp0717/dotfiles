@@ -31,10 +31,10 @@ before anything else.
   skills: `lesson-learned`, `graft`). The canonical pstack is the
   third-party npm package `pi-pstack` (the pi-native port — the earlier
   vendored copy was the Cursor port and referenced machinery that does
-  not exist in pi), pinned `@0.1.0` and installed per machine by
-  `scripts/setup-pi-pstack.sh` (`pi install npm:pi-pstack@0.1.0`). It
-  lives in `~/.pi/agent/npm/` like pi-voice-stt: third-party code, not
-  repo content. No secrets:
+  not exist in pi), pinned `@0.1.0` in `scripts/pi.requirements.txt`
+  and installed per machine by `scripts/pi.install.sh` (which also
+  installs the pinned harness). It lives in `~/.pi/agent/npm/` like
+  pi-voice-stt: third-party code, not repo content. No secrets:
   nothing with credentials, sessions, or auth may be tracked.
   `~/.pi/agent/settings.json` is NOT stowed (pi rewrites it constantly);
   the tracked reference copy is `resource/pi-agent-settings.json`,
@@ -53,7 +53,10 @@ before anything else.
     package; its `target/`, model, and logs are gitignored.
   - `docs/` — harness-agnostic docs (`POTETO-SKILLS-WORKFLOW.md`).
   - `README.md`, `usage.md` — repo overview and usage notes.
-- `scripts/` — install/setup scripts (`setup-all.sh` composes them).
+- `scripts/` — `bootstrap.sh` composes the machine setup: `*.install.sh`
+  scripts put software on the machine, `*.config.sh` scripts only shape
+  settings, both read `*.requirements.txt` manifests and support
+  `--check`. `bootstrap.sh --check` is the full parity report.
 - Tool stow packages: `pi/`, `nushell/`, `nvim/`, `shell/`, `starship/`,
   `wezterm/`; `ibkr-tws/` holds the TWS vmoptions override.
 
@@ -74,8 +77,9 @@ before anything else.
   retire a unit when its items are done rather than appending forever.
 - **Two skill sets, two owners, both independent.** pi's local set is
   `pi/.agents/skills/` (stowed to `~/.agents/skills/` by `stow pi`);
-  the canonical pstack is the `pi-pstack` npm package (pinned,
-  installed by `scripts/setup-pi-pstack.sh` on each machine). dsh's set
+  the canonical pstack is the `pi-pstack` npm package (pinned in
+  `scripts/pi.requirements.txt`, installed by `scripts/pi.install.sh`
+  on each machine). dsh's set
   is `dsh/skills/` (installed to `~/.dsh/skills/` by
   `npm run skills:install`), still the vendored pstack copy — dsh has
   no package mechanism. Never point one harness at the other's

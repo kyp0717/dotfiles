@@ -15,16 +15,16 @@ and `xclip`/`xsel` on X11. None were installed on woodlawn.
 
 ## Why it happened
 
-`wl-clipboard` was listed in `scripts/util.sh`, but `setup-all.sh`
+`wl-clipboard` was listed in `scripts/util.sh`, but `bootstrap.sh`
 never called `util.sh`, so a fresh machine setup never installed it.
 An install script nobody runs is the same as no script.
 
 ## The fix
 
-`scripts/setup-packages.sh` now owns the required apt package list
+`scripts/ubuntu.install.sh` now owns the required apt package list
 (including `wl-clipboard` and `xclip`) and is wired into
-`setup-all.sh`; `--check` gives a sudo-free parity probe.
-`scripts/setup-udev.sh` does the same for udev rules. Both are in the
+`bootstrap.sh`; `--check` gives a sudo-free parity probe.
+`scripts/udev.config.sh` does the same for udev rules. Both are in the
 machine-rotation fresh-machine recipe.
 
 ## Rules that fall out
@@ -34,4 +34,4 @@ machine-rotation fresh-machine recipe.
 - Wayland sessions need `wl-clipboard`; X11 needs `xclip` or `xsel`.
   Over SSH pi falls back to OSC 52.
 - Required dependencies belong in scripts on the setup path
-  (`setup-all.sh`), with a `--check` mode for drift detection.
+  (`bootstrap.sh`), with a `--check` mode for drift detection.

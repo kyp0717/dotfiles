@@ -3,19 +3,35 @@
 # (no source build, no PPA), then deploy the kickstart.nvim configuration
 # from this dotfiles repo (git submodule + GNU Stow).
 #
-# Usage: scripts/neovim.install.sh
+# Usage: scripts/neovim.install.sh [--check]
 set -euo pipefail
 
 ARCHIVE=nvim-linux-x86_64.tar.gz
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+if [ "${1:-}" = "--check" ]; then
+    if command -v nvim >/dev/null 2>&1; then
+        echo "neovim.install: nvim present ($(nvim --version | head -1))"
+    else
+        echo "neovim.install: MISSING nvim"
+        echo "  fix: scripts/neovim.install.sh"
+        exit 1
+    fi
+    exit 0
+fi
+
 # ---------------------------------------------------------------------------
 # 1. Install the Neovim binary.
 #    Prefer /opt (system-wide); fall back to ~/.local when sudo is
 #    unavailable (e.g. no passwordless sudo in this session).
+#
+#    NEVER trap on $PWD here: section 2 cd's back into the repo, and a
+#    'rm -rf "$PWD"' trap at EXIT once deleted the entire dotfiles repo
+#    (2026-10-22). The temp dir is captured in a variable instead.
 # ---------------------------------------------------------------------------
-cd "$(mktemp -d)"
-trap 'rm -rf "$PWD"' EXIT
+TMPD="$(mktemp -d)"
+trap 'rm -rf "$TMPD"' EXIT
+cd "$TMPD"
 
 echo "Downloading latest Neovim..."
 curl -fLO "https://github.com/neovim/neovim/releases/latest/download/$ARCHIVE"
@@ -33,7 +49,7 @@ else
     mkdir -p "$HOME/.local/bin"
     ln -sfn "$HOME/.local/nvim-linux-x86_64/bin/nvim" "$HOME/.local/bin/nvim"
     NVIM_BIN="$HOME/.local/bin/nvim"
-    echo "NOTE: ~/.local/bin must be on PATH (scripts/setup-local-bin.sh handles this)."
+    echo "NOTE: ~/.local/bin must be on PATH (scripts/path.config.sh handles this)."
 fi
 
 # ---------------------------------------------------------------------------

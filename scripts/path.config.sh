@@ -1,7 +1,19 @@
 #!/bin/bash
-# Setup script to ensure ~/.local/bin directory exists and is in PATH
+# path.config.sh — ensure ~/.local/bin exists and shell config is deployed.
+# Usage: scripts/path.config.sh [--check]
 
 set -e
+
+if [ "${1:-}" = "--check" ]; then
+  if [ -d "$HOME/.local/bin" ]; then
+    echo "path.config: ~/.local/bin exists"
+  else
+    echo "path.config: MISSING ~/.local/bin"
+    echo "  fix: scripts/path.config.sh"
+    exit 1
+  fi
+  exit 0
+fi
 
 echo "Setting up ~/.local/bin directory and PATH configuration..."
 

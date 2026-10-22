@@ -4,8 +4,8 @@
 
 - Canonical pstack = the `pi-pstack` npm package (44 skills + subagent
   extension + poteto agents), **pinned `@0.1.0`, installed per machine**
-  by `scripts/setup-pi-pstack.sh` (`pi install npm:pi-pstack@0.1.0`,
-  `--check` mode for parity). Wired into `setup-all.sh`.
+  by `scripts/pi.install.sh` (`pi install npm:pi-pstack@0.1.0`,
+  `--check` mode for parity). Wired into `bootstrap.sh`.
 - `pi/.agents/skills/` = exactly two local skills: `lesson-learned`,
   `graft`. All pstack-family customs (poteto-help, correct,
   benchmark-checklist, three extra principles) deleted — user decision,
@@ -29,7 +29,7 @@ lives in git; third-party code comes from its registry, pinned.)
 ```bash
 cd ~/dotfiles
 stow -R pi                      # prunes old skills from ~/.agents/skills
-scripts/setup-pi-pstack.sh      # installs npm:pi-pstack@0.1.0 if missing
+scripts/pi.install.sh      # installs npm:pi-pstack@0.1.0 if missing
 ```
 
 Verify: `ls ~/.agents/skills` → `graft lesson-learned`;
@@ -43,5 +43,5 @@ Verify: `ls ~/.agents/skills` → `graft lesson-learned`;
   processes, writes confined to tmp + `~/.pi/agent/pstack/`.
 - Skills resolve flat by name across all discovery locations; keeping
   the repo set free of package names is what prevents collisions.
-- Upgrade path: bump `PSTACK_VERSION` in `scripts/setup-pi-pstack.sh`,
+- Upgrade path: bump the version in `scripts/pi.requirements.txt`,
   run on both machines, commit.

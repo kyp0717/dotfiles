@@ -27,8 +27,8 @@ identically on both machines.
 ## The fix
 
 pi-pstack is npm-installed, pinned `@0.1.0`, with the pin and an
-idempotent check in `scripts/setup-pi-pstack.sh` (wired into
-`setup-all.sh`). Handoff: `resource/handoff/20261022-pi-pstack-migration.md`.
+idempotent check in `scripts/pi.install.sh` (wired into
+`bootstrap.sh`). Handoff: `resource/handoff/20261022-pi-pstack-migration.md`.
 
 ## Rules that fall out
 
@@ -43,5 +43,5 @@ idempotent check in `scripts/setup-pi-pstack.sh` (wired into
   (folder with `skills/`, `extensions/`, `agents/` + manifest). Plain
   skills directories have no namespacing: names are flat,
   first-discovered wins, collisions only warn.
-- To upgrade: bump the pin in the setup script, run on both machines,
+- To upgrade: bump the pin in `scripts/pi.requirements.txt`, run on both machines,
   commit.

@@ -22,8 +22,8 @@ hostnames).
 
 ```
 git clone dotfiles
-  →  scripts/setup-packages.sh   # required apt packages (stow, ffmpeg, wl-clipboard, ...)
-  →  scripts/setup-udev.sh       # udev rules (Yeti autosuspend defense)
+  →  scripts/ubuntu.install.sh   # required apt packages (stow, ffmpeg, wl-clipboard, ...)
+  →  scripts/udev.config.sh       # udev rules (Yeti autosuspend defense)
   →  npm run dsh:setup          # writes ALL dsh harness config
   →  npm run skills:install     # dsh/skills → ~/.dsh/skills
   →  npm run dsh:kimi-login     # per-machine Kimi subscription credential
@@ -44,8 +44,8 @@ First, from the repo root, install the machine-level dependencies (both
 scripts are idempotent and need sudo):
 
 ```bash
-scripts/setup-packages.sh   # stow, ffmpeg, wl-clipboard, build deps, ...
-scripts/setup-udev.sh       # Yeti mic autosuspend defense
+scripts/ubuntu.install.sh   # stow, ffmpeg, wl-clipboard, build deps, ...
+scripts/udev.config.sh       # Yeti mic autosuspend defense
 ```
 
 `wl-clipboard` is not optional on Wayland: pi's copy/paste goes through
@@ -81,14 +81,14 @@ Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../../dsh/docs/SETUP.md).
 4. Install the voice client extension:
    `pi install npm:pi-voice-stt`, and write
    `~/.pi/agent/stt.json` with provider type `local`. (ffmpeg comes from
-   `scripts/setup-packages.sh`.) Full procedure:
+   `scripts/ubuntu.install.sh`.) Full procedure:
    [`resource/microphone/pi-voice-stt-setup.md`](../../resource/microphone/pi-voice-stt-setup.md).
 
 pi skills come from two places:
 
 1. **Canonical pstack** — the `pi-pstack` npm package (skills +
    subagent extension + poteto agents), pinned and installed per
-   machine: `scripts/setup-pi-pstack.sh` (`pi install
+   machine: `scripts/pi.install.sh` (`pi install
    npm:pi-pstack@0.1.0`; `--check` for parity).
 2. **Local skills** — `lesson-learned` and `graft` in
    `pi/.agents/skills/`, stowed to `~/.agents/skills/`:
@@ -140,7 +140,7 @@ a new API key on B is added in the GUI on B, and again on A when you return.
 | dsh setup/login/bridge scripts | yes | `dsh/scripts/` |
 | Pinned dsh vendor tarballs | yes | `dsh/vendor/` |
 | pi skills + extensions (local: `lesson-learned`, `graft`, `unslop.ts`) | yes, via stow | `pi/.agents/skills/`, `pi/.pi/` → `~/.agents/skills/`, `~/.pi/` |
-| pi canonical pstack (npm package, 44 skills + subagent extension) | no, per machine via `scripts/setup-pi-pstack.sh` (pinned `@0.1.0`) | `~/.pi/agent/npm/node_modules/pi-pstack` |
+| pi canonical pstack (npm package, 44 skills + subagent extension) | no, per machine via `scripts/pi.install.sh` (pinned `@0.1.0`) | `~/.pi/agent/npm/node_modules/pi-pstack` |
 | dsh skills (pstack-strict, 30) | yes, via `npm run skills:install` | `dsh/skills/` → `~/.dsh/skills/` |
 | dsh profile patch, `kimi` preset, `settings.yaml` | yes, written by `npm run dsh:setup` | `~/.dsh/…` |
 | pi whisper server source + setup doc | yes | `resource/microphone/rust-whisper-server/` |
@@ -152,8 +152,8 @@ a new API key on B is added in the GUI on B, and again on A when you return.
 | Kimi CLI login / OAuth / sessions | **per machine** | `~/.kimi-code/` |
 | dsh subscription credential | **per machine**, via `npm run dsh:kimi-login` | `~/.dsh/.credentials.yaml` |
 | Provider API keys | **per machine**, GUI settings | harness settings storage |
-| Required apt packages (`stow`, `ffmpeg`, `wl-clipboard`, build deps) | **per machine**, installed by `scripts/setup-packages.sh` | apt |
-| udev rules (Yeti autosuspend) | **per machine**, installed by `scripts/setup-udev.sh` | `/etc/udev/rules.d/` |
+| Required apt packages (`stow`, `ffmpeg`, `wl-clipboard`, build deps) | **per machine**, installed by `scripts/ubuntu.install.sh` | apt |
+| udev rules (Yeti autosuspend) | **per machine**, installed by `scripts/udev.config.sh` | `/etc/udev/rules.d/` |
 
 **Rule:** never copy `~/.kimi-code/`, credentials files, or API keys between
 machines, and never commit them. Each machine authenticates once on its own.
@@ -171,8 +171,8 @@ machines, and never commit them. Each machine authenticates once on its own.
 | whisper-rs | `0.13.2` (Cargo.lock) | same | git |
 | Whisper model | `ggml-base.bin`, sha256 `60ed5bc3…2efe` | same | rsync or re-download |
 | pi-voice-stt (npm) | `0.7.0` | `0.7.0` | `pi install npm:pi-voice-stt` on each machine |
-| pi-pstack (npm) | `0.1.0` | `0.1.0` | `scripts/setup-pi-pstack.sh` on each machine (pinned) |
-| ffmpeg + wl-clipboard | apt | apt | `scripts/setup-packages.sh` on each machine |
+| pi-pstack (npm) | `0.1.0` | `0.1.0` | `scripts/pi.install.sh` on each machine (pinned) |
+| ffmpeg + wl-clipboard | apt | apt | `scripts/ubuntu.install.sh` on each machine |
 
 ## Known-good dsh snapshot (what "identical" means)
 

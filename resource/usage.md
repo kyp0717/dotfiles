@@ -2,7 +2,7 @@
 
 This directory contains installation and setup scripts for various development tools and configurations.
 
-## setup-local-bin.sh
+## path.config.sh
 
 **Purpose:** Ensures that `~/.local/bin` is added to your PATH so that user-installed executables are accessible from anywhere.
 
@@ -13,7 +13,7 @@ This directory contains installation and setup scripts for various development t
 
 **Usage:**
 ```bash
-./setup-local-bin.sh
+./path.config.sh
 ```
 
 **After running:**
@@ -48,10 +48,10 @@ Installs the WezTerm terminal emulator.
 ./wezterm.sh
 ```
 
-### get-nerdfont.sh
+### nerdfonts.install.sh
 Downloads and installs Nerd Fonts for terminal icons.
 ```bash
-./get-nerdfont.sh
+./nerdfonts.install.sh
 ```
 
 ## Typical Setup Flow
@@ -63,7 +63,7 @@ git clone <your-dotfiles-repo> ~/.dotfiles
 cd ~/.dotfiles
 
 # 2. Set up local bin directory for user executables
-./scripts/setup-local-bin.sh
+./scripts/path.config.sh
 source ~/.profile
 
 # 3. Install desired tools
@@ -81,5 +81,5 @@ stow pi/
 
 ## Notes
 - Most scripts require `sudo` privileges for package installation
-- The `setup-local-bin.sh` script uses Stow, so make sure GNU Stow is installed
+- The `path.config.sh` script uses Stow, so make sure GNU Stow is installed
 - Scripts are designed for Ubuntu/Debian-based systems

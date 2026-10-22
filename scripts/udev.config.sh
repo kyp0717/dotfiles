@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup-udev.sh — install udev rules from this repo into /etc/udev/rules.d.
+# udev.config.sh — install udev rules from this repo into /etc/udev/rules.d.
 #
 # Currently: 50-yeti-no-autosuspend.rules — keeps the Blue Yeti USB mic out
 # of autosuspend so it survives sleep/suspend. Without it the mic wedges on
@@ -11,8 +11,8 @@
 # where the Yeti is not plugged in.
 #
 # Usage:
-#   scripts/setup-udev.sh          install/update rules (needs sudo)
-#   scripts/setup-udev.sh --check  report drift, change nothing
+#   scripts/udev.config.sh          install/update rules (needs sudo)
+#   scripts/udev.config.sh --check  report drift, change nothing
 
 set -euo pipefail
 
@@ -31,23 +31,23 @@ done
 
 if [ "${1:-}" = "--check" ]; then
   if [ ${#stale[@]} -eq 0 ]; then
-    echo "setup-udev: all rules installed and current"
+    echo "udev.config: all rules installed and current"
   else
-    echo "setup-udev: MISSING or STALE: ${stale[*]}"
-    echo "  fix: scripts/setup-udev.sh"
+    echo "udev.config: MISSING or STALE: ${stale[*]}"
+    echo "  fix: scripts/udev.config.sh"
     exit 1
   fi
   exit 0
 fi
 
 if [ ${#stale[@]} -eq 0 ]; then
-  echo "setup-udev: nothing to do, rules already current"
+  echo "udev.config: nothing to do, rules already current"
   exit 0
 fi
 
 for name in "${stale[@]}"; do
-  echo "setup-udev: installing $name"
+  echo "udev.config: installing $name"
   sudo cp "$RULES_SRC_DIR/$name" "$RULES_DST_DIR/$name"
 done
 sudo udevadm control --reload
-echo "setup-udev: done (rules apply to newly plugged devices; replug or reboot for existing ones)"
+echo "udev.config: done (rules apply to newly plugged devices; replug or reboot for existing ones)"

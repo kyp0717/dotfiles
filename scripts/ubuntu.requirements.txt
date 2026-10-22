@@ -1,0 +1,14 @@
+# Ubuntu system packages required by this dotfiles setup.
+# One package per line; # comments allowed. Consumed by ubuntu.install.sh.
+# Add a line here instead of editing the script.
+
+stow            # deploys repo configs into ~ via symlinks
+ffmpeg          # pi-voice-stt records with it (-f pulse -i default)
+wl-clipboard    # pi clipboard on Wayland (wl-copy/wl-paste)
+xclip           # pi clipboard fallback on X11
+build-essential # whisper server build (whisper-rs compiles whisper.cpp)
+pkg-config      # whisper server build
+libssl-dev      # whisper server build
+cmake           # whisper server build
+curl            # installers and model download
+git             # this repo

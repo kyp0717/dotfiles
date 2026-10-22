@@ -14,7 +14,7 @@ managed with GNU Stow. Agent-facing instructions live in `../AGENTS.md`.
 | `machine-rotation/` | Woodlawn ↔ linden swap runbook (`README.md`) and per-machine facts (`MACHINES.md`) |
 | `microphone/` | Whisper STT server (Rust) + pi voice client setup docs |
 | `usage.md` | Usage notes |
-| `../scripts/` | Install/setup scripts (`setup-all.sh` composes them) |
+| `../scripts/` | Install/setup scripts (`bootstrap.sh` composes them) |
 | `../pi/` | pi stow package: `pi/.pi/` → `~/.pi` (providers, agent extensions), `pi/.agents/skills/` → `~/.agents/skills/` (skill set). `stow pi` from the repo root. No secrets |
 | `../nushell/`, `../nvim/`, `../shell/`, `../starship/`, `../wezterm/` | Per-tool stow packages |
 | `../ibkr-tws/` | TWS vmoptions override |
@@ -24,8 +24,8 @@ managed with GNU Stow. Agent-facing instructions live in `../AGENTS.md`.
 ```bash
 git clone git@github.com:kyp0717/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./scripts/setup-local-bin.sh
-./scripts/setup-all.sh          # or run scripts individually
+./scripts/path.config.sh
+./scripts/bootstrap.sh          # or run scripts individually
 
 # Deploy tool configs
 stow -d ~/dotfiles pi nushell shell starship wezterm

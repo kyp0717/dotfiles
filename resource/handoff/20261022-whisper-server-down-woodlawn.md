@@ -76,10 +76,10 @@ repointed.
   errors for transcription-layer faults — the message text tells you the
   layer.
 - **An install script nobody runs is the same as no script.**
-  `scripts/util.sh` already installed `wl-clipboard`, but `setup-all.sh`
+  `scripts/util.sh` already installed `wl-clipboard`, but `bootstrap.sh`
   never called it, so woodlawn lacked it and pi copy/paste broke. Required
-  packages and udev rules now live in `scripts/setup-packages.sh` and
-  `scripts/setup-udev.sh`, both wired into `setup-all.sh` and the
+  packages and udev rules now live in `scripts/ubuntu.install.sh` and
+  `scripts/udev.config.sh`, both wired into `bootstrap.sh` and the
   machine-rotation fresh-machine recipe, both with a sudo-free `--check`
   mode for parity verification.
 
@@ -88,8 +88,8 @@ repointed.
 Run once on woodlawn (needs sudo), then verify on linden with `--check`:
 
 ```bash
-scripts/setup-packages.sh   # installs wl-clipboard + xclip (pi copy/paste)
-scripts/setup-udev.sh       # installs the Yeti autosuspend defense
+scripts/ubuntu.install.sh   # installs wl-clipboard + xclip (pi copy/paste)
+scripts/udev.config.sh       # installs the Yeti autosuspend defense
 ```
 
 - HANDOFF.md §0 (next-machine: woodlawn) is now effectively done —
