@@ -39,6 +39,8 @@ before anything else.
 - `resource/` — all docs and operational state:
   - `handoff/` — continuation briefs (see convention below).
   - `todos/` — open reminders and task lists (same convention).
+  - `lessons/` — durable knowledge earned from incidents (`domain.*` /
+    `edge.*` files, written per the `lesson-learned` skill).
   - `machine-rotation/` — the woodlawn ↔ linden swap runbook and
     per-machine facts (`MACHINES.md`).
   - `microphone/` — the whisper STT server (Rust). Kept out of the stow
@@ -54,8 +56,10 @@ before anything else.
 - **Capture lessons with the `lesson-learned` skill.** Any incident,
   human correction, edge case, or project domain knowledge that cost
   time to discover gets captured and routed per that skill: structural
-  fix first, dated handoff/todo unit otherwise, then commit and push.
-  Edge cases and machine quirks are exactly what must survive rotation.
+  fix first, `resource/lessons/` file (`domain.`/`edge.`) for durable
+  knowledge, dated handoff/todo unit for continuation state. Then
+  commit and push. When working in a subsystem, scan `resource/lessons/`
+  for related entries first.
 - **Commit everything portable to git.** Per-machine state stays out of
   git and must have documented recreate steps.
 - **Handoff and todo files: many small units, not one growing file.**

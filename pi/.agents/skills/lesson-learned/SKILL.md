@@ -1,80 +1,98 @@
 ---
 name: lesson-learned
-description: Capture a lesson the moment it surfaces and route it to the right layer (handoff unit, runbook, or structural fix). Use for incidents, human corrections, edge cases, and project domain knowledge that cost time to discover.
+description: Use after any session in this repo that surfaced a surprise, a breakage, a machine or harness behavior that cost time to learn, or an edge case. Captures the knowledge as a lesson file under resource/lessons/ so the next session and the other machine inherit it. A red diagnosis without a lesson is not finished work.
 ---
 
-# Lesson Learned
+# Lesson learned
 
-Capture every lesson the moment it surfaces, route it to the layer that
-will actually prevent recurrence, and close the loop. A lesson that is
-only "kept in mind" does not exist.
+This repo's durability comes from `resource/lessons/`: every wall the
+setup hit, written down so the next session — and the other machine —
+does not climb it again. The rule lives in AGENTS.md. This skill is how
+a lesson gets written.
 
-**Why:** This repo serves two machines that swap roles. A lesson that
-stays in one session, one transcript, or one machine's live config is
-lost at the next rotation. The only lesson that survives is one that is
-committed to git — and the only lesson that never needs re-reading is one
-encoded in a script or check.
+## When to write one
 
-## When to capture
+Any of these, before the related work is committed:
 
-- The human corrects you or states a project fact you got wrong.
-- An incident: something broke and cost time to diagnose.
-- An edge case or piece of domain knowledge that took real digging to
-  find (paths, device quirks, provider behavior, machine differences).
-- You catch yourself giving the same instruction a second time.
+- Something broke and cost diagnosis time, even if a retry later fixed it.
+- A check or manual test surfaced surprising behavior, even if nothing
+  failed in the end.
+- A machine, harness, or platform behavior had to be discovered by
+  experiment (systemd unit semantics, pi's clipboard path, pipewire
+  defaults, USB autosuspend).
+- An edge case was found: a rotation gap, a stale path, a masked drift,
+  a per-machine difference.
 
-Not lessons: one-off typos, trivia with no future decision attached.
+Do not wait for a failure to be "confirmed". Write the lesson when the
+knowledge lands, while the evidence is in front of you.
 
-## Where lessons live (this repo)
+## Classify it
 
-| Layer | Location | Use for |
-|---|---|---|
-| Structural fix | `scripts/`, runbooks, lint/check modes (`--check`) | Anything recurring. Strongest layer: enforces itself |
-| Runbook | `resource/machine-rotation/`, `resource/microphone/SETUP.md` | Durable operational procedures |
-| Handoff unit | `resource/handoff/YYYYMMDD-<topic>.md` | Session-readable context, incidents, open follow-ups |
-| Todo | `resource/todos/YYYYMMDD-<topic>.md` | Captured but not yet done |
+- `domain.`: knowledge about the world this repo lives in. Someone new
+  would hit the same wall. Examples: pi fullscreen captures the mouse so
+  its clipboard needs `wl-copy` on Wayland; pi discovers project skills
+  from the cwd, so a skill in another repo is invisible here; pi-voice-stt
+  records via `ffmpeg -f pulse -i default` on Linux.
+- `edge.`: a case the happy path missed, usually found by a failure or
+  near-failure. Examples: a stale copy of a moved directory masks a
+  broken systemd unit until reboot; systemd units are per-machine state
+  and drift silently; a script not wired into setup-all.sh never runs.
 
-Sessions read `resource/handoff/` in full at start (AGENTS.md orders
-this), so that is where the read-side of a lesson goes until it is
-retired.
+When unsure, ask: would a careful newcomer predict this? No, and it is
+about the outside world, then domain. It is a path inside our own setup
+that broke or nearly broke, then edge.
 
-## Routing — no third state
+## Where and what to name it
 
-Every captured lesson ends in exactly one of two states:
+- Directory: `resource/lessons/`. Create it if missing.
+- Name: `domain.<YYYYMMDD>.<kebab-case-title>.md` or
+  `edge.<YYYYMMDD>.<kebab-case-title>.md`. Datestamp is the local date
+  the lesson was learned, not written.
 
-1. **Encoded in structure** — a script, check, runbook step, or skill
-   edit that makes the failure impossible or self-announcing. Then the
-   handoff unit retires and just points at the mechanism.
-2. **An open dated unit** in `resource/handoff/` or `resource/todos/`
-   with a named next action and, when relevant, a "For <other machine>"
-   section.
+## Anatomy, in this order
 
-Never "documented somewhere" with no enforcement and no owner.
+A reader must be able to act on the file without the transcript.
 
-## Handoff unit format
+1. **Title**: one sentence, the observation itself. "Systemd user units
+   are per-machine state and drift silently", not "Lesson about units".
+2. **Date and source**: one line. When, and what surfaced it: the
+   incident, the command, the error text.
+3. **What happened**: the story with concrete evidence. Exact error
+   text, paths, exit codes, timestamps. Not "it was broken" but
+   "restart counter at 1121, status=203/EXEC, ExecStart pointed at the
+   pre-resource/ path".
+4. **Why it happened**: the mechanism, traced to root cause. Verified,
+   not guessed.
+5. **The fix**: what changed, with file names. If nothing structural
+   changed (knowledge only), say so and say what now relies on it.
+6. **Rules that fall out**: durable, checkable rules a future session
+   can apply without reading the story. Write them as imperatives. If a
+   rule can be encoded as a script, a `--check` mode, or a skill edit
+   instead of text, encode it there and say so.
 
-```
-# YYYY-MM-DD — <topic>
+## Classes worth scanning for in this repo
 
-## Symptom        — what the user saw
-## Root cause     — why, verified not guessed
-## Fix applied    — exact commands, which machine
-## Prevention     — the structural fix, or why none is possible
-## For <other machine> — check or fix the twin needs after pull
-```
+When a session ends, ask whether anything new was learned in each:
 
-Many small units, not one growing file. Retire a unit when its items
-are done; fold durable facts into a runbook first.
+- **Two-machine parity**: rotation gaps, per-machine state that drifted,
+  checks the twin needs after a pull.
+- **Stow and symlinks**: real files where symlinks belong, orphaned
+  scripts, config edited live instead of in the repo.
+- **systemd units**: paths after repo moves, restart loops, units as
+  per-machine state.
+- **Audio stack**: Yeti wedge, pipewire/pulse defaults, whisper server
+  layers (capture vs transcription).
+- **Dual harness**: pi vs dsh skill sets, deploy mechanisms (stow vs
+  npm scripts), places they can diverge.
+- **Secrets boundaries**: what must never be committed or synced.
 
-## Capture checklist
+## Boundary
 
-Run this after any incident or correction, and before ending a session
-that produced a lesson:
+A lesson is knowledge earned from an event. Session continuation state
+(open follow-ups, live state per machine) goes to `resource/handoff/`,
+not lessons. Standing design policy goes to AGENTS.md. When a lesson's
+rule becomes permanent policy, promote it and leave the lesson as the
+record of how it was learned.
 
-1. Write or update the dated unit (format above).
-2. Ask: can this be a script, `--check`, or skill edit? If yes, do it
-   now or open a dated todo with the concrete plan.
-3. Name what the other machine needs. Parity gaps are the top
-   recurrence source in this repo.
-4. **Commit and push. A lesson that is not pushed does not exist on the
-   other machine.** Live edits under `~/` bypass git and die at rotation.
+Commit the lesson in the same commit as the fix or the discovery. A
+lesson that lives on only one machine does not exist for the other one.
