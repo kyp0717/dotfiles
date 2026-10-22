@@ -84,11 +84,21 @@ Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../../dsh/docs/SETUP.md).
    `scripts/setup-packages.sh`.) Full procedure:
    [`resource/microphone/pi-voice-stt-setup.md`](../../resource/microphone/pi-voice-stt-setup.md).
 
-pi skills and extensions install via stow (symlinks into `~/.pi/agent/`):
+pi skills come from two places:
+
+1. **Canonical pstack** — the `pi-pstack` npm package (skills + subagent
+   extension + poteto agents), pinned and installed per machine:
+   `npm run pi:pstack:install` (`pi install npm:pi-pstack@0.1.0`).
+2. **Locally grown skills** — the 8 in `pi/.agents/skills/`, stowed to
+   `~/.agents/skills/`:
 
 ```bash
 stow -d ~/dotfiles pi
 ```
+
+The two never overlap by name; pi warns and keeps the first discovered
+on collisions, which is why the vendored pstack copy was removed from
+the repo when the package was adopted.
 
 ---
 
@@ -128,7 +138,8 @@ a new API key on B is added in the GUI on B, and again on A when you return.
 |---|---|---|
 | dsh setup/login/bridge scripts | yes | `dsh/scripts/` |
 | Pinned dsh vendor tarballs | yes | `dsh/vendor/` |
-| pi skills + extensions (pstack-strict, 30 + `unslop.ts`) | yes, via stow | `pi/.agents/skills/`, `pi/.pi/` → `~/.agents/skills/`, `~/.pi/` |
+| pi skills + extensions (locally grown, 8 + `unslop.ts`) | yes, via stow | `pi/.agents/skills/`, `pi/.pi/` → `~/.agents/skills/`, `~/.pi/` |
+| pi canonical pstack (44 skills + subagent extension) | no, per machine via `npm run pi:pstack:install` (pinned `@0.1.0`) | `~/.pi/agent/npm/node_modules/pi-pstack` |
 | dsh skills (pstack-strict, 30) | yes, via `npm run skills:install` | `dsh/skills/` → `~/.dsh/skills/` |
 | dsh profile patch, `kimi` preset, `settings.yaml` | yes, written by `npm run dsh:setup` | `~/.dsh/…` |
 | pi whisper server source + setup doc | yes | `resource/microphone/rust-whisper-server/` |
@@ -159,6 +170,7 @@ machines, and never commit them. Each machine authenticates once on its own.
 | whisper-rs | `0.13.2` (Cargo.lock) | same | git |
 | Whisper model | `ggml-base.bin`, sha256 `60ed5bc3…2efe` | same | rsync or re-download |
 | pi-voice-stt (npm) | `0.7.0` | `0.7.0` | `pi install npm:pi-voice-stt` on each machine |
+| pi-pstack (npm) | `0.1.0` | `0.1.0` | `npm run pi:pstack:install` on each machine (pinned) |
 | ffmpeg + wl-clipboard | apt | apt | `scripts/setup-packages.sh` on each machine |
 
 ## Known-good dsh snapshot (what "identical" means)

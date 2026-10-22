@@ -27,13 +27,14 @@ before anything else.
 - `pi/` — stow package for pi itself, same pattern as `nushell/`,
   `wezterm/`, `starship/`: `stow pi` from the repo root links its
   contents into `~` — `pi/.pi/` → `~/.pi` (providers, agent extensions)
-  and `pi/.agents/skills/` → `~/.agents/skills/` (the skill set pi
-  discovers). Provenance: the base set is a vendored copy of poteto's
-  pstack (canonical source `poteto/plugins#pstack`, from the Noodle
-  ecosystem; Noodle itself is not installed), plus locally grown skills
-  (`swarm`, `recall`, `bro`, `lesson-learned`, etc.). Vendored, not
-  package-installed, so the set lives in git and survives rotation. No
-  secrets:
+  and `pi/.agents/skills/` → `~/.agents/skills/` (locally grown skills
+  only: `lesson-learned`, `graft`, `poteto-help`, `correct`,
+  `benchmark-checklist`, and three extra `principle-*`). The canonical
+  pstack is NOT vendored here: it comes from the `pi-pstack` npm
+  package (`npm run pi:pstack:install`, pinned `@0.1.0`, per machine),
+  which is the pi-native port — the old vendored copy was the Cursor
+  port and referenced machinery (`~/.cursor/rules`, Cursor's Task tool)
+  that does not exist in pi. No secrets:
   nothing with credentials, sessions, or auth may be tracked.
   `~/.pi/agent/settings.json` is NOT stowed (pi rewrites it constantly);
   the tracked reference copy is `resource/pi-agent-settings.json`,
@@ -71,12 +72,13 @@ before anything else.
   Write them as `YYYYMMDD-<topic>.md` inside `resource/handoff/` and
   `resource/todos/`. A new session reads the newest datestamp first;
   retire a unit when its items are done rather than appending forever.
-- **Two skill sets, two owners, both independent.** pi's set is
-  `pi/.agents/skills/` (stowed to `~/.agents/skills/` by `stow pi`),
-  dsh's is `dsh/skills/` (installed to `~/.dsh/skills/` by
-  `npm run skills:install`). Both descend from the same vendored poteto
-  pstack but may diverge; each is edited in its own directory. Never
-  point one harness at the other's directory.
+- **Two skill sets, two owners, both independent.** pi's local set is
+  `pi/.agents/skills/` (stowed to `~/.agents/skills/` by `stow pi`);
+  the canonical pstack is the `pi-pstack` npm package (per machine,
+  pinned). dsh's set is `dsh/skills/` (installed to `~/.dsh/skills/` by
+  `npm run skills:install`), still the vendored pstack copy — dsh has
+  no package mechanism. Never point one harness at the other's
+  directory.
 - pi config, skills, and extensions deploy with one command:
   `stow pi` from the repo root. dsh scripts run with npm from the repo
   root (`npm run dsh:setup`, `npm run skills:install`, …).
