@@ -51,6 +51,11 @@ before anything else.
 
 ## Rules
 
+- **Capture lessons with the `lesson-learned` skill.** Any incident,
+  human correction, edge case, or project domain knowledge that cost
+  time to discover gets captured and routed per that skill: structural
+  fix first, dated handoff/todo unit otherwise, then commit and push.
+  Edge cases and machine quirks are exactly what must survive rotation.
 - **Commit everything portable to git.** Per-machine state stays out of
   git and must have documented recreate steps.
 - **Handoff and todo files: many small units, not one growing file.**
