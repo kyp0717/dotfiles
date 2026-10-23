@@ -76,6 +76,16 @@ before anything else.
   knowledge, dated handoff/todo unit for continuation state. Then
   commit and push. When working in a subsystem, scan `resource/lessons/`
   for related entries first.
+- **Machines are NOT clones.** `git pull` syncs the repo, never the
+  machine. Per-machine state must be re-established on each machine and
+  never assumed to transfer: credentials and API keys, systemd user
+  units, gitignored builds and models (whisper `target/`,
+  `ggml-base.bin`), npm-installed pi packages, udev rules, apt
+  packages. After any rotation, fresh clone, or re-clone, run
+  `scripts/bootstrap.sh --check` plus the whisper recovery checklist in
+  `resource/lessons/edge.20261022.check-mode-deleted-the-repo.md`.
+  The full synced-vs-per-machine table lives in
+  `resource/machine-rotation/README.md`.
 - **Commit everything portable to git.** Per-machine state stays out of
   git and must have documented recreate steps.
 - **Handoff and todo files: many small units, not one growing file.**
