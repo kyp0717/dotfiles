@@ -69,11 +69,10 @@ stow -R nvim/
 # ---------------------------------------------------------------------------
 echo ""
 echo "Checking first-launch dependencies..."
-for tool in rg tree-sitter cc unzip; do
+for tool in rg cc unzip; do
     if ! command -v "$tool" >/dev/null 2>&1; then
         echo "  WARNING: '$tool' not found — install it for full functionality:"
         echo "    sudo apt install -y ripgrep unzip build-essential   # rg, unzip, cc"
-        echo "    npm install -g tree-sitter-cli                       # tree-sitter"
     fi
 done
 
