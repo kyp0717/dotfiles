@@ -7,3 +7,5 @@
 npm:@earendil-works/pi-coding-agent@1.4.0   # the pi harness itself
 npm:pi-pstack@0.1.0      # canonical pstack: 44 skills + subagent extension
 npm:pi-voice-stt@0.8.0   # voice input (records via ffmpeg, posts to whisper)
+npm:@bacnh85/pi-attachments@0.3.11   # attachment support
+npm:pi-provider-kimi-code@0.6.13     # kimi-coding provider

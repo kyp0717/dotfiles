@@ -36,9 +36,10 @@ before anything else.
   installs the pinned harness). It lives in `~/.pi/agent/npm/` like
   pi-voice-stt: third-party code, not repo content. No secrets:
   nothing with credentials, sessions, or auth may be tracked.
-  `~/.pi/agent/settings.json` is NOT stowed (pi rewrites it constantly);
-  the tracked reference copy is `resource/pi-agent-settings.json`,
-  deployed by copy, never symlink.
+  `~/.pi/agent/settings.json` IS stowed like everything else
+  (`pi/.pi/agent/settings.json`): pi occasionally rewrites it, which
+  shows up as a git diff — commit intentional changes (theme, model,
+  packages), discard incidental churn.
 - `dsh/` — the DeepSeek harness + Kimi integration: `dsh/scripts/`
   (npm scripts, run from the repo root), `dsh/docs/`, `dsh/skills/`,
   `dsh/vendor/`.
@@ -111,8 +112,8 @@ before anything else.
   directly under `~/.pi` or `~/.agents` bypasses git, diverges across
   machines, and dies on the next clone or rotation. If a live path is
   not a symlink into the repo, it is per-machine state, not a config
-  source. Exception: `~/.pi/agent/settings.json`, deployed by copy from
-  `resource/pi-agent-settings.json` because pi rewrites it constantly.
+  source. This includes `settings.json`: when pi rewrites it, the repo
+  diff makes the drift visible.
 - Never hardcode machine-specific paths in tracked files; woodlawn and
   linden differ (see `resource/machine-rotation/MACHINES.md`).
 - **Real files live in `~/dotfiles`; symlinks live outside it.** Stow

@@ -1,0 +1,14 @@
+{
+  "lastChangelogVersion": "1.4.0",
+  "theme": "dark",
+  "editorPaddingX": 1,
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "k3-256k",
+  "packages": [
+    "npm:pi-voice-stt@0.8.0",
+    "npm:pi-pstack@0.1.0",
+    "npm:@bacnh85/pi-attachments@0.3.11",
+    "npm:pi-provider-kimi-code@0.6.13"
+  ],
+  "hideThinkingBlock": true
+}
