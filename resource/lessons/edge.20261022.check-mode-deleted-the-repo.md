@@ -49,3 +49,9 @@ Two independent defects compounded:
 - Push early, push often: the repo survived because every commit was on
   GitHub. Uncommitted work (the restructure in flight) had to be
   recreated from the transcript.
+- **Re-clone recovery includes gitignored state.** After the re-clone
+  the whisper server crash-looped: `ggml-base.bin` and `target/` are
+  gitignored, so the clone lacks them, and `nvim/.config/nvim` needed
+  `git submodule update --init`. Recovery checklist: re-download the
+  model (sha256 in `run.sh`), `CARGO_TARGET_DIR=target/cpu cargo build
+  --release`, submodule init, restart the service.
