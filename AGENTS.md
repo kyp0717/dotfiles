@@ -58,7 +58,8 @@ before anything else.
   scripts put software on the machine, `*.config.sh` scripts only shape
   settings, both read `*.requirements.txt` manifests and support
   `--check`. `bootstrap.sh --check` is the full parity report.
-- Tool stow packages: `pi/`, `nushell/`, `nvim/`, `shell/`, `starship/`,
+- Tool stow packages: `pi/`, `nushell/`, `nvim/`, `zed/`, `shell/`,
+  `starship/`,
   `wezterm/`; `ibkr-tws/` holds the TWS vmoptions override.
 
 ## Rules
