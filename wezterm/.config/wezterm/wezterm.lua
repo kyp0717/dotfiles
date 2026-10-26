@@ -17,6 +17,11 @@ local colors = require("colors")
 -- Reason: cap per-pane scrollback so a long-lived session can't grow unbounded.
 config.scrollback_lines = 5000
 
+-- Reason: auto-reload on config change crashed wezterm-gui on Wayland
+-- (2026-10-26: git pull rewrote this file, compositor killed the client
+-- mid-session). Reload manually after editing config.
+config.automatically_reload_config = false
+
 -- Reason: nu install location varies by machine (cargo, ~/.local/bin, or
 -- system package). Probe candidates in priority order and use the first hit.
 local nu_candidates = {
