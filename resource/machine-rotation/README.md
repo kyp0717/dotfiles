@@ -90,8 +90,8 @@ pi skills come from two places:
    subagent extension + poteto agents), pinned and installed per
    machine: `scripts/pi.install.sh` (`pi install
    npm:pi-pstack@0.1.0`; `--check` for parity).
-2. **Local skills** — `lesson-learned` and `graft` in
-   `pi/.agents/skills/`, stowed to `~/.agents/skills/`:
+2. **Local skills** — in `pi/.pi/agent/skills/`, stowed to
+   `~/.pi/agent/skills/`:
 
 ```bash
 stow -d ~/dotfiles pi
@@ -139,7 +139,7 @@ a new API key on B is added in the GUI on B, and again on A when you return.
 |---|---|---|
 | dsh setup/login/bridge scripts | yes | `dsh/scripts/` |
 | Pinned dsh vendor tarballs | yes | `dsh/vendor/` |
-| pi skills + extensions (local: `lesson-learned`, `graft`, `unslop.ts`) | yes, via stow | `pi/.agents/skills/`, `pi/.pi/` → `~/.agents/skills/`, `~/.pi/` |
+| pi local skills + extensions | yes, via stow | `pi/.pi/` → `~/.pi/` |
 | pi canonical pstack (npm package, 44 skills + subagent extension) | no, per machine via `scripts/pi.install.sh` (pinned `@0.1.0`) | `~/.pi/agent/npm/node_modules/pi-pstack` |
 | dsh skills (pstack-strict, 30) | yes, via `npm run skills:install` | `dsh/skills/` → `~/.dsh/skills/` |
 | dsh profile patch, `kimi` preset, `settings.yaml` | yes, written by `npm run dsh:setup` | `~/.dsh/…` |
@@ -209,7 +209,7 @@ sha256sum ~/dotfiles/resource/microphone/rust-whisper-server/ggml-base.bin   # 6
 
 # pi skills + extensions (stow)
 readlink ~/.pi/agent/extensions/unslop.ts          # → ~/dotfiles/pi/.pi/agent/extensions/unslop.ts
-ls ~/.agents/skills/                               # stowed skill set + any local ones
+ls ~/.pi/agent/skills/                            # stowed local skill set
 
 # pi voice client
 pi list                                          # → npm:pi-voice-stt

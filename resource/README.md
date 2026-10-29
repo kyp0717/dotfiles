@@ -13,9 +13,10 @@ managed with GNU Stow. Agent-facing instructions live in `../AGENTS.md`.
 | `todos/` | Open reminders and task lists, same datestamp convention |
 | `machine-rotation/` | Woodlawn ↔ linden swap runbook (`README.md`) and per-machine facts (`MACHINES.md`) |
 | `microphone/` | Whisper STT server (Rust) + pi voice client setup docs |
+| `remote-boot/` | Wake-on-LAN and remote desktop runbook |
 | `usage.md` | Usage notes |
 | `../scripts/` | Install/setup scripts (`bootstrap.sh` composes them) |
-| `../pi/` | pi stow package: `pi/.pi/` → `~/.pi` (providers, agent extensions), `pi/.agents/skills/` → `~/.agents/skills/` (skill set). `stow pi` from the repo root. No secrets |
+| `../pi/` | pi stow package: `pi/.pi/` → `~/.pi` (providers, agent extensions, settings, and local skills in `agent/skills/`). `stow pi` from the repo root. No secrets |
 | `../nushell/`, `../nvim/`, `../shell/`, `../starship/`, `../wezterm/` | Per-tool stow packages |
 | `../ibkr-tws/` | TWS vmoptions override |
 

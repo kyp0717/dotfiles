@@ -26,9 +26,10 @@ before anything else.
 
 - `pi/` — stow package for pi itself, same pattern as `nushell/`,
   `wezterm/`, `starship/`: `stow pi` from the repo root links its
-  contents into `~` — `pi/.pi/` → `~/.pi` (providers, agent extensions)
-  and `pi/.agents/skills/` → `~/.agents/skills/` (only two local
-  skills: `lesson-learned`, `graft`). The canonical pstack is the
+  contents into `~` — `pi/.pi/` → `~/.pi` (providers, agent extensions,
+  settings, and local skills). All local pi skills live in
+  `pi/.pi/agent/skills/`, stowed to `~/.pi/agent/skills/`. The canonical
+  pstack is the
   third-party npm package `pi-pstack` (the pi-native port — the earlier
   vendored copy was the Cursor port and referenced machinery that does
   not exist in pi), pinned `@0.1.0` in `scripts/pi.requirements.txt`
@@ -52,6 +53,7 @@ before anything else.
     per-machine facts (`MACHINES.md`).
   - `microphone/` — the whisper STT server (Rust). Kept out of the stow
     package; its `target/`, model, and logs are gitignored.
+  - `remote-boot/` — Wake-on-LAN and remote desktop runbook.
   - `docs/` — harness-agnostic docs (`POTETO-SKILLS-WORKFLOW.md`).
   - `README.md`, `usage.md` — repo overview and usage notes.
 - `scripts/` — `bootstrap.sh` composes the machine setup: `*.install.sh`
@@ -95,7 +97,7 @@ before anything else.
   `resource/todos/`. A new session reads the newest datestamp first;
   retire a unit when its items are done rather than appending forever.
 - **Two skill sets, two owners, both independent.** pi's local set is
-  `pi/.agents/skills/` (stowed to `~/.agents/skills/` by `stow pi`);
+  `pi/.pi/agent/skills/` (stowed to `~/.pi/agent/skills/` by `stow pi`);
   the canonical pstack is the `pi-pstack` npm package (pinned in
   `scripts/pi.requirements.txt`, installed by `scripts/pi.install.sh`
   on each machine). dsh's set
@@ -110,7 +112,7 @@ before anything else.
   Every pi setting (provider configs in `pi/.pi/providers/`, agent
   extensions, skills, keybindings) is edited inside `~/dotfiles` first
   and deployed with `stow pi` from the repo root. A file created
-  directly under `~/.pi` or `~/.agents` bypasses git, diverges across
+  directly under `~/.pi` bypasses git, diverges across
   machines, and dies on the next clone or rotation. If a live path is
   not a symlink into the repo, it is per-machine state, not a config
   source. This includes `settings.json`: when pi rewrites it, the repo

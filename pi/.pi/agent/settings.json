@@ -10,5 +10,5 @@
     "npm:pi-provider-kimi-code@0.6.13",
     "npm:pi-pstack@0.1.0"
   ],
-  "hideThinkingBlock": false
+  "hideThinkingBlock": true
 }

@@ -16,7 +16,7 @@ pi lives in the repo-root `pi/` stow package; whisper voice docs are under
 | `dsh/vendor/` | Pinned tarballs for offline install, SHA-256s in git history. |
 | `dsh/docs/` | dsh-specific docs: `SETUP.md` (one machine), `KIMI-INTEGRATION.md` (deep dive), `MODIFYING-DSH.md`, `ORCHESTRATION.md` (subagents, workflows, ralph). |
 | `dsh/skills/` | dsh's own skill set, an independent copy that may diverge. `npm run skills:install` copies them to `~/.dsh/skills/`. |
-| `../pi/` | pi's stow package: `pi/.pi/` → `~/.pi`, `pi/.agents/skills/` → `~/.agents/skills/`. `stow pi` from the repo root. |
+| `../pi/` | pi's stow package: `pi/.pi/` → `~/.pi`, including local skills in `agent/skills/`. `stow pi` from the repo root. |
 | `../resource/docs/` | Harness-agnostic docs: `POTETO-SKILLS-WORKFLOW.md` (using the pstack skills). |
 | `../resource/microphone/` | Rust whisper server source + setup doc, plus the pi-voice-stt client extension setup doc. Model and build artifacts stay local. |
 | `../resource/machine-rotation/` | Keeping woodlawn and linden identical: the swap runbook (`README.md`) and per-machine facts (`MACHINES.md`). |
