@@ -57,5 +57,17 @@ while read -r spec _; do
   fi
 done < "$LIST"
 
+# pi-session-move registers /move; our repo-local move-session-alias.ts
+# extension (stowed to ~/.pi/agent/extensions/ by `stow pi`) also answers
+# to /move-session. The package alone is not the full install.
+alias_ext="$HOME/.pi/agent/extensions/move-session-alias.ts"
+if [ ! -e "$alias_ext" ]; then
+  if [ "$CHECK_ONLY" = 1 ]; then
+    miss "move-session-alias.ts (run: stow pi from the repo root)"
+  else
+    note "WARNING: move-session-alias.ts missing; run 'stow pi' from the repo root"
+  fi
+fi
+
 [ "$CHECK_ONLY" = 1 ] && [ "$fail" = 1 ] && { echo "  fix: scripts/pi.install.sh"; exit 1; }
 exit 0
