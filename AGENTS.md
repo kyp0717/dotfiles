@@ -38,7 +38,11 @@ before anything else.
   installs the pinned harness). It lives in `~/.pi/agent/git/`:
   third-party code, not repo content. The earlier `pi-pstack` npm
   port (`@0.1.0`) was abandoned upstream and removed on 2026-11-06;
-  `pi.install.sh` deletes it if found. No secrets:
+  `pi.install.sh` deletes it if found. Its model config is the stowed
+  sheet `pi/.pi/agent/pstack-models.md`: the `pi models:` line remaps
+  the Claude aliases onto kimi-coding/deepseek models, required because
+  neither machine has anthropic credentials (see
+  `resource/lessons/edge.20261106.pstack-pi-model-remap.md`). No secrets:
   nothing with credentials, sessions, or auth may be tracked.
   `~/.pi/agent/settings.json` IS stowed like everything else
   (`pi/.pi/agent/settings.json`): pi occasionally rewrites it, which
