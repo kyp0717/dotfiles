@@ -16,7 +16,8 @@ that works only on the machine you are on is broken by definition; the
 other machine inherits it at the next rotation.
 
 **First action in every session here: read the handoff files in
-`resource/handoff/` in full.** They are the continuation brief: current
+`resource/handoff/` in full, then scan `resource/todos/` for open
+items.** They are the continuation brief: current
 live state per machine, pending follow-ups, repo layout. Work in this
 repo without them breaks things the briefs already explain. If one names
 a "next machine" section for the machine you are on, do those steps
@@ -101,8 +102,14 @@ before anything else.
   git and must have documented recreate steps.
 - **Handoff and todo files: many small units, not one growing file.**
   Write them as `YYYYMMDD-<topic>.md` inside `resource/handoff/` and
-  `resource/todos/`. A new session reads the newest datestamp first;
+  `resource/todos/`. The split: handoff is session continuation (what
+  happened, next-machine steps); todos is open tasks and reminders not
+  tied to one session. A new session reads the newest datestamp first;
   retire a unit when its items are done rather than appending forever.
+- **Persist open tasks before ending a session.** In-chat task lists
+  die with the session. Any task or reminder still open goes into
+  `resource/todos/` as a dated unit; a task not written there is
+  forgotten.
 - **Two skill sets, two owners, both independent.** pi's local set is
   `pi/.pi/agent/skills/` (stowed to `~/.pi/agent/skills/` by `stow pi`);
   the canonical pstack is the `pstack-claude` git package (pinned in

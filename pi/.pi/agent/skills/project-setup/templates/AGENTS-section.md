@@ -25,13 +25,21 @@ not finished work.
   retire a unit when its items are done.
 - `resource/plans/` — design candidates, decisions, and migration
   paths that outlive a chat session. One file per plan.
-- `resource/todos/` — open reminders and task lists, same naming
-  convention as handoff. Small units, retired when done.
+- `resource/todos/` — open tasks and reminders not tied to one
+  session's work (handoff covers session continuation). One file per
+  topic, `YYYYMMDD-<topic>.md`. Small units, retired when done.
 
 ### Session rules
 
 - File a lesson or bug before committing the work that taught it.
-- Read the newest handoff file at the start of every session.
+- Read the newest handoff file at the start of every session, then
+  scan `resource/todos/` for open items.
+- Before ending a session, write every open task or reminder into
+  `resource/todos/` as `YYYYMMDD-<topic>.md`. In-chat task lists die
+  with the session; a task that is not in `resource/todos/` is
+  forgotten.
+- Retire a todos unit when its items are done instead of appending
+  forever.
 - Commit everything in `resource/` with the code it explains.
 - Never hardcode machine-specific paths or facts in tracked files;
   record them in the AGENTS.md machine-facts section or in handoff
