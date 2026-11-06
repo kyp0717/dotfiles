@@ -23,6 +23,7 @@ STEPS=(
   udev.config.sh
   pi.install.sh
   node.install.sh
+  tla.install.sh
   nerdfonts.install.sh
   neovim.install.sh
   starship.install.sh

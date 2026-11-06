@@ -173,6 +173,8 @@ machines, and never commit them. Each machine authenticates once on its own.
 | Whisper model | `ggml-base.bin`, sha256 `60ed5bc3…2efe` | same | rsync or re-download |
 | pi-voice-stt (npm) | `0.7.0` | `0.7.0` | `pi install npm:pi-voice-stt` on each machine |
 | pstack-claude (git) | `v0.9.132` | `v0.9.132` | `scripts/pi.install.sh` on each machine (pinned) |
+| bun | `1.4.4` | `1.4.4` | `scripts/tla.install.sh` on each machine (pinned) |
+| mise | `2026.11.3` | `2026.11.3` | `scripts/tla.install.sh` on each machine (pinned); Java+TLC land on statechart's first run |
 | ffmpeg + wl-clipboard | apt | apt | `scripts/ubuntu.install.sh` on each machine |
 
 ## Known-good dsh snapshot (what "identical" means)

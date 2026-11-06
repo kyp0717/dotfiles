@@ -1,0 +1,10 @@
+# Toolchain for pstack's statechart skill (TLA+ model checking rendered
+# as Mermaid statecharts). One pinned spec per line, consumed by
+# tla.install.sh. Binaries install to ~/.local/bin from official GitHub
+# release archives; mise then installs Java (temurin-25) + TLC on the
+# skill's first run, per machine, on the network.
+# Upgrade anything: bump the version here, run tla.install.sh on both
+# machines, commit.
+
+bun@1.4.4        # runs the skill's TypeScript pipeline (scripts/statechart)
+mise@2026.11.3   # installs and locates java@temurin-25 and tla2tools for TLC
