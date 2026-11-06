@@ -30,12 +30,15 @@ before anything else.
   settings, and local skills). All local pi skills live in
   `pi/.pi/agent/skills/`, stowed to `~/.pi/agent/skills/`. The canonical
   pstack is the
-  third-party npm package `pi-pstack` (the pi-native port — the earlier
-  vendored copy was the Cursor port and referenced machinery that does
-  not exist in pi), pinned `@0.1.0` in `scripts/pi.requirements.txt`
+  third-party git package `github.com/michael-denyer/pstack-claude`
+  (the actively maintained port: skills plus a pi extension that adds
+  the subagent, question, and wake-up tools; tracks upstream
+  `cursor/plugins`), pinned `@v0.9.132` in `scripts/pi.requirements.txt`
   and installed per machine by `scripts/pi.install.sh` (which also
-  installs the pinned harness). It lives in `~/.pi/agent/npm/` like
-  pi-voice-stt: third-party code, not repo content. No secrets:
+  installs the pinned harness). It lives in `~/.pi/agent/git/`:
+  third-party code, not repo content. The earlier `pi-pstack` npm
+  port (`@0.1.0`) was abandoned upstream and removed on 2026-11-06;
+  `pi.install.sh` deletes it if found. No secrets:
   nothing with credentials, sessions, or auth may be tracked.
   `~/.pi/agent/settings.json` IS stowed like everything else
   (`pi/.pi/agent/settings.json`): pi occasionally rewrites it, which
@@ -98,7 +101,7 @@ before anything else.
   retire a unit when its items are done rather than appending forever.
 - **Two skill sets, two owners, both independent.** pi's local set is
   `pi/.pi/agent/skills/` (stowed to `~/.pi/agent/skills/` by `stow pi`);
-  the canonical pstack is the `pi-pstack` npm package (pinned in
+  the canonical pstack is the `pstack-claude` git package (pinned in
   `scripts/pi.requirements.txt`, installed by `scripts/pi.install.sh`
   on each machine). dsh's set
   is `dsh/skills/` (installed to `~/.dsh/skills/` by

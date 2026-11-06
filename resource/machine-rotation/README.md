@@ -86,10 +86,11 @@ Full detail and troubleshooting: [`dsh/docs/SETUP.md`](../../dsh/docs/SETUP.md).
 
 pi skills come from two places:
 
-1. **Canonical pstack** — the `pi-pstack` npm package (skills +
-   subagent extension + poteto agents), pinned and installed per
+1. **Canonical pstack** — the `pstack-claude` git package (skills +
+   pi subagent/ask/wakeup extension), pinned and installed per
    machine: `scripts/pi.install.sh` (`pi install
-   npm:pi-pstack@0.1.0`; `--check` for parity).
+   git:github.com/michael-denyer/pstack-claude@v0.9.132`; `--check`
+   for parity).
 2. **Local skills** — in `pi/.pi/agent/skills/`, stowed to
    `~/.pi/agent/skills/`:
 
@@ -171,7 +172,7 @@ machines, and never commit them. Each machine authenticates once on its own.
 | whisper-rs | `0.13.2` (Cargo.lock) | same | git |
 | Whisper model | `ggml-base.bin`, sha256 `60ed5bc3…2efe` | same | rsync or re-download |
 | pi-voice-stt (npm) | `0.7.0` | `0.7.0` | `pi install npm:pi-voice-stt` on each machine |
-| pi-pstack (npm) | `0.1.0` | `0.1.0` | `scripts/pi.install.sh` on each machine (pinned) |
+| pstack-claude (git) | `v0.9.132` | `v0.9.132` | `scripts/pi.install.sh` on each machine (pinned) |
 | ffmpeg + wl-clipboard | apt | apt | `scripts/ubuntu.install.sh` on each machine |
 
 ## Known-good dsh snapshot (what "identical" means)

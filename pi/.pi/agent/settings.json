@@ -8,8 +8,8 @@
     "npm:pi-voice-stt@0.8.0",
     "npm:@bacnh85/pi-attachments@0.3.11",
     "npm:pi-provider-kimi-code@0.6.13",
-    "npm:pi-pstack@0.1.0",
-    "npm:pi-session-move@0.1.14"
+    "npm:pi-session-move@0.1.14",
+    "git:github.com/michael-denyer/pstack-claude@v0.9.132"
   ],
   "hideThinkingBlock": true,
   "extensionChangelogVersions": {

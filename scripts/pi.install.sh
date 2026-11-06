@@ -4,6 +4,7 @@
 # Everything is pinned in pi.requirements.txt (next to this script):
 #   npm:@earendil-works/pi-coding-agent@X  -> installed with npm -g
 #   npm:<anything-else>@X                  -> installed with pi install
+#   git:<host>/<org>/<repo>@<ref>          -> installed with pi install
 # To add or upgrade, edit that file — not this script.
 #
 # Idempotent: present pieces are skipped. The harness version is read
@@ -20,6 +21,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIST="$HERE/pi.requirements.txt"
 SETTINGS="$HOME/.pi/agent/settings.json"
 NPM_DIR="$HOME/.pi/agent/npm/node_modules"
+GIT_DIR="$HOME/.pi/agent/git"
 HARNESS="@earendil-works/pi-coding-agent"
 
 CHECK_ONLY=0
@@ -31,8 +33,8 @@ miss() { note "MISSING $1"; fail=1; }
 
 while read -r spec _; do
   case "$spec" in ''|\#*) continue ;; esac
-  name="${spec#npm:}"; name="${name%@*}"     # npm:pi-pstack@0.1.0 -> pi-pstack
-  want="${spec##*@}"                          # ... -> 0.1.0
+  name="${spec#npm:}"; name="${name%@*}"     # npm:pi-voice-stt@0.8.0 -> pi-voice-stt
+  want="${spec##*@}"                          # ... -> 0.8.0
 
   if [ "$name" = "$HARNESS" ]; then
     have=""
@@ -47,7 +49,14 @@ while read -r spec _; do
       npm install -g --ignore-scripts "$HARNESS@$want"
     fi
   else
-    if [ -d "$NPM_DIR/$name" ] && grep -qF "\"$spec\"" "$SETTINGS" 2>/dev/null; then
+    case "$spec" in
+      git:*)
+        repo="${spec#git:}"; repo="${repo%@*}"   # git:host/org/repo@ref -> host/org/repo
+        have_dir="$GIT_DIR/$repo" ;;
+      *)
+        have_dir="$NPM_DIR/$name" ;;
+    esac
+    if [ -d "$have_dir" ] && grep -qF "\"$spec\"" "$SETTINGS" 2>/dev/null; then
       note "$spec installed"
     elif [ "$CHECK_ONLY" = 1 ]; then
       miss "$spec"
@@ -56,6 +65,18 @@ while read -r spec _; do
     fi
   fi
 done < "$LIST"
+
+# pstack switched from the abandoned pi-pstack npm port to the
+# pstack-claude git package on 2026-11-06. A leftover pi-pstack install
+# shadows the shared skill names, so it must be removed, not just unused.
+if [ -d "$NPM_DIR/pi-pstack" ]; then
+  if [ "$CHECK_ONLY" = 1 ]; then
+    miss "pi-pstack still installed (run: pi remove npm:pi-pstack@0.1.0)"
+  else
+    note "removing superseded pi-pstack npm package"
+    pi remove npm:pi-pstack@0.1.0
+  fi
+fi
 
 # pi-session-move registers /move; our repo-local move-session-alias.ts
 # extension (stowed to ~/.pi/agent/extensions/ by `stow pi`) also answers
