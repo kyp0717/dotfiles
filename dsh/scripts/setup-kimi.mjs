@@ -272,7 +272,7 @@ const NVIDIA_PROFILE = {
     { id: 'stepfun-ai/step-3.7-flash', name: 'Step 3.7 Flash', contextWindow: 256000, maxTokens: 16384, input: ['text'] },
     { id: 'z-ai/glm-5.2', name: 'GLM 5.2', contextWindow: 1000000, maxTokens: 131072, input: ['text'] },
     { id: 'moonshotai/kimi-k3', name: 'Kimi K3 (NVIDIA free)', contextWindow: 262144, maxTokens: 131072, input: ['text'] },
-    { id: 'deepseek-ai/deepseek-v4-flash-0731', name: 'DeepSeek V4 Flash (NVIDIA free)', contextWindow: 131072, maxTokens: 16384, input: ['text'] },
+    { id: 'deepseek-ai/deepseek-v4.1-flash', name: 'DeepSeek V4.1 Flash (NVIDIA free)', contextWindow: 1048576, maxTokens: 131072, input: ['text', 'image'] },
     { id: 'deepseek-ai/deepseek-v4-pro-0813', name: 'DeepSeek V4 Pro (NVIDIA free)', contextWindow: 131072, maxTokens: 32768, input: ['text'] },
     { id: 'google/gemma-3-12b-it', name: 'Gemma 3 12B', contextWindow: 131072, maxTokens: 8192, input: ['text'] },
     { id: 'google/gemma-3-4b-it', name: 'Gemma 3 4B', contextWindow: 131072, maxTokens: 8192, input: ['text'] },
