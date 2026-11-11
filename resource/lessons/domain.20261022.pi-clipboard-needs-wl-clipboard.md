@@ -35,3 +35,5 @@ machine-rotation fresh-machine recipe.
   Over SSH pi falls back to OSC 52.
 - Required dependencies belong in scripts on the setup path
   (`bootstrap.sh`), with a `--check` mode for drift detection.
+- The 2026-11-11 follow-up (`edge.20261111.wezterm-copy-keys-look-dead-not-unbound.md`)
+  read the same symptom as one bug, not two. Read both before diagnosing.

@@ -13,6 +13,16 @@ so the change does not reach existing machines by itself.
 2. Verify: `dsh --profile web --dump-config | grep -i deepseek` shows
    `deepseek-ai/deepseek-v4.1-flash`.
 
+## Status
+
+- linden, 2026-11-11: `~/.dsh/settings.yaml` shows
+  `deepseek-ai/deepseek-v4.1-flash` (and `deepseek-v4-pro-0813`).
+  Re-probed `api.deepseek.com/models` the same day: only
+  `deepseek-flash` = `DeepSeek-V4.1-Flash` (1M ctx, 393,216 out) and
+  `deepseek-v4-pro` = `DeepSeek-V4-Pro`. No V4.1 Pro exists, so the
+  pstack sheet's `v4-pro` aliases are current, not stale.
+- woodlawn: still to check before retiring this unit.
+
 ## Notes
 
 - `deepseek-v4-pro-0813` is unchanged: there is no V4.1 Pro; the API
