@@ -1,20 +1,24 @@
 # Generic modular PSU cable: buy checklist and pinout test
 
 Written for the linden RX 6700 XT install (2026-09-26), applies to any
-generic male-to-male modular cable purchase. Reference: the AX1200's modular
+generic male-to-male modular cable purchase. Reference: the AX1200i's modular
 jacks are not wired to any standard; only a cable made for the exact PSU
 model has a guaranteed pinout. A wrong pinout can destroy the GPU.
 
 ## Why this exists
 
-Corsair's official AX1200 PCIe cable (CP-8920016) is often out of stock.
+Corsair's official AX1200i PCIe cable (CP-8920016) is often out of stock.
 Third-party cables sold as "for Corsair" frequently reuse one pinout across
 incompatible brands (Corsair, Thermaltake, ARESGAME listings are the tell).
 Buy generic only if it passes the test below before it touches the GPU.
 
+Note: pinouts differ between AX1200 variants (AX1200 vs AX1200i). Confirm the
+part number against the exact model before buying; a cable listed only for
+"AX1200" is not guaranteed to fit the AX1200i.
+
 ## Buy checklist
 
-- Listing must name the exact PSU ("compatible with AX1200") or be the
+- Listing must name the exact PSU ("compatible with AX1200i") or be the
   Corsair part CP-8920016. "For Corsair PSUs" alone is not enough.
 - Termination must be PCIe 6+2 on the GPU end. Do not buy an EPS/CPU 8-pin
   cable; it fits the same jack style and is pinned differently.
@@ -54,10 +58,10 @@ Buy generic only if it passes the test below before it touches the GPU.
 ## Fallback
 
 - If no generic passes or none can be tested: CableMod configurator with
-  AX1200 selected, or a reseller listing for CP-8920016.
+  AX1200i selected, or a reseller listing for CP-8920016.
 
 ## Related
 
-- `MACHINES.md` PSU row: linden runs a Corsair AX1200.
+- `MACHINES.md` PSU row: linden runs a Corsair AX1200i.
 - GPU needs 8+6 PCIe; the 8-pin comes from the freed GTX 1070 lead, the
   6-pin from the new cable.

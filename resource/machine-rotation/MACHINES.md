@@ -9,7 +9,8 @@ both (enforced by the repo, see `README.md` in this folder).
 | Status | current daily driver | active since 2026-09-07; mic is a Blue Yeti (see ls-trader resource doc for its suspend/resume failure modes) |
 | CPU | Threadripper, 16 threads used for whisper | Ryzen, 24 threads; `WHISPER_THREADS` not tuned yet (whisper now runs on CPU since the GPU swap) |
 | GPU | none (no NVIDIA card, no `nvidia-smi`) | RX 6700 XT, 12 GB, Navi 22 (RDNA 2), amdgpu; GTX 1070 removed 2026-10 |
-| PSU | unknown | Corsair AX1200, 1200 W, 80+ Gold, fully modular (6 PCIe 6+2 leads); unit dates to ~2010, watch for capacitor age; spare modular cables not available, see `GPU-CABLE-TEST.md` before buying generics |
+| PSU | unknown | Corsair AX1200i, 1200 W, fully modular (6 PCIe 6+2 leads); unit dates to ~2010, watch for capacitor age; spare modular cables not available, see `GPU-CABLE-TEST.md` before buying generics |
+| Case | unknown | Thermaltake (model not recorded yet) |
 | Whisper backend (`run.sh` picks by hostname) | `cpu` | `cpu` — no NVIDIA card now (AMD 6700 XT); CUDA toolkit removed; ROCm/Vulkan not wired into whisper-rs |
 | OS | Linux (systemd) | Ubuntu 26.04 (systemd), PipeWire + WirePlumber |
 | Whisper threads (`WHISPER_THREADS` env) | 16 (default) | set in the systemd unit once cores are known |
