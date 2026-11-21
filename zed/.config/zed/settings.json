@@ -17,7 +17,7 @@
     "trust_all_worktrees": true
   },
   "vim_mode": true,
-  "ui_font_size": 19.0,
+  "ui_font_size": 22.0,
   "buffer_font_size": 19.0,
   "theme": {
     "mode": "dark",
