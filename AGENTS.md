@@ -3,6 +3,23 @@
 This repo is the two-machine (woodlawn ↔ linden) configuration for the
 agent harnesses and the desktop environment.
 
+## Why two machines
+
+The user lives in two places, alternating roughly every other week:
+woodlawn is in Boston, linden is in CT. Each machine stays in its
+location; the user works on whichever machine is local that week. The
+machines are never online at the same time and never share a LAN, and
+this will not change. Consequences:
+
+- Nothing may assume both machines are reachable to each other, and no
+  peer-to-peer sync (Syncthing alone, SSHFS, rsync over SSH) works
+  unless an always-on third point is added. Any shared-state design
+  needs a store that outlives each machine's offline periods.
+- Git (pushed at the end of a work session) is the primary channel for
+  carrying work between the machines.
+- Per-machine state listed in `resource/machine-rotation/MACHINES.md`
+  must be re-established on each machine; nothing transfers by itself.
+
 ## Core requirement: two-machine rotation
 
 woodlawn and linden swap roles every 2 weeks. **Every tracked file must
