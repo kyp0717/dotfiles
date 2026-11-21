@@ -195,3 +195,6 @@ use ~/.config/nushell/modules/conda.nu
 
 $env.PATH = ($env.PATH | prepend $"($env.HOME)/.volta/bin")
 
+
+# Alpaca credentials for trade.
+source ~/.alpaca.env
