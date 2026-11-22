@@ -196,5 +196,16 @@ use ~/.config/nushell/modules/conda.nu
 $env.PATH = ($env.PATH | prepend $"($env.HOME)/.volta/bin")
 
 
-# Alpaca credentials for trade.
-source ~/.alpaca.env
+# Alpaca credentials for trade. Loaded only when the file exists; the
+# file is per-machine state (recreate steps in alpaca/README.md).
+let alpaca_env = ($env.HOME | path join ".alpaca.env")
+if ($alpaca_env | path exists) {
+  let vars = (open $alpaca_env
+    | lines
+    | where $it !~ '^\s*(#|$)'
+    | parse "{key}={value}"
+    | transpose -r)
+  if not ($vars | is-empty) {
+    load-env ($vars | first)
+  }
+}

@@ -88,6 +88,9 @@ before anything else.
 - Tool stow packages: `pi/`, `nushell/`, `nvim/`, `zed/`, `shell/`,
   `starship/`,
   `wezterm/`; `ibkr-tws/` holds the TWS vmoptions override.
+`alpaca/` holds the Alpaca credentials template and setup docs; the
+real `~/.alpaca.env` is per-machine state (secrets never tracked),
+loaded by a runtime guard in `nushell/.config/nushell/config.nu`.
 
 ## Rules
 

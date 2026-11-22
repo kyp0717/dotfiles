@@ -1,0 +1,3 @@
+# Real credentials must never be committed. If you place the live file
+# in this package for stowing, this ignore keeps it out of git.
+.alpaca.env
