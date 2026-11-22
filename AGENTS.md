@@ -120,6 +120,11 @@ loaded by a runtime guard in `nushell/.config/nushell/config.nu`.
   `resource/machine-rotation/README.md`.
 - **Commit everything portable to git.** Per-machine state stays out of
   git and must have documented recreate steps.
+- **Web research goes through the `brave-search` skill.** Any task
+  needing search or page content uses the local skill at
+  `~/.pi/agent/skills/brave-search/` (`search.js` / `content.js` with
+  `BRAVE_API_KEY`), not ad-hoc curl or browser fetching. The key is
+  per-machine state in `~/.profile`.
 - **Handoff and todo files: many small units, not one growing file.**
   Write them as `YYYYMMDD-<topic>.md` inside `resource/handoff/` and
   `resource/todos/`. The split: handoff is session continuation (what

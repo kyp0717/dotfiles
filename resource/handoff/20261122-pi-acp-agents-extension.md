@@ -24,8 +24,13 @@ ACP agents as sub-agent tools inside pi) to pi.
    commit-hash refs, so the extra node_modules entry persists.
    Verify: `pi --help` 2>&1 shows no "Cannot find module 'zod/v4'".
 3. Install Gemini CLI (default ACP agent) and authenticate:
-   `npm install -g @google/gemini-cli`, then `gemini` once to auth with
-   the Google AI Pro subscription. NOT done on woodlawn yet.
+   `npm install -g @google/gemini-cli`, then `gemini` once to log in
+   with the Google account. Verified via web research (2026-11-22):
+   a consumer Google AI Pro monthly subscription authenticates Gemini
+   CLI at 1,500 requests/user/day (Ultra: 2,000), and `gemini --acp` is
+   an officially supported protocol, so the pi-acp-agents path rides
+   the existing subscription with no API key or extra cost. NOT done
+   on woodlawn yet.
    Optional config at `~/.pi/acp-agents/config.json` (see the extension
    README quick start).
 
