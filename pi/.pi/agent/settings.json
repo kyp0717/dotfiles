@@ -10,6 +10,7 @@
     "npm:pi-provider-kimi-code@0.6.13",
     "npm:pi-session-move@0.1.14",
     "git:github.com/buihongduc132/pi-acp-agents@1d3ba9aa9b5a89d37943a5c39fbad4f17268c619",
+    "npm:@justjoshn/pi-google-oauth-v2@0.1.7",
     "git:github.com/michael-denyer/pstack-claude@v0.9.132"
   ],
   "hideThinkingBlock": true,

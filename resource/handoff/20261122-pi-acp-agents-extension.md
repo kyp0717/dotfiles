@@ -36,8 +36,22 @@ ACP agents as sub-agent tools inside pi) to pi.
 
 ## Open
 
-- gemini CLI install + auth on woodlawn (user action).
-- Same three steps on linden after its next pull + pi.install.sh catch-up.
+- gemini CLI install: DONE on woodlawn (0.70.0). Auth: user pivoted
+  to the OAuth extension below instead of the API key.
+- NEW (2026-11-22 evening): `npm:@justjoshn/pi-google-oauth-v2@0.1.7`
+  installed and pinned (settings.json + pi.requirements.txt). Routes pi
+  requests against the Google AI Pro consumer quota via OAuth, no API
+  key. USER STEPS in the pi TUI: `/login` (browser OAuth with the
+  Google AI Pro account), then `/model` to pick a google-oauth-v2 model
+  (e.g. gemini-4-argon, gemini-3.8-flash).
+- API-key finding: the AI Studio key the user provided (AQ.-prefixed)
+  is VALID but the account is flagged new-user: gemini-2.5-flash and
+  gemini-2.5-pro return 404 "no longer available to new users". So the
+  ACP/gemini-cli path must NOT use 2.5 defaults: set
+  `~/.pi/acp-agents/config.json` default_model to gemini-3.8-flash (or
+  another listed model) and, if the CLI router still fails, set `model`
+  in ~/.gemini/settings.json. Key was pasted in chat; rotate it if that
+  matters.
 - Upstream: npm tarball workspace:* dep and missing zod dep are unfixed
   as of 2026-11-22; if a v0.5.2+ releases on npm with both fixed, switch
   the pin to `npm:pi-acp-agents@<version>`.

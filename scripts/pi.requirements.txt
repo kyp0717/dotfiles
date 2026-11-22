@@ -22,3 +22,6 @@ git:github.com/buihongduc132/pi-acp-agents@1d3ba9aa9b5a89d37943a5c39fbad4f17268c
                              # release broken (workspace:* dep, missing zod);
                              # pinned at main HEAD v0.5.1. Per-machine zod
                              # patch: see resource/handoff/20261122-pi-acp-agents-extension.md
+npm:@justjoshn/pi-google-oauth-v2@0.1.7   # Google AI Pro/Ultra consumer
+                             # plan in pi via OAuth (no API key; routes
+                             # against subscription quota, not billing)
