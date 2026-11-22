@@ -17,3 +17,8 @@ npm:pi-session-move@0.1.14   # session move; registers /move. Requires the
                              # pi/.pi/agent/extensions/move-session-alias.ts
                              # (deploys as ~/.pi/agent/extensions/ via stow pi)
                              # which aliases /move-session -> /move.
+git:github.com/buihongduc132/pi-acp-agents@1d3ba9aa9b5a89d37943a5c39fbad4f17268c619   # ACP client:
+                             # spawn Gemini CLI etc. as sub-agent tools. npm
+                             # release broken (workspace:* dep, missing zod);
+                             # pinned at main HEAD v0.5.1. Per-machine zod
+                             # patch: see resource/handoff/20261122-pi-acp-agents-extension.md
