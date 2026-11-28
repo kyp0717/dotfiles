@@ -22,21 +22,28 @@ directory rather than writing through it. The same happens when
 trusting a new workspace, running `/title on`, `/config`, or
 `/statusline`.
 
-## How to handle it
+## The fix
 
-After any interactive `agy` setting change you want to keep across
-woodlawn and linden:
+Merged `"enabled": true` into
+`gemini/.gemini/antigravity-cli/settings.json`, removed the regular file
+at `~/.gemini/antigravity-cli/settings.json`, and re-ran
+`stow --no-folding gemini` to restore the symlink. Noted the behavior in
+`resource/handoff/20261128-gemini-agy-statusline.md` for `linden`.
 
-1. Check `ls -la ~/.gemini/antigravity-cli/settings.json` — if it is no
-   longer a symlink, diff it against
-   `~/dotfiles/gemini/.gemini/antigravity-cli/settings.json`.
-2. Merge intentional changes into the repo file.
-3. Remove the real file and re-link:
-   ```bash
-   rm ~/.gemini/antigravity-cli/settings.json
-   cd ~/dotfiles && stow --no-folding gemini
-   ```
-4. Commit and push.
+## Rules that fall out
+
+- After any interactive `agy` setting change (`/statusline`, `/title`,
+  `/config`, trusting a workspace), check
+  `ls -la ~/.gemini/antigravity-cli/settings.json` — if it is no longer
+  a symlink, diff it against
+  `~/dotfiles/gemini/.gemini/antigravity-cli/settings.json`, merge
+  intentional changes into the repo file, remove the regular file, and
+  run `stow --no-folding gemini`.
+- Always deploy `gemini/` with `stow --no-folding gemini` (after
+  `mkdir -p ~/.gemini/antigravity-cli`) so GNU Stow never folds
+  `~/.gemini/` runtime state or OAuth tokens into the repo.
+- Never `stow --adopt gemini` without diffing first; adopt overwrites
+  the repo copy with the machine's local file.
 
 See also `edge.20261122.stow-conflict-real-file-drift.md` (same failure
 mode with Zed).
