@@ -1,0 +1,31 @@
+{
+  "allowNonWorkspaceAccess": true,
+  "permissions": {
+    "allow": [
+      "command(git status)",
+      "command(find . -maxdepth 5 -not -path '*/.git/*')",
+      "command(git remote)",
+      "command(git add)",
+      "command(go test -v ./...)",
+      "command(git commit)",
+      "command(git push -u origin main)",
+      "command(ls)",
+      "command(./gix)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.gemini/antigravity-cli/statusline.sh",
+    "enabled": true,
+    "stack_with_default": true
+  },
+  "trustedWorkspaces": [
+    "/home/phage/work/ls-trader",
+    "/home/phage/dotfiles",
+    "/home/phage/.gemini",
+    "/home/phage/work/gidenx-go",
+    "/home/phage/work/trading-tla-go",
+    "/home/phage/work/test-gix",
+    "/home/phage/work/test-drived-gix"
+  ]
+}

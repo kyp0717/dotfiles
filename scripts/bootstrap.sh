@@ -48,6 +48,8 @@ echo "== stow"
 cd "$REPO"
 stow nushell/ shell/ starship/ wezterm/ && echo "  shell tool configs deployed"
 stow pi/ && echo "  pi config deployed"
+mkdir -p "$HOME/.gemini/antigravity-cli"
+stow --no-folding gemini/ && echo "  gemini (agy) config deployed"
 
 echo "== dsh harness"
 npm run dsh:setup && npm run skills:install && echo "  dsh deployed"

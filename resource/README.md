@@ -17,6 +17,7 @@ managed with GNU Stow. Agent-facing instructions live in `../AGENTS.md`.
 | `usage.md` | Usage notes |
 | `../scripts/` | Install/setup scripts (`bootstrap.sh` composes them) |
 | `../pi/` | pi stow package: `pi/.pi/` → `~/.pi` (providers, agent extensions, settings, and local skills in `agent/skills/`). `stow pi` from the repo root. No secrets |
+| `../gemini/` | Antigravity CLI (`agy`) stow package: `gemini/.gemini/antigravity-cli/` → `~/.gemini/antigravity-cli/` (`settings.json`, `statusline.sh`). Deploy with `stow --no-folding gemini` so `~/.gemini` runtime state never folds into the repo. No secrets |
 | `../nushell/`, `../nvim/`, `../shell/`, `../starship/`, `../wezterm/` | Per-tool stow packages |
 | `../ibkr-tws/` | TWS vmoptions override |
 

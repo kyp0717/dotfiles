@@ -12,3 +12,4 @@ libssl-dev      # whisper server build
 cmake           # whisper server build
 curl            # installers and model download
 git             # this repo
+jq              # agy CLI statusline.sh JSON parsing

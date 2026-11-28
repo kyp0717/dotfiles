@@ -85,9 +85,14 @@ before anything else.
   scripts put software on the machine, `*.config.sh` scripts only shape
   settings, both read `*.requirements.txt` manifests and support
   `--check`. `bootstrap.sh --check` is the full parity report.
-- Tool stow packages: `pi/`, `nushell/`, `nvim/`, `zed/`, `shell/`,
-  `starship/`,
-  `wezterm/`; `ibkr-tws/` holds the TWS vmoptions override.
+- Tool stow packages: `pi/`, `gemini/`, `nushell/`, `nvim/`, `zed/`,
+  `shell/`, `starship/`, `wezterm/`; `ibkr-tws/` holds the TWS vmoptions
+  override.
+  `gemini/` deploys Antigravity CLI (`agy`) config (`gemini/.gemini/antigravity-cli/`
+  → `~/.gemini/antigravity-cli/`: `statusline.sh`, `settings.json`).
+  Always stow with `mkdir -p ~/.gemini/antigravity-cli && stow --no-folding gemini`
+  so stow never folds `~/.gemini` into the repo (where per-machine OAuth
+  tokens, sessions, and SQLite DBs live). No secrets in `gemini/`.
 `alpaca/` holds the Alpaca credentials template and setup docs; the
 real `~/.alpaca.env` is per-machine state (secrets never tracked),
 loaded by a runtime guard in `nushell/.config/nushell/config.nu`.
